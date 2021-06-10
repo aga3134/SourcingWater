@@ -12,13 +12,219 @@ html, body {
   font-family: "微軟正黑體", "Microsoft JhengHei";
 }
 
+.fade-enter-active, .fade-leave-active {
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 .sourcing-water {
   width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .sourcing-water .main-map {
   width: 100%;
   height: 100%;
+}
+
+.sourcing-water .topbar {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+}
+
+.sourcing-water .topbar .icon {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.sourcing-water .topbar .searchbox {
+  margin: 5px;
+}
+
+.sourcing-water .side-icon-panel {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  z-index: 1000;
+  top: 5px;
+  right: 5px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.sourcing-water .side-icon-panel .icon {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.sourcing-water .bottom-icon-panel {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  z-index: 1000;
+  bottom: 5px;
+  left: 5px;
+}
+
+.sourcing-water .bottom-icon-panel .icon {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.sourcing-water .logo-container {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 1000;
+}
+
+.sourcing-water .logo-container .logo {
+  height: 50px;
+  border-radius: 5px;
+}
+
+.sourcing-water .left-panel {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+          box-shadow: 0px 0px 5px #333333;
+  top: 0px;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+}
+
+.sourcing-water .left-panel .close-bt {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 5px;
+  top: 5px;
+}
+
+.sourcing-water .left-panel.open {
+  left: 0px;
+}
+
+.sourcing-water .right-panel {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+          box-shadow: 0px 0px 5px #333333;
+  top: 0px;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+}
+
+.sourcing-water .right-panel .close-bt {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 5px;
+  top: 5px;
+}
+
+.sourcing-water .right-panel.open {
+  right: 0px;
+}
+
+.sourcing-water .bottom-panel {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+          box-shadow: 0px 0px 5px #333333;
+  bottom: -200px;
+  left: 0px;
+  width: 100%;
+  height: 200px;
+}
+
+.sourcing-water .bottom-panel .close-bt {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 5px;
+  top: 5px;
+}
+
+.sourcing-water .bottom-panel.open {
+  bottom: 0px;
+}
+
+.sourcing-water .full-panel {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+          box-shadow: 0px 0px 5px #333333;
+  left: 0px;
+  top: 0px;
+  margin: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+}
+
+.sourcing-water .full-panel .close-bt {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 5px;
+  top: 5px;
 }
 /*# sourceMappingURL=main.css.map */

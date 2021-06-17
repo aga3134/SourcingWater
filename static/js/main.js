@@ -61,8 +61,7 @@ var g_APP = new Vue({
 
                 //load geojson data
                 $.get("topo/river", function(data){
-                    data = JSON.parse(data);
-                    console.log(data);
+                    //console.log(data);
                     this.map.addSource('route', {
                         'type': 'geojson',
                         'data': data

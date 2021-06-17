@@ -21,32 +21,32 @@
                 <div id="geocoder" class="searchbox"></div>
             </div>
             <div class="side-icon-panel">
-                <img class="icon" src="static/image/icon-about.png" title="關於本站" @click="openAboutPanel=true;">
-                <img class="icon" src="static/image/icon-search.png" title="追本溯源" @click="openQuestPanel=true;">
+                <img class="icon" src="static/image/icon-about.png" title="關於本站" @click="OpenAboutPanel();">
+                <img class="icon" src="static/image/icon-search.png" title="追本溯源" @click="OpenQuestPanel();">
             </div>
             <div class="logo-container">
                 <img class="logo" src="static/image/logo-lass.jpg">
             </div>
             <div class="bottom-icon-panel">
-                <img class="icon" src="static/image/icon-setting.png" title="圖層選項" @click="openOptionPanel=true;">
-                <img class="icon" src="static/image/icon-chart.png" title="顯示圖表" @click="openChartPanel=true;">
+                <img class="icon" src="static/image/icon-setting.png" title="圖層選項" @click="OpenOptionPanel();">
+                <img class="icon" src="static/image/icon-chart.png" title="顯示圖表" @click="OpenChartPanel();">
             </div>
 
             <div class="left-panel" :class="{open: openOptionPanel}">
-                <img src="static/image/icon-close.png" class="close-bt" @click="openOptionPanel=false;">
+                <img src="static/image/icon-close.png" class="close-bt" @click="CloseOptionPanel();">
             </div>
 
             <div class="right-panel" :class="{open: openQuestPanel}">
-                <img src="static/image/icon-close.png" class="close-bt" @click="openQuestPanel=false;">
+                <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestPanel();">
             </div>
 
             <div class="bottom-panel" :class="{open: openChartPanel}">
-                <img src="static/image/icon-close.png" class="close-bt" @click="openChartPanel=false;">
+                <img src="static/image/icon-close.png" class="close-bt" @click="CloseChartPanel();">
             </div>
 
             <transition name="fade">
                 <div class="full-panel" v-if="openAboutPanel">
-                    <img src="static/image/icon-close.png" class="close-bt" @click="openAboutPanel=false;">
+                    <img src="static/image/icon-close.png" class="close-bt" @click="CloseAboutPanel();">
                 </div>
             </transition>
         </div>

@@ -81,6 +81,44 @@ var g_APP = new Vue({
                     });
                 }.bind(this));
             }.bind(this));
-        }
+        },
+        SetMapPadding: function(padding){
+            var p = this.map.getPadding();
+            if("left" in padding) p.left = padding.left;
+            if("right" in padding) p.right = padding.right;
+            if("top" in padding) p.top = padding.top;
+            if("bottom" in padding) p.bottom = padding.bottom; 
+            this.map.easeTo({padding: padding, duration: 1000});
+        },
+        OpenOptionPanel: function(){
+            this.openOptionPanel = true;
+            this.SetMapPadding({left: $(".left-panel").width()});
+        },
+        CloseOptionPanel: function(){
+            this.openOptionPanel = false;
+            this.SetMapPadding({left:0});
+        },
+        OpenQuestPanel: function(){
+            this.openQuestPanel = true;
+            this.SetMapPadding({right: $(".right-panel").width()});
+        },
+        CloseQuestPanel: function(){
+            this.openQuestPanel = false;
+            this.SetMapPadding({right:0});
+        },
+        OpenChartPanel: function(){
+            this.openChartPanel = true;
+            this.SetMapPadding({bottom: $(".bottom-panel").height()});
+        },
+        CloseChartPanel: function(){
+            this.openChartPanel = false;
+            this.SetMapPadding({bottom:0});
+        },
+        OpenAboutPanel: function(){
+            this.openAboutPanel = true;
+        },
+        CloseAboutPanel: function(){
+            this.openAboutPanel = false;
+        },
     }
 });

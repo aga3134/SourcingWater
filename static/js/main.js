@@ -58,6 +58,29 @@ var g_APP = new Vue({
                     mapboxgl: mapboxgl
                 });
                 document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map));
+
+                //load geojson data
+                $.get("topo/river", function(data){
+                    data = JSON.parse(data);
+                    console.log(data);
+                    this.map.addSource('route', {
+                        'type': 'geojson',
+                        'data': data
+                    });
+                    this.map.addLayer({
+                        'id': 'route',
+                        'type': 'line',
+                        'source': 'route',
+                        'layout': {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        'paint': {
+                            'line-color': '#f33',
+                            'line-width': 4
+                        }
+                    });
+                }.bind(this));
             }.bind(this));
         }
     }

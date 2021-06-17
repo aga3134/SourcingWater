@@ -121,7 +121,7 @@ html, body {
 
 .sourcing-water .left-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -149,7 +149,7 @@ html, body {
 
 .sourcing-water .right-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -177,7 +177,7 @@ html, body {
 
 .sourcing-water .bottom-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -205,7 +205,7 @@ html, body {
 
 .sourcing-water .full-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;

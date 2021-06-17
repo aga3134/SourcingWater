@@ -113,6 +113,19 @@ $vue-transition: 0.5s;
             right: 5px;
             top: 5px;
         }
+        .container{
+            padding: 20px 10px;
+            .quest{
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 1.2em;
+                &:hover{
+                    background-color: #cccccc;
+                    cursor: pointer;
+                }
+            }
+        }
+        
     }
     .left-panel{
         @include panel;

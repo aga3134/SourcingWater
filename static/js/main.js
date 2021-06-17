@@ -5,7 +5,14 @@ var g_APP = new Vue({
         openOptionPanel: false,
         openQuestPanel: false,
         openChartPanel: false,
-        openAboutPanel: false
+        openAboutPanel: false,
+        questArr: [],
+        traceRiver:{
+            river: [],
+            displayPath: [],
+            curIndex: 0,
+            timer: null
+        }
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
     created: function(){
@@ -13,6 +20,9 @@ var g_APP = new Vue({
             this.InitMap();
         }.bind(this));
         
+        this.questArr = [
+            {"quest": "水從頭前溪源頭流到海洋要多久?"}
+        ];
     },
     methods:{
         InitMap: function(){
@@ -44,7 +54,7 @@ var g_APP = new Vue({
                 });
                 this.map.flyTo({
                     center: [121, 24.82],
-                    pitch: 45,
+                    pitch: 30,
                     zoom: 14,
                     bearing: 0,
                     speed: 0.5,
@@ -61,10 +71,12 @@ var g_APP = new Vue({
 
                 //load geojson data
                 $.get("topo/river", function(data){
+                    this.traceRiver.river = $.extend(true, {}, data);;
+                    this.traceRiver.displayPath = data;
                     //console.log(data);
                     this.map.addSource('route', {
                         'type': 'geojson',
-                        'data': data
+                        'data': this.traceRiver.displayPath
                     });
                     this.map.addLayer({
                         'id': 'route',
@@ -120,5 +132,36 @@ var g_APP = new Vue({
         CloseAboutPanel: function(){
             this.openAboutPanel = false;
         },
+        TraceRiver: function(){
+            var ClearTimer = function(){
+                window.clearInterval(this.traceRiver.timer);
+                this.traceRiver.timer = null;
+                this.map.getSource("route").setData(this.traceRiver.river);
+                this.map.easeTo({pitch: 30});
+            }.bind(this);
+
+            if(this.traceRiver.timer){
+                ClearTimer();
+            }
+            else{
+                var coord = this.traceRiver.river.coordinates[0];
+                this.traceRiver.displayPath.coordinates[0] = [coord[0]];
+                this.traceRiver.curIndex = 0;
+                this.map.jumpTo({ "center": coord[0], "zoom": 14 });
+                this.map.setPitch(35);
+
+                this.traceRiver.timer = window.setInterval(function(){
+                    if(this.traceRiver.curIndex < coord.length){
+                        this.traceRiver.displayPath.coordinates[0].push(coord[this.traceRiver.curIndex]);
+                        this.map.getSource("route").setData(this.traceRiver.displayPath);
+                        this.map.panTo(coord[this.traceRiver.curIndex]);
+                        this.traceRiver.curIndex++;
+                    }
+                    else ClearTimer();
+                }.bind(this), 100);
+            }
+            
+
+        }
     }
 });

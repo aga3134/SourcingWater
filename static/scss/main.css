@@ -143,6 +143,21 @@ html, body {
   top: 5px;
 }
 
+.sourcing-water .left-panel .container {
+  padding: 20px 10px;
+}
+
+.sourcing-water .left-panel .container .quest {
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.sourcing-water .left-panel .container .quest:hover {
+  background-color: #cccccc;
+  cursor: pointer;
+}
+
 .sourcing-water .left-panel.open {
   left: 0px;
 }
@@ -169,6 +184,21 @@ html, body {
   cursor: pointer;
   right: 5px;
   top: 5px;
+}
+
+.sourcing-water .right-panel .container {
+  padding: 20px 10px;
+}
+
+.sourcing-water .right-panel .container .quest {
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.sourcing-water .right-panel .container .quest:hover {
+  background-color: #cccccc;
+  cursor: pointer;
 }
 
 .sourcing-water .right-panel.open {
@@ -199,6 +229,21 @@ html, body {
   top: 5px;
 }
 
+.sourcing-water .bottom-panel .container {
+  padding: 20px 10px;
+}
+
+.sourcing-water .bottom-panel .container .quest {
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.sourcing-water .bottom-panel .container .quest:hover {
+  background-color: #cccccc;
+  cursor: pointer;
+}
+
 .sourcing-water .bottom-panel.open {
   bottom: 0px;
 }
@@ -226,5 +271,20 @@ html, body {
   cursor: pointer;
   right: 5px;
   top: 5px;
+}
+
+.sourcing-water .full-panel .container {
+  padding: 20px 10px;
+}
+
+.sourcing-water .full-panel .container .quest {
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.sourcing-water .full-panel .container .quest:hover {
+  background-color: #cccccc;
+  cursor: pointer;
 }
 /*# sourceMappingURL=main.css.map */

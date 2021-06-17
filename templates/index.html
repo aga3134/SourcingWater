@@ -38,6 +38,9 @@
 
             <div class="right-panel" :class="{open: openQuestPanel}">
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestPanel();">
+                <div class="container">
+                    <div class="quest" v-for="(q,i) in questArr" @click="TraceRiver();">[[i+1]]. [[q.quest]]</div>
+                </div>
             </div>
 
             <div class="bottom-panel" :class="{open: openChartPanel}">

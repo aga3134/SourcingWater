@@ -115,6 +115,11 @@ $vue-transition: 0.5s;
         }
         .container{
             padding: 20px 10px;
+            .title{
+                font-size: 1.3em;
+                padding: 5px 10px;
+                border-bottom: 1px solid #333333;
+            }
             .quest{
                 border-radius: 5px;
                 padding: 10px;

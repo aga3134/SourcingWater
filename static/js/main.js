@@ -147,18 +147,19 @@ var g_APP = new Vue({
                 var coord = this.traceRiver.river.coordinates[0];
                 this.traceRiver.displayPath.coordinates[0] = [coord[0]];
                 this.traceRiver.curIndex = 0;
-                this.map.jumpTo({ "center": coord[0], "zoom": 14 });
-                this.map.setPitch(35);
+                this.map.flyTo({ "center": coord[0], "zoom": 14, "pitch":35});
+                this.map.once("moveend", function(){
+                    this.traceRiver.timer = window.setInterval(function(){
+                        if(this.traceRiver.curIndex < coord.length){
+                            this.traceRiver.displayPath.coordinates[0].push(coord[this.traceRiver.curIndex]);
+                            this.map.getSource("route").setData(this.traceRiver.displayPath);
+                            this.map.panTo(coord[this.traceRiver.curIndex]);
+                            this.traceRiver.curIndex++;
+                        }
+                        else ClearTimer();
+                    }.bind(this), 100);
+                }.bind(this));
 
-                this.traceRiver.timer = window.setInterval(function(){
-                    if(this.traceRiver.curIndex < coord.length){
-                        this.traceRiver.displayPath.coordinates[0].push(coord[this.traceRiver.curIndex]);
-                        this.map.getSource("route").setData(this.traceRiver.displayPath);
-                        this.map.panTo(coord[this.traceRiver.curIndex]);
-                        this.traceRiver.curIndex++;
-                    }
-                    else ClearTimer();
-                }.bind(this), 100);
             }
             
 

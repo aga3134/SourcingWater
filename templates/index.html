@@ -34,11 +34,15 @@
 
             <div class="left-panel" :class="{open: openOptionPanel}">
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseOptionPanel();">
+                <div class="container">
+                    <div class="title">圖層選項</div>
+                </div>
             </div>
 
             <div class="right-panel" :class="{open: openQuestPanel}">
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestPanel();">
                 <div class="container">
+                    <div class="title">追本溯源</div>
                     <div class="quest" v-for="(q,i) in questArr" @click="TraceRiver();">[[i+1]]. [[q.quest]]</div>
                 </div>
             </div>
@@ -50,6 +54,9 @@
             <transition name="fade">
                 <div class="full-panel" v-if="openAboutPanel">
                     <img src="static/image/icon-close.png" class="close-bt" @click="CloseAboutPanel();">
+                    <div class="container">
+                        <div class="title">關於本站</div>
+                    </div>
                 </div>
             </transition>
         </div>

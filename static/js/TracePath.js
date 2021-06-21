@@ -14,6 +14,9 @@ class TracePath extends BaseQuest{
             this.Play();
         });
         g_APP.OpenPlayerPanel();
+        g_APP.player.playFn = this.Resume.bind(this);
+        g_APP.player.pauseFn = this.Pause.bind(this);
+        g_APP.player.stopFn = this.Stop.bind(this);
     }
 
     ClearAll(){
@@ -21,10 +24,22 @@ class TracePath extends BaseQuest{
         super.ClearAll();
     }
 
+    ClearPath(){
+        if(this.timer){
+            window.clearInterval(this.timer);
+            this.timer = null;
+        }
+        this.displayIndex = 0;
+        if(this.displayPath.coordinates){
+            this.displayPath.coordinates[0] = [];
+            var key = this.GetGeomKey(this.pathIndex);
+            this.map.getSource(key).setData(this.displayPath);
+        }
+    }
+
     Play(){
-        if(this.timer) return; 
+        this.ClearPath();
         var key = this.GetGeomKey(this.pathIndex);
-            
         var source = this.sourceHash[key];
         this.originPath = source.data;
         this.displayPath = $.extend(true, {}, source.data);
@@ -36,16 +51,7 @@ class TracePath extends BaseQuest{
         
         this.map.flyTo({"center": coord[0], "zoom": 14, "pitch":35});
         this.map.once("moveend", function(){
-            this.timer = window.setInterval(function(){
-                if(this.displayIndex < coord.length){
-                    this.displayPath.coordinates[0].push(coord[this.displayIndex]);
-                    var source = this.map.getSource(key);
-                    if(source) source.setData(this.displayPath);
-                    this.map.panTo(coord[this.displayIndex]);
-                    this.displayIndex++;
-                }
-                else Pause();
-            }.bind(this), 100);
+            this.Resume();
         }.bind(this));
     }
 
@@ -56,15 +62,24 @@ class TracePath extends BaseQuest{
         }
     }
 
-    Stop(){
-        if(this.timer){
-            window.clearInterval(this.timer);
-            this.timer = null;
-        }
-        this.displayIndex = 0;
-        this.displayPath.coordinates[0] = [];
+    Resume(){
+        if(this.timer) return;
         var key = this.GetGeomKey(this.pathIndex);
-        this.map.getSource(key).setData(this.displayPath);
+        var coord = this.originPath.coordinates[0];
+        this.timer = window.setInterval(function(){
+            if(this.displayIndex < coord.length){
+                this.displayPath.coordinates[0].push(coord[this.displayIndex]);
+                var source = this.map.getSource(key);
+                if(source) source.setData(this.displayPath);
+                this.map.panTo(coord[this.displayIndex]);
+                this.displayIndex++;
+            }
+            else Pause();
+        }.bind(this), 100);
+    }
+
+    Stop(){
+        this.ClearPath();
         this.map.easeTo({pitch: 30});
         g_APP.ClosePlayerPanel();
     }

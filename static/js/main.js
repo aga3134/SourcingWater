@@ -12,11 +12,10 @@ var g_APP = new Vue({
             index: -1,
             quest: null,
         },
-        tracePath:{
-            originPath: [],
-            displayPath: [],
-            curIndex: 0,
-            timer: null
+        player:{
+            playFn: "",
+            pauseFn: "",
+            stopFn: ""
         }
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突

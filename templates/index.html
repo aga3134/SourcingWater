@@ -43,7 +43,7 @@
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestPanel();">
                 <div class="container">
                     <div class="title">追本溯源</div>
-                    <div class="quest" v-for="(q,i) in questArr" @click="TraceRiver();">[[i+1]]. [[q.quest]]</div>
+                    <div class="quest" v-for="(q,i) in questArr" @click="SelectQuest(i);">[[i+1]]. [[q.quest]]</div>
                 </div>
             </div>
 

@@ -43,12 +43,20 @@
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestPanel();">
                 <div class="container">
                     <div class="title">追本溯源</div>
-                    <div class="quest" v-for="(q,i) in questArr" @click="SelectQuest(i);">[[i+1]]. [[q.quest]]</div>
+                    <div class="quest" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">[[i+1]]. [[q.name]]</div>
                 </div>
             </div>
 
             <div class="bottom-panel" :class="{open: openChartPanel}">
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseChartPanel();">
+            </div>
+
+            <div class="player-panel" :class="{open: openPlayerPanel}">
+                <div class="icon-container">
+                    <img class="icon" src="static/image/icon-play.png">
+                    <img class="icon" src="static/image/icon-pause.png">
+                    <img class="icon" src="static/image/icon-close.png">
+                </div>
             </div>
 
             <transition name="fade">
@@ -65,6 +73,8 @@
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="static/js/BaseQuest.js?v={{config.version}}"></script>
+        <script src="static/js/TracePath.js?v={{config.version}}"></script>
         <script src="static/js/main.js?v={{config.version}}"></script>
     </body>
 </html>

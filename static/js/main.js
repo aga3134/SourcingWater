@@ -6,13 +6,11 @@ var g_APP = new Vue({
         openQuestPanel: false,
         openChartPanel: false,
         openAboutPanel: false,
+        openPlayerPanel: false,
         questArr: [],
         curQuest: {
+            index: -1,
             quest: null,
-            source: {},
-            layer: {},
-            chart: {},
-            option: {},
         },
         tracePath:{
             originPath: [],
@@ -80,7 +78,8 @@ var g_APP = new Vue({
         LoadQuest: function(){
             this.questArr = [
                 {
-                    "quest": "頭前溪長怎麼?",
+                    "name": "頭前溪長怎樣?",
+                    "class": "BaseQuest",
                     "geom": [
                         {
                             "title": "頭前溪",
@@ -93,11 +92,10 @@ var g_APP = new Vue({
                         }
                     ],
                     "chart": [],
-                    "option": [],
-                    "action":{}
                 },
                 {
-                    "quest": "水從頭前溪源頭流到海洋走什麼路徑?",
+                    "name": "水從頭前溪源頭流到海洋走什麼路徑?",
+                    "class": "TracePath",
                     "geom": [
                         {
                             "title": "頭前溪路徑",
@@ -110,12 +108,8 @@ var g_APP = new Vue({
                         }
                     ],
                     "chart": [],
-                    "option": [],
                     "action":{
-                        "func": "TracePath",
-                        "param":{
-                            "index": 0
-                        }
+                        "pathIndex": 0
                     }
                 }
             ];
@@ -154,70 +148,33 @@ var g_APP = new Vue({
         CloseAboutPanel: function(){
             this.openAboutPanel = false;
         },
+        OpenPlayerPanel: function(){
+            this.openPlayerPanel = true;
+        },
+        ClosePlayerPanel: function(){
+            this.openPlayerPanel = false;
+        },
         ClearQuest: function(){
-            for(var key in this.curQuest.layer){
-                this.map.removeLayer(this.curQuest.layer[key].name);
+            if(this.curQuest.quest){
+                this.curQuest.quest.ClearAll();
+                this.curQuest.quest = null;
             }
-            this.curQuest.layer = {};
-
-            for(var key in this.curQuest.source){
-                this.map.removeSource(this.curQuest.source[key].name);
-            }
-            this.curQuest.source = {};
-
-            //clear charts
-
-            //clear option UI
-            
-            //clear action
-            if(this.tracePath.timer){
-                window.clearInterval(this.tracePath.timer);
-                this.tracePath.timer = null;
-            }
+            this.curQuest.index = -1;
         },
         SelectQuest: function(i){
             this.ClearQuest();
 
-            var q = this.questArr[i];
-            this.curQuest.quest = q.quest;
-
-            var promiseArr = [];
-            for(let i=0;i<q.geom.length;i++){
-                let geom = q.geom[i];
-                promiseArr.push(new Promise((resolve,reject) => {
-                    $.get(geom.url, (data) => {
-                        var key = this.ToHash(q.quest)+"_"+i;
-                        //console.log(key);
-                        this.map.addSource(key, {
-                            "type": "geojson",
-                            "data": data
-                        });
-                        this.map.addLayer({
-                            "id": key,
-                            "type": geom.type,
-                            "source": key,
-                            "paint": geom.paint
-                        });
-                        this.curQuest.source[key] = {"name":key, "data":data};
-                        this.curQuest.layer[key] = {"name":key};
-                        resolve(key);
-                    });
-                }));
-            }
-
-            //add charts
-
-            //add option UI
-
-            //call action
-            Promise.all(promiseArr).then((keyArr) => {
-                //console.log(keyArr);
-                if(q.action.func in this) this[q.action.func](q.action.param);
-            });
-
+            this.curQuest.index = i;
+            var quest = this.questArr[i];
+            var param = {
+                "map": this.map,
+                "quest": quest
+            };
+            this.curQuest.quest = new g_QuestClass[quest.class](param);
+            this.curQuest.quest.Init();
         },
         TracePath: function(param){
-            var key = this.ToHash(this.curQuest.quest)+"_"+param.index;
+            var key = this.ToHash(this.curQuest.name)+"_"+param.index;
             
             var ClearTimer = function(){
                 window.clearInterval(this.tracePath.timer);
@@ -254,16 +211,6 @@ var g_APP = new Vue({
                     }.bind(this), 100);
                 }.bind(this));
             }
-        },
-        ToHash: function(str){
-            var hash = 0, i, chr;
-            if (str.length === 0) return hash;
-            for (i = 0; i < str.length; i++) {
-                chr   = str.charCodeAt(i);
-                hash  = ((hash << 5) - hash) + chr;
-                hash |= 0; // Convert to 32bit integer
-            }
-            return hash;
         },
     }
 });

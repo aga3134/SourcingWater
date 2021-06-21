@@ -154,14 +154,18 @@ html, body {
 }
 
 .sourcing-water .left-panel .container .quest {
-  border-radius: 5px;
   padding: 10px;
   font-size: 1.2em;
 }
 
 .sourcing-water .left-panel .container .quest:hover {
-  background-color: #cccccc;
+  border-radius: 5px;
+  border: 1px solid #333333;
   cursor: pointer;
+}
+
+.sourcing-water .left-panel .container .quest.selected {
+  background-color: #cccccc;
 }
 
 .sourcing-water .left-panel.open {
@@ -203,14 +207,18 @@ html, body {
 }
 
 .sourcing-water .right-panel .container .quest {
-  border-radius: 5px;
   padding: 10px;
   font-size: 1.2em;
 }
 
 .sourcing-water .right-panel .container .quest:hover {
-  background-color: #cccccc;
+  border-radius: 5px;
+  border: 1px solid #333333;
   cursor: pointer;
+}
+
+.sourcing-water .right-panel .container .quest.selected {
+  background-color: #cccccc;
 }
 
 .sourcing-water .right-panel.open {
@@ -252,14 +260,18 @@ html, body {
 }
 
 .sourcing-water .bottom-panel .container .quest {
-  border-radius: 5px;
   padding: 10px;
   font-size: 1.2em;
 }
 
 .sourcing-water .bottom-panel .container .quest:hover {
-  background-color: #cccccc;
+  border-radius: 5px;
+  border: 1px solid #333333;
   cursor: pointer;
+}
+
+.sourcing-water .bottom-panel .container .quest.selected {
+  background-color: #cccccc;
 }
 
 .sourcing-water .bottom-panel.open {
@@ -302,13 +314,91 @@ html, body {
 }
 
 .sourcing-water .full-panel .container .quest {
-  border-radius: 5px;
   padding: 10px;
   font-size: 1.2em;
 }
 
 .sourcing-water .full-panel .container .quest:hover {
-  background-color: #cccccc;
+  border-radius: 5px;
+  border: 1px solid #333333;
   cursor: pointer;
+}
+
+.sourcing-water .full-panel .container .quest.selected {
+  background-color: #cccccc;
+}
+
+.sourcing-water .player-panel {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+          box-shadow: 0px 0px 5px #333333;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: -50px;
+  width: 200px;
+  height: 50px;
+}
+
+.sourcing-water .player-panel .close-bt {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 5px;
+  top: 5px;
+}
+
+.sourcing-water .player-panel .container {
+  padding: 20px 10px;
+}
+
+.sourcing-water .player-panel .container .title {
+  font-size: 1.3em;
+  padding: 5px 10px;
+  border-bottom: 1px solid #333333;
+}
+
+.sourcing-water .player-panel .container .quest {
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.sourcing-water .player-panel .container .quest:hover {
+  border-radius: 5px;
+  border: 1px solid #333333;
+  cursor: pointer;
+}
+
+.sourcing-water .player-panel .container .quest.selected {
+  background-color: #cccccc;
+}
+
+.sourcing-water .player-panel.open {
+  bottom: 0px;
+}
+
+.sourcing-water .player-panel .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .player-panel .icon-container .icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
 }
 /*# sourceMappingURL=main.css.map */

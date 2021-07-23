@@ -53,8 +53,8 @@
 
             <div class="player-panel" :class="{open: openPlayerPanel}">
                 <div class="icon-container">
-                    <img class="icon" src="static/image/icon-play.png" @click="player.playFn">
-                    <img class="icon" src="static/image/icon-pause.png" @click="player.pauseFn">
+                    <img class="icon" v-show="!player.isPlay" src="static/image/icon-play.png" @click="player.playFn">
+                    <img class="icon" v-show="player.isPlay" src="static/image/icon-pause.png" @click="player.pauseFn">
                     <img class="icon" src="static/image/icon-close.png" @click="player.stopFn">
                 </div>
             </div>

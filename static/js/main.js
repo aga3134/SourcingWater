@@ -13,6 +13,7 @@ var g_APP = new Vue({
             quest: null,
         },
         player:{
+            isPlay: false,
             playFn: "",
             pauseFn: "",
             stopFn: ""
@@ -83,7 +84,7 @@ var g_APP = new Vue({
                         {
                             "title": "頭前溪",
                             "type": "line",
-                            "url": "topo/river",
+                            "url": "river/river",
                             "paint": {
                                 "line-color": "#f33",
                                 "line-width": 4
@@ -99,7 +100,7 @@ var g_APP = new Vue({
                         {
                             "title": "頭前溪路徑",
                             "type": "line",
-                            "url": "topo/river",
+                            "url": "river/river",
                             "paint": {
                                 "line-color": "#33f",
                                 "line-width": 4
@@ -107,12 +108,16 @@ var g_APP = new Vue({
                         }
                     ],
                     "chart": [],
-                    "action":{
+                    "setting":{
                         "pathIndex": 0
                     }
                 }
             ];
             this.SelectQuest(0);
+
+            $.get("logicTopo/transfer?kind=地點", (result) => {
+                console.log(result);
+            });
         },
         SetMapPadding: function(padding){
             this.map.easeTo({padding: padding, duration: 1000});

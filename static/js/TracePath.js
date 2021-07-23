@@ -4,7 +4,7 @@ class TracePath extends BaseQuest{
         super(param);
         this.originPath = [];
         this.displayPath = [];
-        this.pathIndex = param.quest.action.pathIndex;
+        this.pathIndex = param.quest.setting.pathIndex;
         this.displayIndex = 0;
         this.timer = null;
     }
@@ -14,9 +14,15 @@ class TracePath extends BaseQuest{
             this.Play();
         });
         g_APP.OpenPlayerPanel();
-        g_APP.player.playFn = this.Resume.bind(this);
-        g_APP.player.pauseFn = this.Pause.bind(this);
-        g_APP.player.stopFn = this.Stop.bind(this);
+        g_APP.player.playFn = (event) => {
+            this.Resume();
+        };
+        g_APP.player.pauseFn = (event) => {
+            this.Pause();
+        };
+        g_APP.player.stopFn = (event) => {
+            this.Stop();
+        };
     }
 
     ClearAll(){
@@ -56,6 +62,7 @@ class TracePath extends BaseQuest{
     }
 
     Pause(){
+        g_APP.player.isPlay = false;
         if(this.timer){
             window.clearInterval(this.timer);
             this.timer = null;
@@ -64,6 +71,7 @@ class TracePath extends BaseQuest{
 
     Resume(){
         if(this.timer) return;
+        g_APP.player.isPlay = true;
         var key = this.GetGeomKey(this.pathIndex);
         var coord = this.originPath.coordinates[0];
         this.timer = window.setInterval(function(){
@@ -79,6 +87,7 @@ class TracePath extends BaseQuest{
     }
 
     Stop(){
+        g_APP.player.isPlay = false;
         this.ClearPath();
         this.map.easeTo({pitch: 30});
         g_APP.ClosePlayerPanel();

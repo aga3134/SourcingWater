@@ -38,21 +38,21 @@ class TracePath extends BaseQuest{
         this.displayIndex = 0;
         if(this.displayPath.coordinates){
             this.displayPath.coordinates[0] = [];
-            var key = this.GetGeomKey(this.pathIndex);
+            let key = this.GetGeomKey(this.pathIndex);
             this.map.getSource(key).setData(this.displayPath);
         }
     }
 
     Play(){
         this.ClearPath();
-        var key = this.GetGeomKey(this.pathIndex);
-        var source = this.sourceHash[key];
+        let key = this.GetGeomKey(this.pathIndex);
+        let source = this.sourceHash[key];
         this.originPath = source.data;
         this.displayPath = $.extend(true, {}, source.data);
-        var coord = this.originPath.coordinates[0];
+        let coord = this.originPath.coordinates[0];
         this.displayPath.coordinates[0] = [coord[0]];
 
-        var source = this.map.getSource(key);
+        source = this.map.getSource(key);
         if(source) source.setData(this.displayPath);
         
         this.map.flyTo({"center": coord[0], "zoom": 14, "pitch":35});
@@ -72,12 +72,12 @@ class TracePath extends BaseQuest{
     Resume(){
         if(this.timer) return;
         g_APP.player.isPlay = true;
-        var key = this.GetGeomKey(this.pathIndex);
-        var coord = this.originPath.coordinates[0];
+        let key = this.GetGeomKey(this.pathIndex);
+        let coord = this.originPath.coordinates[0];
         this.timer = window.setInterval(function(){
             if(this.displayIndex < coord.length){
                 this.displayPath.coordinates[0].push(coord[this.displayIndex]);
-                var source = this.map.getSource(key);
+                let source = this.map.getSource(key);
                 if(source) source.setData(this.displayPath);
                 this.map.panTo(coord[this.displayIndex]);
                 this.displayIndex++;

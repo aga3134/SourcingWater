@@ -13,43 +13,39 @@ class BaseQuest{
     }
 
     LoadData(callback){
-        var promiseArr = [];
-        var geomArr = this.quest.geom;
-        for(let i=0;i<geomArr.length;i++){
-            let geom = geomArr[i];
-            promiseArr.push(new Promise((resolve,reject) => {
-                $.get(geom.url, (data) => {
-                    var key = this.GetGeomKey(i);
-                    //console.log(key);
-                    this.map.addSource(key, {
-                        "type": "geojson",
-                        "data": data
-                    });
-                    this.map.addLayer({
-                        "id": key,
-                        "type": geom.type,
-                        "source": key,
-                        "paint": geom.paint
-                    });
-                    this.sourceHash[key] = {"name":key, "data":data};
-                    this.layerHash[key] = {"name":key};
-                    resolve(key);
+        var url = this.quest.geomUrl;
+        $.get(url, (result) => {
+            console.log(result);
+            for(let i=0;i<result.length;i++){
+                var data = result[i];
+                data.geom = JSON.parse(data.geom);
+                let key = this.GetGeomKey(i);
+                //console.log(key);
+                this.map.addSource(key, {
+                    "type": "geojson",
+                    "data": data.geom
                 });
-            }));
-        }
-        Promise.all(promiseArr).then(() => {
+                this.map.addLayer({
+                    "id": key,
+                    "type": data.type,
+                    "source": key,
+                    "paint": data.paint
+                });
+                this.sourceHash[key] = {"name":key, "data":data.geom};
+                this.layerHash[key] = {"name":key};
+            }
             if(callback) callback();
         });
     }
 
     ClearAll(){
         //clear data
-        for(var key in this.layerHash){
+        for(let key in this.layerHash){
             this.map.removeLayer(this.layerHash[key].name);
         }
         this.layerHash = {};
 
-        for(var key in this.sourceHash){
+        for(let key in this.sourceHash){
             this.map.removeSource(this.sourceHash[key].name);
         }
         this.sourceHash = {};
@@ -61,7 +57,7 @@ class BaseQuest{
 
     GetGeomKey(index){
         function ToHash(str){
-            var hash = 0, i, chr;
+            let hash = 0, i, chr;
             if (str.length === 0) return hash;
             for (i = 0; i < str.length; i++) {
                 chr   = str.charCodeAt(i);

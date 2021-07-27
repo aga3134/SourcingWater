@@ -3,7 +3,7 @@ from controller.riverController import RiverController
 
 riverRoute = Blueprint("riverRoute", __name__)
 
-@riverRoute.route("/river")
+@riverRoute.route("/river", methods=["GET"])
 def river():
     rc = RiverController()
     #data = rc.GetRiverGeomOrm()

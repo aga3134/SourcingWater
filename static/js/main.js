@@ -1,4 +1,4 @@
-var g_APP = new Vue({
+let g_APP = new Vue({
     el: "#app",
     data: {
         map: null,
@@ -7,6 +7,12 @@ var g_APP = new Vue({
         openChartPanel: false,
         openAboutPanel: false,
         openPlayerPanel: false,
+        logicTopo:{
+            kind:{},
+            transfer:{},
+            curKind:"",
+            nodeID:""
+        },
         questArr: [],
         curQuest: {
             index: -1,
@@ -21,15 +27,46 @@ var g_APP = new Vue({
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
     created: function(){
-        window.addEventListener('load', function() {
-            this.InitMap(function(){
+        window.addEventListener('load', () => {
+            let promiseArr = [];
+            promiseArr.push(new Promise((resolve,reject) => {
+                this.InitMap(resolve);
+            }));
+            promiseArr.push(new Promise((resolve,reject) => {
+                $.get("logicTopo/kind", (result) => {
+                    this.logicTopo.kind = {};
+                    for(let i=0;i<result.length;i++){
+                        let r = result[i];
+                        this.logicTopo.kind[r.kind] = r;
+                    }
+                    //console.log(this.logicTopo.kind);
+                    resolve();
+                });
+            }));
+            promiseArr.push(new Promise((resolve,reject) => {
+                $.get("logicTopo/transfer", (result) => {
+                    this.logicTopo.transfer = {};
+                    for(let i=0;i<result.length;i++){
+                        let r = result[i];
+                        let kind = r["from_類別"];
+                        if(!(kind in this.logicTopo.transfer)) this.logicTopo.transfer[kind] = [];
+                        this.logicTopo.transfer[kind].push(r);
+                    }
+                    //console.log(this.logicTopo.transfer);
+                    resolve();
+                });
+            }));
+            Promise.all(promiseArr).then(() => {
+                this.logicTopo.curKind = "流域";
+                this.logicTopo.nodeID = "頭前溪";
                 this.LoadQuest();
-            }.bind(this));
-        }.bind(this));
+            });
+            
+        });
     },
     methods:{
         InitMap: function(callback){
-            var accessToken = $("meta[name='accessToken']").attr("content");
+            let accessToken = $("meta[name='accessToken']").attr("content");
             mapboxgl.accessToken = accessToken;
             this.map = new mapboxgl.Map({
                 container: 'map',
@@ -65,7 +102,7 @@ var g_APP = new Vue({
                 });
                 
                 //add search box
-                var geocoder = new MapboxGeocoder({
+                let geocoder = new MapboxGeocoder({
                     accessToken: mapboxgl.accessToken,
                     placeholder: "搜尋地點",
                     mapboxgl: mapboxgl
@@ -74,9 +111,34 @@ var g_APP = new Vue({
 
                 if(callback) callback();
             }.bind(this));
+
+            this.map.on('click', function(e) {
+                let url = "logicTopo/findNodeByKind?kind=地點";
+                url += "&lat="+e.lngLat.lat;
+                url += "&lng="+e.lngLat.lng;
+                $.get(url, function(result){
+                    
+                }.bind(this));
+            }.bind(this));
         },
         LoadQuest: function(){
-            this.questArr = [
+            let transfer = this.logicTopo.transfer[this.logicTopo.curKind];
+            //console.log(transfer);
+            this.questArr = [];
+            for(let i=0;i<transfer.length;i++){
+                let t = transfer[i];
+                let geomUrl = "logicTopo/findNodeByTransfer";
+                geomUrl += "?kind="+t["from_類別"];
+                geomUrl += "&transfer="+t["類別情境與問題"];
+                geomUrl += "&nodeID="+this.logicTopo.nodeID;
+                this.questArr.push({
+                    "name": t["類別情境與問題"],
+                    "class":"BaseQuest",
+                    "geomUrl": geomUrl,
+                    "chartUrl":""
+                });
+            }
+            /*this.questArr = [
                 {
                     "name": "頭前溪長怎樣?",
                     "class": "BaseQuest",
@@ -112,12 +174,9 @@ var g_APP = new Vue({
                         "pathIndex": 0
                     }
                 }
-            ];
+            ];*/
             this.SelectQuest(0);
-
-            $.get("logicTopo/transfer?kind=地點", (result) => {
-                console.log(result);
-            });
+            
         },
         SetMapPadding: function(padding){
             this.map.easeTo({padding: padding, duration: 1000});
@@ -169,8 +228,8 @@ var g_APP = new Vue({
             this.ClearQuest();
 
             this.curQuest.index = i;
-            var quest = this.questArr[i];
-            var param = {
+            let quest = this.questArr[i];
+            let param = {
                 "map": this.map,
                 "quest": quest
             };
@@ -178,9 +237,9 @@ var g_APP = new Vue({
             this.curQuest.quest.Init();
         },
         TracePath: function(param){
-            var key = this.ToHash(this.curQuest.name)+"_"+param.index;
+            let key = this.ToHash(this.curQuest.name)+"_"+param.index;
             
-            var ClearTimer = function(){
+            let ClearTimer = function(){
                 window.clearInterval(this.tracePath.timer);
                 this.tracePath.timer = null;
                 this.tracePath.displayPath.coordinates[0] = [];
@@ -192,13 +251,13 @@ var g_APP = new Vue({
                 ClearTimer();
             }
             else{
-                var source = this.curQuest.source[key];
+                let source = this.curQuest.source[key];
                 this.tracePath.originPath = source.data;
                 this.tracePath.displayPath = $.extend(true, {}, source.data);
-                var coord = this.tracePath.originPath.coordinates[0];
+                let coord = this.tracePath.originPath.coordinates[0];
                 this.tracePath.displayPath.coordinates[0] = [coord[0]];
                 this.tracePath.curIndex = 0;
-                var source = this.map.getSource(key);
+                source = this.map.getSource(key);
                 if(source) source.setData(this.tracePath.displayPath);
                 
                 this.map.flyTo({"center": coord[0], "zoom": 14, "pitch":35});
@@ -206,7 +265,7 @@ var g_APP = new Vue({
                     this.tracePath.timer = window.setInterval(function(){
                         if(this.tracePath.curIndex < coord.length){
                             this.tracePath.displayPath.coordinates[0].push(coord[this.tracePath.curIndex]);
-                            var source = this.map.getSource(key);
+                            let source = this.map.getSource(key);
                             if(source) source.setData(this.tracePath.displayPath);
                             this.map.panTo(coord[this.tracePath.curIndex]);
                             this.tracePath.curIndex++;

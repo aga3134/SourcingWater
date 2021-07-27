@@ -35,6 +35,7 @@ class TracePath extends BaseQuest{
             this.timer = null;
         }
         this.displayIndex = 0;
+        if(!this.setting) return;
         if(this.displayPath.coordinates){
             this.displayPath.coordinates[0] = [];
             let key = this.GetGeomKey(this.setting.pathIndex);
@@ -43,6 +44,7 @@ class TracePath extends BaseQuest{
     }
 
     Play(){
+        if(!this.setting) return;
         this.ClearPath();
         let key = this.GetGeomKey(this.setting.pathIndex);
         let source = this.sourceHash[key];
@@ -70,6 +72,7 @@ class TracePath extends BaseQuest{
 
     Resume(){
         if(this.timer) return;
+        if(!this.setting) return;
         g_APP.player.isPlay = true;
         let key = this.GetGeomKey(this.setting.pathIndex);
         let coord = this.originPath.coordinates[0];

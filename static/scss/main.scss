@@ -120,9 +120,13 @@ $vue-transition: 0.5s;
                 padding: 5px 10px;
                 border-bottom: 1px solid #333333;
             }
-            .quest{
-                padding: 10px;
+            .sub-title{
                 font-size: 1.2em;
+                padding: 5px 10px;
+            }
+            .quest{
+                padding: 5px 10px;
+                font-size: 1.1em;
                 &:hover{
                     border-radius: 5px;
                     border: 1px solid #333333;

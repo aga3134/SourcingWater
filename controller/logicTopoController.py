@@ -27,6 +27,8 @@ class LogicTopoController():
             return LogicTopoBasin().FindBasinByID(param)
         elif kind == "地點":
             return LogicTopoPlace().FindVillageByLatLng(param)
+        else:
+            return {}
 
     def FindNodeByTransfer(self,param):
         if not "kind" in param:
@@ -39,5 +41,7 @@ class LogicTopoController():
             ltb = LogicTopoBasin()
             if transfer == "流域範圍":
                 return ltb.FindBasinByID(param)
-            elif transfer == "主要河道":
+            elif transfer in ["主要河道","源頭到海洋路徑"]:
                 return ltb.FindMainRiverByID(param)
+            else:
+                return {}

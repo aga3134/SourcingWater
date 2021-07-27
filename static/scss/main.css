@@ -153,9 +153,14 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
-.sourcing-water .left-panel .container .quest {
-  padding: 10px;
+.sourcing-water .left-panel .container .sub-title {
   font-size: 1.2em;
+  padding: 5px 10px;
+}
+
+.sourcing-water .left-panel .container .quest {
+  padding: 5px 10px;
+  font-size: 1.1em;
 }
 
 .sourcing-water .left-panel .container .quest:hover {
@@ -206,9 +211,14 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
-.sourcing-water .right-panel .container .quest {
-  padding: 10px;
+.sourcing-water .right-panel .container .sub-title {
   font-size: 1.2em;
+  padding: 5px 10px;
+}
+
+.sourcing-water .right-panel .container .quest {
+  padding: 5px 10px;
+  font-size: 1.1em;
 }
 
 .sourcing-water .right-panel .container .quest:hover {
@@ -259,9 +269,14 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
-.sourcing-water .bottom-panel .container .quest {
-  padding: 10px;
+.sourcing-water .bottom-panel .container .sub-title {
   font-size: 1.2em;
+  padding: 5px 10px;
+}
+
+.sourcing-water .bottom-panel .container .quest {
+  padding: 5px 10px;
+  font-size: 1.1em;
 }
 
 .sourcing-water .bottom-panel .container .quest:hover {
@@ -313,9 +328,14 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
-.sourcing-water .full-panel .container .quest {
-  padding: 10px;
+.sourcing-water .full-panel .container .sub-title {
   font-size: 1.2em;
+  padding: 5px 10px;
+}
+
+.sourcing-water .full-panel .container .quest {
+  padding: 5px 10px;
+  font-size: 1.1em;
 }
 
 .sourcing-water .full-panel .container .quest:hover {
@@ -364,9 +384,14 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
-.sourcing-water .player-panel .container .quest {
-  padding: 10px;
+.sourcing-water .player-panel .container .sub-title {
   font-size: 1.2em;
+  padding: 5px 10px;
+}
+
+.sourcing-water .player-panel .container .quest {
+  padding: 5px 10px;
+  font-size: 1.1em;
 }
 
 .sourcing-water .player-panel .container .quest:hover {

@@ -60,6 +60,7 @@ let g_APP = new Vue({
                 this.logicTopo.curKind = "流域";
                 this.logicTopo.nodeID = "頭前溪";
                 this.LoadQuest();
+                this.SelectQuest(0);
             });
             
         });
@@ -92,14 +93,6 @@ let g_APP = new Vue({
                         'sky-atmosphere-sun-intensity': 15
                     }
                 });
-                this.map.flyTo({
-                    center: [121, 24.82],
-                    pitch: 30,
-                    zoom: 14,
-                    bearing: 0,
-                    speed: 0.5,
-                    essential: true
-                });
                 
                 //add search box
                 let geocoder = new MapboxGeocoder({
@@ -116,9 +109,13 @@ let g_APP = new Vue({
                 let url = "logicTopo/findNodeByKind?kind=地點";
                 url += "&lat="+e.lngLat.lat;
                 url += "&lng="+e.lngLat.lng;
-                $.get(url, function(result){
-                    
-                }.bind(this));
+                this.questArr = [{
+                    "name": "位於哪個里",
+                    "class":"BaseQuest",
+                    "geomUrl": url,
+                    "targetKind": "地點"
+                }];
+                this.SelectQuest(0);
             }.bind(this));
         },
         LoadQuest: function(){
@@ -133,9 +130,10 @@ let g_APP = new Vue({
                 geomUrl += "&nodeID="+this.logicTopo.nodeID;
                 this.questArr.push({
                     "name": t["類別情境與問題"],
-                    "class":"BaseQuest",
+                    "class":t["display_class"]?t["display_class"]:"BaseQuest",
                     "geomUrl": geomUrl,
-                    "chartUrl":""
+                    "chartUrl":"",
+                    "targetKind": t["to_類別"]
                 });
             }
             /*this.questArr = [
@@ -175,7 +173,6 @@ let g_APP = new Vue({
                     }
                 }
             ];*/
-            this.SelectQuest(0);
             
         },
         SetMapPadding: function(padding){
@@ -234,7 +231,19 @@ let g_APP = new Vue({
                 "quest": quest
             };
             this.curQuest.quest = new g_QuestClass[quest.class](param);
-            this.curQuest.quest.Init();
+            this.curQuest.quest.Init(() => {
+                this.logicTopo.curKind = quest.targetKind;
+                this.logicTopo.nodeID = this.curQuest.quest.nodeID;
+                let bbox = this.curQuest.quest.bbox;
+                if(bbox){
+                    this.map.fitBounds([
+                        [bbox[0],bbox[1]],
+                        [bbox[2],bbox[3]]
+                    ]);
+                }
+                this.LoadQuest();
+            });
+            
         },
         TracePath: function(param){
             let key = this.ToHash(this.curQuest.name)+"_"+param.index;

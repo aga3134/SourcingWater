@@ -11,11 +11,14 @@ class LogicTopoBasin():
         row = dict(db.engine.execute(sql).first())
         row["type"] = "fill"
         row["paint"] = {
-            "fill-color":"#ff3333",
-            "fill-opacity":0.5
+            "fill-color":"#3333ff",
+            "fill-opacity":0.3
         }
-        result = [row]
-        return result
+        return {
+            "nodeID":nodeID,
+            "nodeName":nodeID+"流域",
+            "data":[row]
+        }
 
     def FindMainRiverByID(self,param):
         if not "nodeID" in param:
@@ -30,5 +33,11 @@ class LogicTopoBasin():
             "line-color": "#f33",
             "line-width": 4
         }
-        result = [row]
-        return result
+        return {
+            "nodeID":nodeID,
+            "nodeName":"頭前溪",
+            "setting":{
+                "pathIndex":0
+            },
+            "data":[row]
+        }

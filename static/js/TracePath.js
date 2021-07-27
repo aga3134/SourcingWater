@@ -4,7 +4,6 @@ class TracePath extends BaseQuest{
         super(param);
         this.originPath = [];
         this.displayPath = [];
-        this.pathIndex = param.quest.setting.pathIndex;
         this.displayIndex = 0;
         this.timer = null;
     }
@@ -38,14 +37,14 @@ class TracePath extends BaseQuest{
         this.displayIndex = 0;
         if(this.displayPath.coordinates){
             this.displayPath.coordinates[0] = [];
-            let key = this.GetGeomKey(this.pathIndex);
+            let key = this.GetGeomKey(this.setting.pathIndex);
             this.map.getSource(key).setData(this.displayPath);
         }
     }
 
     Play(){
         this.ClearPath();
-        let key = this.GetGeomKey(this.pathIndex);
+        let key = this.GetGeomKey(this.setting.pathIndex);
         let source = this.sourceHash[key];
         this.originPath = source.data;
         this.displayPath = $.extend(true, {}, source.data);
@@ -72,7 +71,7 @@ class TracePath extends BaseQuest{
     Resume(){
         if(this.timer) return;
         g_APP.player.isPlay = true;
-        let key = this.GetGeomKey(this.pathIndex);
+        let key = this.GetGeomKey(this.setting.pathIndex);
         let coord = this.originPath.coordinates[0];
         this.timer = window.setInterval(function(){
             if(this.displayIndex < coord.length){

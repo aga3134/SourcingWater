@@ -3,21 +3,34 @@ class BaseQuest{
     constructor(param){
         this.map = param.map;
         this.quest = param.quest;
+        this.nodeID = null;
+        this.nodeName = "";
+        this.setting = {};
         this.sourceHash = {};
         this.layerHash = {};
+        this.bbox = null;
     }
 
-    Init(){
-        this.LoadData();
-        this.LoadChart();
+    Init(callback){
+        let promiseArr = [];
+        promiseArr.push(new Promise((resolve,reject) => {
+            this.LoadData(resolve);
+        }));
+        promiseArr.push(new Promise((resolve,reject) => {
+            this.LoadChart(resolve);
+        }));
+        Promise.all(promiseArr).then(() => {
+            if(callback) callback();
+        });
     }
 
     LoadData(callback){
         var url = this.quest.geomUrl;
         $.get(url, (result) => {
-            console.log(result);
-            for(let i=0;i<result.length;i++){
-                var data = result[i];
+            //console.log(result);
+            this.bbox = null;
+            for(let i=0;i<result.data.length;i++){
+                let data = result.data[i];
                 data.geom = JSON.parse(data.geom);
                 let key = this.GetGeomKey(i);
                 //console.log(key);
@@ -33,7 +46,22 @@ class BaseQuest{
                 });
                 this.sourceHash[key] = {"name":key, "data":data.geom};
                 this.layerHash[key] = {"name":key};
+
+                let bbox = turf.bbox(data.geom);
+                if(!this.bbox){
+                    this.bbox = bbox;
+                }
+                else{
+                    if(bbox[0] < this.bbox[0]) this.bbox[0] = bbox[0];
+                    if(bbox[1] < this.bbox[1]) this.bbox[1] = bbox[1];
+                    if(bbox[2] > this.bbox[2]) this.bbox[2] = bbox[2];
+                    if(bbox[3] > this.bbox[3]) this.bbox[3] = bbox[3];
+                }
             }
+            this.nodeID = result.nodeID;
+            this.nodeName = result.nodeName;
+            this.setting = result.setting;
+            
             if(callback) callback();
         });
     }
@@ -52,7 +80,7 @@ class BaseQuest{
     }
 
     LoadChart(callback){
-
+        if(callback) callback();
     }
 
     GetGeomKey(index){

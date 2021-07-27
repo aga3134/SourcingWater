@@ -43,6 +43,7 @@
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestPanel();">
                 <div class="container">
                     <div class="title">追本溯源</div>
+                    <div class="title" v-if="logicTopo && curQuest && curQuest.quest">[[logicTopo.curKind]]:[[curQuest.quest.nodeName]]</div>
                     <div class="quest" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">[[i+1]]. [[q.name]]</div>
                 </div>
             </div>
@@ -72,6 +73,7 @@
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="static/js/BaseQuest.js?v={{config.version}}"></script>
         <script src="static/js/TracePath.js?v={{config.version}}"></script>

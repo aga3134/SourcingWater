@@ -4,7 +4,6 @@ class BaseLayer{
         this.url = param.url;
         this.show = param.show;
         this.map = param.map;
-        this.data = param.data;
         this.sourceHash = {};
         this.layerHash = {};
         this.bbox = null;
@@ -28,27 +27,32 @@ class BaseLayer{
         this.ClearAll();
         
         $.get(url, (result) => {
-            //console.log(result);
             this.bbox = null;
             if(result.data){
+                var visible = this.show?"visible":"none";
                 for(let i=0;i<result.data.length;i++){
                     let data = result.data[i];
                     data.geom = JSON.parse(data.geom);
-                    let key = this.GetGeomKey(i);
-                    //console.log(key);
-                    this.map.addSource(key, {
+                    let sourceKey = this.GetGeomKey(i);
+                    //console.log(sourceKey);
+                    this.map.addSource(sourceKey, {
                         "type": "geojson",
                         "data": data.geom
                     });
-                    this.map.addLayer({
-                        "id": key,
-                        "type": data.type,
-                        "source": key,
-                        "paint": data.paint
-                    });
-                    this.sourceHash[key] = {"name":key, "data":data.geom};
-                    this.layerHash[key] = {"name":key};
-    
+                    this.sourceHash[sourceKey] = {"name":sourceKey, "data":data.geom};
+                    //一個source可以產生多個layer，如一個畫外框，一個畫填滿
+                    for(let j=0;j<data.style.length;j++){
+                        let s = data.style[j];
+                        let layerKey = sourceKey+"_"+j;
+                        this.map.addLayer({
+                            "id": layerKey,
+                            "type": s.type,
+                            "source": sourceKey,
+                            "paint": s.paint
+                        });
+                        this.layerHash[layerKey] = {"name":layerKey};
+                        this.map.setLayoutProperty(layerKey,"visibility",visible);
+                    }
                     let bbox = turf.bbox(data.geom);
                     if(!this.bbox){
                         this.bbox = bbox;

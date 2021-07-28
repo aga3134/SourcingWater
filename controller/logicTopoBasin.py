@@ -9,11 +9,13 @@ class LogicTopoBasin():
         nodeID = param["nodeID"]
         sql = "select basin_no,basin_name as title,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326)) as geom from basin where basin_name='%s';" % nodeID
         row = dict(db.engine.execute(sql).first())
-        row["type"] = "fill"
-        row["paint"] = {
-            "fill-color":"#3333ff",
-            "fill-opacity":0.3
-        }
+        row["style"] = [{
+            "type": "fill",
+            "paint": {
+                "fill-color":"#3333ff",
+                "fill-opacity":0.3
+            }
+        }]
         return {
             "nodeID":nodeID,
             "nodeName":nodeID+"流域",

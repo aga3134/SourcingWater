@@ -25,10 +25,7 @@ let g_APP = new Vue({
             stopFn: ""
         },
         layer:{
-            basin:{
-                show: false,
-                data: []
-            }
+            basin: null
         }
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
@@ -63,14 +60,13 @@ let g_APP = new Vue({
                 });
             }));
             promiseArr.push(new Promise((resolve,reject) => {
-                $.get("layer/basin", (result) => {
-                    for(let i=0;i<result.length;i++){
-                        let b = result[i];
-                        b.geom = JSON.parse(b.geom);
-                    }
-                    this.layer.basin.data = result;
-                    resolve();
-                });
+                let param = {
+                    show: false,
+                    map: this.map,
+                    url: "layer/basin"
+                };
+                this.layer.basin = new BaseLayer(param);
+                this.layer.basin.Init(resolve);
             }));
             Promise.all(promiseArr).then(() => {
                 this.logicTopo.curKind = "流域";
@@ -153,8 +149,22 @@ let g_APP = new Vue({
                 });
             }
         },
+        ZoomToBBox: function(bbox){
+            if(bbox){
+                this.map.fitBounds([
+                    [bbox[0],bbox[1]],
+                    [bbox[2],bbox[3]]
+                ]);
+            }
+        },
+        ShowAllBasin: function(){
+            if(!this.layer.basin) return;
+            this.layer.basin.show = true;
+            this.UpdateLayer();
+            this.ZoomToBBox(this.layer.basin.bbox);
+        },
         UpdateLayer: function(){
-
+            if(this.layer.basin) this.layer.basin.Update();
         },
         SetMapPadding: function(padding){
             this.map.easeTo({padding: padding, duration: 1000});
@@ -215,13 +225,7 @@ let g_APP = new Vue({
             this.curQuest.quest.Init(() => {
                 this.logicTopo.curKind = quest.targetKind;
                 this.logicTopo.nodeID = this.curQuest.quest.nodeID;
-                let bbox = this.curQuest.quest.bbox;
-                if(bbox){
-                    this.map.fitBounds([
-                        [bbox[0],bbox[1]],
-                        [bbox[2],bbox[3]]
-                    ]);
-                }
+                this.ZoomToBBox(this.curQuest.quest.bbox);
                 this.LoadQuest();
             });
             

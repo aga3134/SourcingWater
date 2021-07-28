@@ -1,6 +1,7 @@
 
 class BaseQuest extends BaseLayer{
     constructor(param){
+        param.show = true;
         super(param);
         this.quest = param.quest;
         this.nodeID = null;

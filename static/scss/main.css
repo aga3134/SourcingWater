@@ -173,6 +173,16 @@ html, body {
   background-color: #cccccc;
 }
 
+.sourcing-water .left-panel .container .bt {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .sourcing-water .left-panel.open {
   left: 0px;
 }
@@ -231,6 +241,16 @@ html, body {
   background-color: #cccccc;
 }
 
+.sourcing-water .right-panel .container .bt {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .sourcing-water .right-panel.open {
   right: 0px;
 }
@@ -287,6 +307,16 @@ html, body {
 
 .sourcing-water .bottom-panel .container .quest.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .bottom-panel .container .bt {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .bottom-panel.open {
@@ -348,6 +378,16 @@ html, body {
   background-color: #cccccc;
 }
 
+.sourcing-water .full-panel .container .bt {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .sourcing-water .player-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
@@ -402,6 +442,16 @@ html, body {
 
 .sourcing-water .player-panel .container .quest.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .player-panel .container .bt {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .player-panel.open {

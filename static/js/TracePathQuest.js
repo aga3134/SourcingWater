@@ -1,5 +1,5 @@
 
-class TracePath extends BaseQuest{
+class TracePathQuest extends BaseQuest{
     constructor(param){
         super(param);
         this.originPath = [];
@@ -9,7 +9,7 @@ class TracePath extends BaseQuest{
     }
 
     Init(){
-        this.LoadData(() => {
+        super.Init(() => {
             this.Play();
         });
         g_APP.OpenPlayerPanel();
@@ -98,4 +98,4 @@ class TracePath extends BaseQuest{
 }
 
 //需把它們的名字註冊到此變數，讓g_APP可以從config字串new出此類別
-g_QuestClass["TracePath"] = TracePath;
+g_QuestClass["TracePathQuest"] = TracePathQuest;

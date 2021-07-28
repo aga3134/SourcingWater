@@ -23,6 +23,12 @@ let g_APP = new Vue({
             playFn: "",
             pauseFn: "",
             stopFn: ""
+        },
+        layer:{
+            basin:{
+                show: false,
+                data: []
+            }
         }
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
@@ -53,6 +59,16 @@ let g_APP = new Vue({
                         this.logicTopo.transfer[kind].push(r);
                     }
                     //console.log(this.logicTopo.transfer);
+                    resolve();
+                });
+            }));
+            promiseArr.push(new Promise((resolve,reject) => {
+                $.get("layer/basin", (result) => {
+                    for(let i=0;i<result.length;i++){
+                        let b = result[i];
+                        b.geom = JSON.parse(b.geom);
+                    }
+                    this.layer.basin.data = result;
                     resolve();
                 });
             }));
@@ -130,50 +146,15 @@ let g_APP = new Vue({
                 geomUrl += "&nodeID="+this.logicTopo.nodeID;
                 this.questArr.push({
                     "name": t["類別情境與問題"],
-                    "class":t["display_class"]?t["display_class"]:"BaseQuest",
+                    "class":t["quest_class"]?t["quest_class"]:"BaseQuest",
                     "geomUrl": geomUrl,
                     "chartUrl":"",
                     "targetKind": t["to_類別"]
                 });
             }
-            /*this.questArr = [
-                {
-                    "name": "頭前溪長怎樣?",
-                    "class": "BaseQuest",
-                    "geom": [
-                        {
-                            "title": "頭前溪",
-                            "type": "line",
-                            "url": "river/river",
-                            "paint": {
-                                "line-color": "#f33",
-                                "line-width": 4
-                            }
-                        }
-                    ],
-                    "chart": [],
-                },
-                {
-                    "name": "水從頭前溪源頭流到海洋走什麼路徑?",
-                    "class": "TracePath",
-                    "geom": [
-                        {
-                            "title": "頭前溪路徑",
-                            "type": "line",
-                            "url": "river/river",
-                            "paint": {
-                                "line-color": "#33f",
-                                "line-width": 4
-                            }
-                        }
-                    ],
-                    "chart": [],
-                    "setting":{
-                        "pathIndex": 0
-                    }
-                }
-            ];*/
-            
+        },
+        UpdateLayer: function(){
+
         },
         SetMapPadding: function(padding){
             this.map.easeTo({padding: padding, duration: 1000});

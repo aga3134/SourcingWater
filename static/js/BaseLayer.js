@@ -1,0 +1,89 @@
+
+class BaseLayer{
+    constructor(param){
+        this.url = param.url;
+        this.show = param.show;
+        this.map = param.map;
+        this.data = param.data;
+        this.sourceHash = {};
+        this.layerHash = {};
+        this.bbox = null;
+        this.uuid = uuidv4();
+    }
+    
+    Init(callback){
+        let promiseArr = [];
+        promiseArr.push(new Promise((resolve,reject) => {
+            this.LoadData(this.url,resolve);
+        }));
+        Promise.all(promiseArr).then((values) => {
+            if(callback) callback(values);
+        });
+    }
+    GetGeomKey(index){
+        return this.uuid+"_"+index;
+    }
+
+    LoadData(url,callback){
+        this.ClearAll();
+        
+        $.get(url, (result) => {
+            //console.log(result);
+            this.bbox = null;
+            if(result.data){
+                for(let i=0;i<result.data.length;i++){
+                    let data = result.data[i];
+                    data.geom = JSON.parse(data.geom);
+                    let key = this.GetGeomKey(i);
+                    //console.log(key);
+                    this.map.addSource(key, {
+                        "type": "geojson",
+                        "data": data.geom
+                    });
+                    this.map.addLayer({
+                        "id": key,
+                        "type": data.type,
+                        "source": key,
+                        "paint": data.paint
+                    });
+                    this.sourceHash[key] = {"name":key, "data":data.geom};
+                    this.layerHash[key] = {"name":key};
+    
+                    let bbox = turf.bbox(data.geom);
+                    if(!this.bbox){
+                        this.bbox = bbox;
+                    }
+                    else{
+                        if(bbox[0] < this.bbox[0]) this.bbox[0] = bbox[0];
+                        if(bbox[1] < this.bbox[1]) this.bbox[1] = bbox[1];
+                        if(bbox[2] > this.bbox[2]) this.bbox[2] = bbox[2];
+                        if(bbox[3] > this.bbox[3]) this.bbox[3] = bbox[3];
+                    }
+                }
+            }
+            if(callback) callback(result);
+        });
+    }
+
+    Update(){
+        var visible = this.show?"visible":"none";
+        for(let key in this.layerHash){
+            var layer = this.layerHash[key].name;
+            this.map.setLayoutProperty(layer,"visibility",visible);
+        }
+    }
+
+    ClearAll(){
+        //clear data
+        for(let key in this.layerHash){
+            this.map.removeLayer(this.layerHash[key].name);
+        }
+        this.layerHash = {};
+
+        for(let key in this.sourceHash){
+            this.map.removeSource(this.sourceHash[key].name);
+        }
+        this.sourceHash = {};
+    }
+
+}

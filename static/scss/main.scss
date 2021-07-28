@@ -136,6 +136,15 @@ $vue-transition: 0.5s;
                     background-color: #cccccc;
                 }
             }
+            .bt{
+                margin: 5px;
+                padding: 5px 10px;
+                background-color: #555555;
+                color: #ffffff;
+                border-radius: 5px;
+                cursor: pointer;
+                text-align: center;
+            }
         }
         
     }

@@ -7,6 +7,7 @@ import urllib
 from routes.viewRoute import viewRoute
 from routes.riverRoute import riverRoute
 from routes.logicTopoRoute import logicTopoRoute
+from routes.layerRoute import layerRoute
 from model.db import db
 
 with open("config.json","r") as json_file:
@@ -28,6 +29,7 @@ db.init_app(app)
 app.register_blueprint(viewRoute,url_prefix="")
 app.register_blueprint(riverRoute,url_prefix="/river")
 app.register_blueprint(logicTopoRoute,url_prefix="/logicTopo")
+app.register_blueprint(layerRoute,url_prefix="/layer")
 
 if __name__ == "__main__":
     app.run( )

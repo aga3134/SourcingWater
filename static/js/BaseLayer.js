@@ -8,6 +8,50 @@ class BaseLayer{
         this.layerHash = {};
         this.bbox = null;
         this.uuid = uuidv4();
+        this.data = null;
+        this.hoverFeature = null;
+        this.hoverSource = null;
+
+        this.onMouseEnter = param.onMouseEnter;
+        this.onMouseMove = param.onMouseMove;
+        this.onMouseLeave = param.onMouseLeave;
+        this.onClick = param.onClick;
+        //add default mouse functions if not provided
+        if(!this.onMouseMove){
+            this.onMouseMove = (e) => {
+                if(this.hoverSource != null && this.hoverFeature != null){
+                    this.map.setFeatureState(
+                        {source: this.hoverSource, id: this.hoverFeature},
+                        {hover: false}
+                    );
+                    this.hoverSource = null;
+                    this.hoverFeature = null;
+                }
+                let f = this.map.queryRenderedFeatures(e.point)[0];
+                if(!f) return;
+                this.hoverSource = f.source;
+                this.hoverFeature = f.id;
+                if(this.hoverSource != null && this.hoverFeature != null){
+                    this.map.setFeatureState(
+                        {source: f.source, id: f.id},
+                        {hover: true}
+                    );
+                }
+            };
+        }
+        if(!this.onMouseLeave){
+            this.onMouseLeave = (e) => {
+                let f = this.map.queryRenderedFeatures(e.point)[0];
+                if(!f) return;
+                if(f.source != null && f.id != null){
+                    this.map.setFeatureState(
+                        {source: f.source, id: f.id},
+                        {hover: false}
+                    );
+                }
+            };
+        }
+
     }
     
     Init(callback){
@@ -28,11 +72,13 @@ class BaseLayer{
         
         $.get(url, (result) => {
             this.bbox = null;
+            //console.log(result);
             if(result.data){
+                this.data = result.data;
                 var visible = this.show?"visible":"none";
                 for(let i=0;i<result.data.length;i++){
                     let data = result.data[i];
-                    data.geom = JSON.parse(data.geom);
+                    //data.geom = JSON.parse(data.geom);
                     let sourceKey = this.GetGeomKey(i);
                     //console.log(sourceKey);
                     this.map.addSource(sourceKey, {
@@ -52,6 +98,22 @@ class BaseLayer{
                         });
                         this.layerHash[layerKey] = {"name":layerKey};
                         this.map.setLayoutProperty(layerKey,"visibility",visible);
+
+                        this.map.on("mouseenter", layerKey, (e) => {
+                            if(this.onMouseEnter) this.onMouseEnter(e);
+                        });
+
+                        this.map.on("mousemove", layerKey, (e) => {
+                            if(this.onMouseMove) this.onMouseMove(e);
+                        });
+
+                        this.map.on("mouseleave", layerKey, (e) => {
+                            if(this.onMouseLeave) this.onMouseLeave(e);
+                        });
+
+                        this.map.on("click", layerKey, (e) => {
+                            if(this.onClick) this.onClick(e);
+                        });
                     }
                     let bbox = turf.bbox(data.geom);
                     if(!this.bbox){

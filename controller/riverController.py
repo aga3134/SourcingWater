@@ -9,7 +9,7 @@ class RiverController():
         return json.loads(r.geom)
 
     def GetRiverGeomSQL(self):
-        sql = "select ogc_fid,ST_AsGeoJson(wkb_geometry) as geom from c1300 limit 1;"
+        sql = "select ogc_fid,ST_AsGeoJson(wkb_geometry)::json as geom from c1300 limit 1;"
         result = db.engine.execute(sql)
         r = dict(result.first())
         return json.loads(r["geom"])

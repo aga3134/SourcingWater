@@ -63,7 +63,17 @@ let g_APP = new Vue({
                 let param = {
                     show: false,
                     map: this.map,
-                    url: "layer/basin"
+                    url: "layer/basin",
+                    onClick: (e) => {
+                        let f = e.features[0];
+                        if(!f) return;
+                        this.logicTopo.curKind = "流域";
+                        this.logicTopo.nodeID = f.properties.basin_name;
+                        this.LoadQuest();
+                        this.SelectQuest(0);
+                        this.layer.basin.show = false;
+                        this.UpdateLayer();
+                    },
                 };
                 this.layer.basin = new BaseLayer(param);
                 this.layer.basin.Init(resolve);
@@ -118,6 +128,7 @@ let g_APP = new Vue({
             }.bind(this));
 
             this.map.on('click', function(e) {
+                console.log(e);
                 let url = "logicTopo/findNodeByKind?kind=地點";
                 url += "&lat="+e.lngLat.lat;
                 url += "&lng="+e.lngLat.lng;
@@ -159,6 +170,7 @@ let g_APP = new Vue({
         },
         ShowAllBasin: function(){
             if(!this.layer.basin) return;
+            this.ClearQuest();
             this.layer.basin.show = true;
             this.UpdateLayer();
             this.ZoomToBBox(this.layer.basin.bbox);

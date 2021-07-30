@@ -42,6 +42,10 @@
                         <input type="checkbox" v-model="layer.rainStation.show" @change="UpdateLayer();">
                         <div class="item-label">顯示雨量站</div>
                     </div>
+                    <div class="option-item" v-if="layer.floodStation">
+                        <input type="checkbox" v-model="layer.floodStation.show" @change="UpdateLayer();">
+                        <div class="item-label">顯示淹水測站</div>
+                    </div>
                 </div>
             </div>
 

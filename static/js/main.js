@@ -26,7 +26,8 @@ let g_APP = new Vue({
         },
         layer:{
             basin: null,
-            rainStation: null
+            rainStation: null,
+            floodStation: null
         }
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
@@ -63,8 +64,8 @@ let g_APP = new Vue({
             }));
             //add icon images
             let iconArr = [
-                {name:"marker-red",url:"static/image/marker-red-32.png"},
-                {name:"marker-blue",url:"static/image/marker-blue-32.png"}
+                {name:"flood-station",url:"static/image/alert-24.png"},
+                {name:"rain-station",url:"static/image/water-24.png"}
             ];
             for(let i=0;i<iconArr.length;i++){
                 let icon = iconArr[i];
@@ -99,6 +100,15 @@ let g_APP = new Vue({
                     };
                     this.layer.rainStation = new BaseLayer(param);
                     this.layer.rainStation.Init(resolve);
+                }));
+                promiseArr.push(new Promise((resolve,reject) => {
+                    let param = {
+                        show: false,
+                        map: this.map,
+                        url: "layer/floodStation",
+                    };
+                    this.layer.floodStation = new BaseLayer(param);
+                    this.layer.floodStation.Init(resolve);
                 }));
                 
                 Promise.all(promiseArr).then(() => {
@@ -214,8 +224,9 @@ let g_APP = new Vue({
             this.UpdateLayer();
         },
         UpdateLayer: function(){
-            if(this.layer.basin) this.layer.basin.Update();
-            if(this.layer.rainStation) this.layer.rainStation.Update();
+            for(let key in this.layer){
+                this.layer[key].Update();
+            }
         },
         SetMapPadding: function(padding){
             this.map.easeTo({padding: padding, duration: 1000});

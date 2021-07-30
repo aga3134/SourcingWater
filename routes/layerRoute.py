@@ -14,3 +14,9 @@ def rainStation():
     lc = LayerController()
     data = lc.GetRainStation()
     return jsonify(data)
+
+@layerRoute.route("/floodStation", methods=["GET"])
+def floodStation():
+    lc = LayerController()
+    data = lc.GetFloodStation()
+    return jsonify(data)

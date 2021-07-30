@@ -26,7 +26,6 @@ class LayerController():
             geom["features"].append(f)
         #generate json_def
         data = {
-            "title": "流域分佈",
             "geom": geom,
             "layer": [
                 {
@@ -50,6 +49,7 @@ class LayerController():
             ]
         }
         return {
+            "layerName": "流域",
             "data": [data]
         }
 
@@ -78,13 +78,12 @@ class LayerController():
             geom["features"].append(f)
         #generate json_def
         data = {
-            "title": "雨量站",
             "geom": geom,
             "layer": [
                 {
                     "type": "symbol",
                     "layout":{
-                        "icon-image": "marker-blue",
+                        "icon-image": "rain-station",
                         "text-field": ["get", "name"],
                         "text-size": 12,
                         "text-offset": [0, 1.25],
@@ -98,5 +97,54 @@ class LayerController():
         }
         #print(data)
         return {
+            "layerName": "雨量站",
+            "data": [data]
+        }
+
+    def GetFloodStation(self):
+        sql = "select * from r_flood_station;"
+        rows = db.engine.execute(sql)
+        #merge all rows to one geojson feature collection
+        geom = {}
+        geom["type"] = "FeatureCollection"
+        geom["features"] = []
+        for row in rows:
+            d = dict(row)
+            f = {}
+            f["type"] = "Feature"
+            f["geometry"] = {
+                "type": "Point",
+                "coordinates": [float(d["lng"]),float(d["lat"])]
+            }
+            p = {}
+            for key in d:
+                if key in ["lat","lng"]:
+                    continue
+                p[key] = d[key]
+            f["id"] = p["_id"]
+            f["properties"] = p
+            geom["features"].append(f)
+        #generate json_def
+        data = {
+            "geom": geom,
+            "layer": [
+                {
+                    "type": "symbol",
+                    "layout":{
+                        "icon-image": "flood-station",
+                        "text-field": ["get", "stationName"],
+                        "text-size": 12,
+                        "text-offset": [0, 1.25],
+                        "text-anchor": "top"
+                    },
+                    "paint":{
+                        "text-color": "#ff3"
+                    }
+                }
+            ],
+        }
+        #print(data)
+        return {
+            "layerName": "淹水測站",
             "data": [data]
         }

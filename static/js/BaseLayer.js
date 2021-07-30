@@ -9,6 +9,7 @@ class BaseLayer{
         this.bbox = null;
         this.uuid = uuidv4();
         this.data = null;
+        this.layerName = "";
         this.hoverFeature = null;
         this.hoverSource = null;
 
@@ -72,6 +73,7 @@ class BaseLayer{
         
         $.get(url, (result) => {
             this.bbox = null;
+            if(result.layerName) this.layerName = result.layerName;
             //console.log(result);
             if(result.data){
                 this.data = result.data;

@@ -28,18 +28,18 @@ class LayerController():
         data = {
             "title": "流域分佈",
             "geom": geom,
-            "style": [
+            "layer": [
                 {
                     "type":"line",
-                    "paint":{
+                    "paint": {
                         "line-color":"#fff",
                         "line-width":1
-                    }
+                    },
                 },
                 {
                     "type":"fill",
                     "paint":{
-                        "fill-color":"#33f",
+                        "fill-color":"#f33",
                         "fill-opacity":[
                             "case",
                             ["boolean", ["feature-state", "hover"], False],
@@ -47,8 +47,56 @@ class LayerController():
                         ]
                     }
                 }
+            ]
+        }
+        return {
+            "data": [data]
+        }
+
+    def GetRainStation(self):
+        sql = "select * from r_rain_station;"
+        rows = db.engine.execute(sql)
+        #merge all rows to one geojson feature collection
+        geom = {}
+        geom["type"] = "FeatureCollection"
+        geom["features"] = []
+        for row in rows:
+            d = dict(row)
+            f = {}
+            f["type"] = "Feature"
+            f["geometry"] = {
+                "type": "Point",
+                "coordinates": [float(d["lon"]),float(d["lat"])]
+            }
+            p = {}
+            for key in d:
+                if key in ["lat","lon"]:
+                    continue
+                p[key] = d[key]
+            f["id"] = p["stationID"]
+            f["properties"] = p
+            geom["features"].append(f)
+        #generate json_def
+        data = {
+            "title": "雨量站",
+            "geom": geom,
+            "layer": [
+                {
+                    "type": "symbol",
+                    "layout":{
+                        "icon-image": "marker-blue",
+                        "text-field": ["get", "name"],
+                        "text-size": 12,
+                        "text-offset": [0, 1.25],
+                        "text-anchor": "top"
+                    },
+                    "paint":{
+                        "text-color": "#ff3"
+                    }
+                }
             ],
         }
+        #print(data)
         return {
             "data": [data]
         }

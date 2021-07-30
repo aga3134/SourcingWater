@@ -87,15 +87,17 @@ class BaseLayer{
                     });
                     this.sourceHash[sourceKey] = {"name":sourceKey, "data":data.geom};
                     //一個source可以產生多個layer，如一個畫外框，一個畫填滿
-                    for(let j=0;j<data.style.length;j++){
-                        let s = data.style[j];
+                    for(let j=0;j<data.layer.length;j++){
+                        let s = data.layer[j];
                         let layerKey = sourceKey+"_"+j;
-                        this.map.addLayer({
+                        let option = {
                             "id": layerKey,
                             "type": s.type,
                             "source": sourceKey,
-                            "paint": s.paint
-                        });
+                        }
+                        if("paint" in s) option.paint = s.paint;
+                        if("layout" in s) option.layout = s.layout;
+                        this.map.addLayer(option);
                         this.layerHash[layerKey] = {"name":layerKey};
                         this.map.setLayoutProperty(layerKey,"visibility",visible);
 

@@ -183,6 +183,27 @@ html, body {
   text-align: center;
 }
 
+.sourcing-water .left-panel .container .option-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .left-panel .container .option-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.sourcing-water .left-panel .container .option-item .item-label {
+  color: #333333;
+}
+
 .sourcing-water .left-panel.open {
   left: 0px;
 }
@@ -251,6 +272,27 @@ html, body {
   text-align: center;
 }
 
+.sourcing-water .right-panel .container .option-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .right-panel .container .option-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.sourcing-water .right-panel .container .option-item .item-label {
+  color: #333333;
+}
+
 .sourcing-water .right-panel.open {
   right: 0px;
 }
@@ -317,6 +359,27 @@ html, body {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
+}
+
+.sourcing-water .bottom-panel .container .option-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .bottom-panel .container .option-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.sourcing-water .bottom-panel .container .option-item .item-label {
+  color: #333333;
 }
 
 .sourcing-water .bottom-panel.open {
@@ -388,6 +451,27 @@ html, body {
   text-align: center;
 }
 
+.sourcing-water .full-panel .container .option-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .full-panel .container .option-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.sourcing-water .full-panel .container .option-item .item-label {
+  color: #333333;
+}
+
 .sourcing-water .player-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
@@ -452,6 +536,27 @@ html, body {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
+}
+
+.sourcing-water .player-panel .container .option-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .player-panel .container .option-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.sourcing-water .player-panel .container .option-item .item-label {
+  color: #333333;
 }
 
 .sourcing-water .player-panel.open {

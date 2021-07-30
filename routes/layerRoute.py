@@ -8,3 +8,9 @@ def basin():
     lc = LayerController()
     data = lc.GetBasin()
     return jsonify(data)
+
+@layerRoute.route("/rainStation", methods=["GET"])
+def rainStation():
+    lc = LayerController()
+    data = lc.GetRainStation()
+    return jsonify(data)

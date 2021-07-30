@@ -25,7 +25,8 @@ let g_APP = new Vue({
             stopFn: ""
         },
         layer:{
-            basin: null
+            basin: null,
+            rainStation: null
         }
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
@@ -35,6 +36,7 @@ let g_APP = new Vue({
             promiseArr.push(new Promise((resolve,reject) => {
                 this.InitMap(resolve);
             }));
+            //load logic topology
             promiseArr.push(new Promise((resolve,reject) => {
                 $.get("logicTopo/kind", (result) => {
                     this.logicTopo.kind = {};
@@ -59,33 +61,58 @@ let g_APP = new Vue({
                     resolve();
                 });
             }));
-            promiseArr.push(new Promise((resolve,reject) => {
-                let param = {
-                    show: false,
-                    map: this.map,
-                    url: "layer/basin",
-                    onClick: (e) => {
-                        let f = e.features[0];
-                        if(!f) return;
-                        this.logicTopo.curKind = "流域";
-                        this.logicTopo.nodeID = f.properties.basin_name;
-                        this.LoadQuest();
-                        this.SelectQuest(0);
-                        this.layer.basin.show = false;
-                        this.UpdateLayer();
-                    },
-                };
-                this.layer.basin = new BaseLayer(param);
-                this.layer.basin.Init(resolve);
-            }));
+            //add icon images
+            let iconArr = [
+                {name:"marker-red",url:"static/image/marker-red-32.png"},
+                {name:"marker-blue",url:"static/image/marker-blue-32.png"}
+            ];
+            for(let i=0;i<iconArr.length;i++){
+                let icon = iconArr[i];
+                promiseArr.push(new Promise((resolve,reject) => {
+                    this.map.loadImage(icon.url,(error,image) => {
+                        this.map.addImage(icon.name, image);
+                        resolve();
+                    });
+                }));
+            }
             Promise.all(promiseArr).then(() => {
-                this.logicTopo.curKind = "流域";
-                this.logicTopo.nodeID = "頭前溪";
-                this.LoadQuest();
-                this.SelectQuest(0);
+                //load option layers
+                promiseArr.push(new Promise((resolve,reject) => {
+                    let param = {
+                        show: false,
+                        map: this.map,
+                        url: "layer/basin",
+                        onClick: (e) => {
+                            let f = e.features[0];
+                            if(!f) return;
+                            this.SelectBasin(f.properties.basin_name);
+                        },
+                    };
+                    this.layer.basin = new BaseLayer(param);
+                    this.layer.basin.Init(resolve);
+                }));
+                promiseArr.push(new Promise((resolve,reject) => {
+                    let param = {
+                        show: false,
+                        map: this.map,
+                        url: "layer/rainStation",
+                    };
+                    this.layer.rainStation = new BaseLayer(param);
+                    this.layer.rainStation.Init(resolve);
+                }));
+                
+                Promise.all(promiseArr).then(() => {
+                    this.SelectBasin("頭前溪");
+                    this.OpenQuestPanel();
+                });
             });
-            
         });
+        toastr.options = {
+            "positionClass":"toast-top-center",
+            "showDuration": 300,
+            "hideDuration": 300,
+            "timeOut": 3000
+        };
     },
     methods:{
         InitMap: function(callback){
@@ -128,7 +155,8 @@ let g_APP = new Vue({
             }.bind(this));
 
             this.map.on('click', function(e) {
-                console.log(e);
+                var features = this.map.queryRenderedFeatures(e.point);
+                if(features.length > 0) return;   //有點到其他東西
                 let url = "logicTopo/findNodeByKind?kind=地點";
                 url += "&lat="+e.lngLat.lat;
                 url += "&lng="+e.lngLat.lng;
@@ -170,13 +198,24 @@ let g_APP = new Vue({
         },
         ShowAllBasin: function(){
             if(!this.layer.basin) return;
+            this.questArr = [];
             this.ClearQuest();
             this.layer.basin.show = true;
             this.UpdateLayer();
             this.ZoomToBBox(this.layer.basin.bbox);
+            toastr.info("請點選要探索的流域");
+        },
+        SelectBasin: function(name){
+            this.logicTopo.curKind = "流域";
+            this.logicTopo.nodeID = name;
+            this.LoadQuest();
+            this.SelectQuest(0);
+            this.layer.basin.show = false;
+            this.UpdateLayer();
         },
         UpdateLayer: function(){
             if(this.layer.basin) this.layer.basin.Update();
+            if(this.layer.rainStation) this.layer.rainStation.Update();
         },
         SetMapPadding: function(padding){
             this.map.easeTo({padding: padding, duration: 1000});

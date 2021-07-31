@@ -45,3 +45,11 @@ class LogicTopoController():
                 return ltb.FindMainRiverByID(param)
             else:
                 return {}
+        elif kind == "地點":
+            ltp = LogicTopoPlace()
+            if transfer == "淨水廠為何":
+                return ltp.FindVillageWaterwork(param)
+            elif transfer == "取水口為何":
+                return ltp.FindVillageWaterin(param)
+            else:
+                return {}

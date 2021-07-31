@@ -167,6 +167,7 @@ let g_APP = new Vue({
             this.map.on('click', function(e) {
                 var features = this.map.queryRenderedFeatures(e.point);
                 if(features.length > 0) return;   //有點到其他東西
+                this.logicTopo.curKind = "地點";
                 let url = "logicTopo/findNodeByKind?kind=地點";
                 url += "&lat="+e.lngLat.lat;
                 url += "&lng="+e.lngLat.lng;

@@ -65,7 +65,9 @@ let g_APP = new Vue({
             //add icon images
             let iconArr = [
                 {name:"flood-station",url:"static/image/alert-24.png"},
-                {name:"rain-station",url:"static/image/water-24.png"}
+                {name:"rain-station",url:"static/image/water-24.png"},
+                {name:"marker-red",url:"static/image/marker-red-24.png"},
+                {name:"marker-blue",url:"static/image/marker-blue-24.png"},
             ];
             for(let i=0;i<iconArr.length;i++){
                 let icon = iconArr[i];
@@ -201,10 +203,23 @@ let g_APP = new Vue({
         },
         ZoomToBBox: function(bbox){
             if(bbox){
-                this.map.fitBounds([
-                    [bbox[0],bbox[1]],
-                    [bbox[2],bbox[3]]
-                ]);
+                //若bbox範圍太小就用zoom數值控制範圍
+                let thresh = 0.001;
+                if(Math.abs(bbox[0]-bbox[2]) < thresh && Math.abs(bbox[1]-bbox[3]) < thresh){
+                    this.map.flyTo({
+                        center: [
+                            (bbox[0]+bbox[2])*0.5,
+                            (bbox[1]+bbox[3])*0.5
+                        ],
+                        zoom: 15
+                    });
+                }
+                else{
+                    this.map.fitBounds([
+                        [bbox[0],bbox[1]],
+                        [bbox[2],bbox[3]]
+                    ]);
+                }
             }
         },
         ShowAllBasin: function(){

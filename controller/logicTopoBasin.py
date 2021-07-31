@@ -1,6 +1,7 @@
 from sqlalchemy.sql.functions import func
 from model.db import db
 import json
+from controller.util import DictToGeoJsonProp
 
 class LogicTopoBasin():
     def FindBasinByID(self,param):
@@ -9,6 +10,8 @@ class LogicTopoBasin():
         nodeID = param["nodeID"]
         sql = "select basin_no,basin_name as title,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_name='%s';" % nodeID
         row = dict(db.engine.execute(sql).first())
+
+        row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [
             {
                 "type": "line",
@@ -18,6 +21,7 @@ class LogicTopoBasin():
                 }
             }
         ]
+
         return {
             "nodeID":nodeID,
             "nodeName":nodeID+"流域",

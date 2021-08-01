@@ -36,6 +36,8 @@ class LogicTopoBasin():
         sql = "select ogc_fid,ST_AsGeoJson(wkb_geometry)::json as geom from c1300 limit 1;"
         row = dict(db.engine.execute(sql).first())
         row["title"] = "頭前溪"
+
+        row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [
             {
                 "type": "line",

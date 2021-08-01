@@ -1,29 +1,14 @@
 from sqlalchemy.sql.functions import func
 from model.db import db
 import json
+from controller.util import MergeRowsToGeoJson
 
 class LayerController():
     def GetBasin(self):
         sql = "select basin_no,basin_name,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin;"
         rows = db.engine.execute(sql)
-        #merge all rows to one geojson feature collection
-        geom = {}
-        geom["type"] = "FeatureCollection"
-        geom["features"] = []
-        for row in rows:
-            d = dict(row)
-            f = {}
-            f["type"] = "Feature"
-            f["geometry"] = d["geom"]
-            p = {}
-            for key in d:
-                if key == "geom":
-                    continue
-                p[key] = d[key]
-            p["opacity"] = 0
-            f["id"] = p["basin_no"]
-            f["properties"] = p
-            geom["features"].append(f)
+        geom = MergeRowsToGeoJson(rows,idKey="basin_no",skipArr=["geom"])
+
         #generate json_def
         data = {
             "geom": geom,
@@ -56,26 +41,16 @@ class LayerController():
     def GetRainStation(self):
         sql = "select * from r_rain_station;"
         rows = db.engine.execute(sql)
-        #merge all rows to one geojson feature collection
-        geom = {}
-        geom["type"] = "FeatureCollection"
-        geom["features"] = []
+        arr = []
         for row in rows:
             d = dict(row)
-            f = {}
-            f["type"] = "Feature"
-            f["geometry"] = {
+            d["geom"] = {
                 "type": "Point",
                 "coordinates": [float(d["lon"]),float(d["lat"])]
             }
-            p = {}
-            for key in d:
-                if key in ["lat","lon"]:
-                    continue
-                p[key] = d[key]
-            f["id"] = p["stationID"]
-            f["properties"] = p
-            geom["features"].append(f)
+            arr.append(d)
+        geom = MergeRowsToGeoJson(arr,idKey="stationID",skipArr=["geom","lat","lon"])
+        
         #generate json_def
         data = {
             "geom": geom,
@@ -104,26 +79,16 @@ class LayerController():
     def GetFloodStation(self):
         sql = "select * from r_flood_station;"
         rows = db.engine.execute(sql)
-        #merge all rows to one geojson feature collection
-        geom = {}
-        geom["type"] = "FeatureCollection"
-        geom["features"] = []
+        arr = []
         for row in rows:
             d = dict(row)
-            f = {}
-            f["type"] = "Feature"
-            f["geometry"] = {
+            d["geom"] = {
                 "type": "Point",
                 "coordinates": [float(d["lng"]),float(d["lat"])]
             }
-            p = {}
-            for key in d:
-                if key in ["lat","lng"]:
-                    continue
-                p[key] = d[key]
-            f["id"] = p["_id"]
-            f["properties"] = p
-            geom["features"].append(f)
+            arr.append(d)
+        geom = MergeRowsToGeoJson(arr,idKey="_id",skipArr=["geom","lat","lng"])
+
         #generate json_def
         data = {
             "geom": geom,

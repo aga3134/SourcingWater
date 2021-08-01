@@ -145,6 +145,10 @@ $vue-transition: 0.5s;
                 cursor: pointer;
                 text-align: center;
             }
+            .item-label{
+                margin: 5px;
+                color: #333333;
+            }
             .option-item{
                 display: flex;
                 justify-content: flex-start;
@@ -153,9 +157,13 @@ $vue-transition: 0.5s;
                     width: 20px;
                     height: 20px;
                 }
-                .item-label{
-                    color: #333333;
-                }
+            }
+            .quest-history{
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex-direction: column;
+
             }
         }
         

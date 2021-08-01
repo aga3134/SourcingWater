@@ -18,6 +18,7 @@ let g_APP = new Vue({
             index: -1,
             quest: null,
         },
+        questHistory:[],
         player:{
             isPlay: false,
             playFn: "",
@@ -171,15 +172,16 @@ let g_APP = new Vue({
             this.map.on('click', function(e) {
                 var features = this.map.queryRenderedFeatures(e.point);
                 if(features.length > 0) return;   //有點到其他東西
-                this.logicTopo.curKind = "地點";
+                this.logicTopo.curKind = "座標";
                 let url = "logicTopo/findNodeByKind?kind=地點";
                 url += "&lat="+e.lngLat.lat;
                 url += "&lng="+e.lngLat.lng;
                 this.questArr = [{
+                    "curKind": "座標",
                     "name": "位於哪個里",
                     "class":"BaseQuest",
                     "geomUrl": url,
-                    "targetKind": "地點"
+                    "targetKind": "地點",
                 }];
                 this.SelectQuest(0);
             }.bind(this));
@@ -195,6 +197,7 @@ let g_APP = new Vue({
                 geomUrl += "&transfer="+t["類別情境與問題"];
                 geomUrl += "&nodeID="+this.logicTopo.nodeID;
                 this.questArr.push({
+                    "curKind":t["from_類別"],
                     "name": t["類別情境與問題"],
                     "class":t["quest_class"]?t["quest_class"]:"BaseQuest",
                     "geomUrl": geomUrl,
@@ -285,16 +288,14 @@ let g_APP = new Vue({
         ClosePlayerPanel: function(){
             this.openPlayerPanel = false;
         },
-        ClearQuest: function(){
-            if(this.curQuest.quest){
-                this.curQuest.quest.ClearAll();
-                this.curQuest.quest = null;
+        ClearQuest: function(item){
+            if(item.quest){
+                item.quest.ClearAll();
+                item.quest = null;
             }
-            this.curQuest.index = -1;
+            item.index = -1;
         },
         SelectQuest: function(i){
-            this.ClearQuest();
-
             this.curQuest.index = i;
             let quest = this.questArr[i];
             let param = {
@@ -303,51 +304,32 @@ let g_APP = new Vue({
             };
             this.curQuest.quest = new g_QuestClass[quest.class](param);
             this.curQuest.quest.Init(() => {
-                this.logicTopo.curKind = quest.targetKind;
+                this.UpdateQuestHistory();
+                if(this.logicTopo.curKind != quest.targetKind){
+                    this.curQuest.index = -1;
+                    this.logicTopo.curKind = quest.targetKind;
+                }
                 this.logicTopo.nodeID = this.curQuest.quest.nodeID;
                 this.ZoomToBBox(this.curQuest.quest.bbox);
                 this.LoadQuest();
             });
             
         },
-        TracePath: function(param){
-            let key = this.ToHash(this.curQuest.name)+"_"+param.index;
-            
-            let ClearTimer = function(){
-                window.clearInterval(this.tracePath.timer);
-                this.tracePath.timer = null;
-                this.tracePath.displayPath.coordinates[0] = [];
-                this.map.getSource(key).setData(this.tracePath.displayPath);
-                this.map.easeTo({pitch: 30});
-            }.bind(this);
-
-            if(this.tracePath.timer){
-                ClearTimer();
-            }
-            else{
-                let source = this.curQuest.source[key];
-                this.tracePath.originPath = source.data;
-                this.tracePath.displayPath = $.extend(true, {}, source.data);
-                let coord = this.tracePath.originPath.coordinates[0];
-                this.tracePath.displayPath.coordinates[0] = [coord[0]];
-                this.tracePath.curIndex = 0;
-                source = this.map.getSource(key);
-                if(source) source.setData(this.tracePath.displayPath);
-                
-                this.map.flyTo({"center": coord[0], "zoom": 14, "pitch":35});
-                this.map.once("moveend", function(){
-                    this.tracePath.timer = window.setInterval(function(){
-                        if(this.tracePath.curIndex < coord.length){
-                            this.tracePath.displayPath.coordinates[0].push(coord[this.tracePath.curIndex]);
-                            let source = this.map.getSource(key);
-                            if(source) source.setData(this.tracePath.displayPath);
-                            this.map.panTo(coord[this.tracePath.curIndex]);
-                            this.tracePath.curIndex++;
-                        }
-                        else ClearTimer();
-                    }.bind(this), 100);
-                }.bind(this));
+        UpdateQuestHistory: function(){
+            let quest = $.extend({}, this.curQuest);
+            this.questHistory.push(quest);
+            if(this.questHistory.length > 5){
+                this.ClearQuest(this.questHistory[0]);
+                this.questHistory.shift();
             }
         },
+        SelectQuestHistory: function(i){
+            let item = this.questHistory[i];
+            this.curQuest.index = -1;
+            this.curQuest.quest = item.quest;
+            this.ZoomToBBox(this.curQuest.quest.bbox);
+            this.logicTopo.curKind = item.quest.quest.curKind;
+            this.LoadQuest();
+        }
     }
 });

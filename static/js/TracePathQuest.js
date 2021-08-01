@@ -8,9 +8,10 @@ class TracePathQuest extends BaseQuest{
         this.timer = null;
     }
 
-    Init(){
+    Init(callback){
         super.Init(() => {
             this.Play();
+            if(callback) callback();
         });
         g_APP.OpenPlayerPanel();
         g_APP.player.playFn = (event) => {
@@ -48,8 +49,8 @@ class TracePathQuest extends BaseQuest{
         this.ClearPath();
         let key = this.GetGeomKey(this.setting.pathIndex);
         let source = this.sourceHash[key];
-        this.originPath = source.data;
-        this.displayPath = $.extend(true, {}, source.data);
+        this.originPath = source.data.geometry;
+        this.displayPath = $.extend(true, {}, source.data.geometry);
         let coord = this.originPath.coordinates[0];
         this.displayPath.coordinates[0] = [coord[0]];
 

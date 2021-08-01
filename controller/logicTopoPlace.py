@@ -10,7 +10,10 @@ class LogicTopoPlace():
         lat = param["lat"]
         lng = param["lng"]
         sql = "select countyname,townname,villname as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from village_moi_121 where ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
-        row = dict(db.engine.execute(sql).first())
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無村里資料"}
+        row = dict(row)
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [
@@ -34,17 +37,23 @@ class LogicTopoPlace():
         #get waterwork name from village
         nodeID = param["nodeID"]
         sql = "select * from s_village_waterin where \"VILLNAME\" = '%s';" % nodeID
-        v = dict(db.engine.execute(sql).first())
+        v = db.engine.execute(sql).first()
+        if v is None:
+            return {"error": "無淨水廠資料"}
+        v = dict(v)
         
         #get water work info
         sql = "select 淨水場名稱 as title,主要供水轄區,原水來源,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from m_waterwork_area where \"淨水場名稱\"='%s';" % v["WATERWORK"]
-        row = dict(db.engine.execute(sql).first())
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無淨水廠資料"}
+        row = dict(row)
         
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [{
                 "type": "symbol",
                 "layout":{
-                    "icon-image": "marker-red",
+                    "icon-image": "waterwork",
                     "text-field": ["get", "title"],
                     "text-size": 12,
                     "text-offset": [0, 1.25],
@@ -66,17 +75,23 @@ class LogicTopoPlace():
         #get waterwork name from village
         nodeID = param["nodeID"]
         sql = "select * from s_village_waterin where \"VILLNAME\" = '%s';" % nodeID
-        v = dict(db.engine.execute(sql).first())
-        print(v)
+        v = db.engine.execute(sql).first()
+        if v is None:
+            return {"error": "無取水口資料"}
+        v = dict(v)
         
         #get water work info
         sql = "select name as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from s_waterin_b where name='%s';" % v["WATERIN"]
-        row = dict(db.engine.execute(sql).first())
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無取水口資料"}
+        row = dict(row)
         
+        row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [{
                 "type": "symbol",
                 "layout":{
-                    "icon-image": "marker-red",
+                    "icon-image": "waterin",
                     "text-field": ["get", "title"],
                     "text-size": 12,
                     "text-offset": [0, 1.25],

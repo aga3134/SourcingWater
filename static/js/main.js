@@ -68,6 +68,8 @@ let g_APP = new Vue({
                 {name:"rain-station",url:"static/image/water-24.png"},
                 {name:"marker-red",url:"static/image/marker-red-24.png"},
                 {name:"marker-blue",url:"static/image/marker-blue-24.png"},
+                {name:"waterin",url:"static/image/waterin-24.png"},
+                {name:"waterwork",url:"static/image/waterwork-24.png"},
             ];
             for(let i=0;i<iconArr.length;i++){
                 let icon = iconArr[i];

@@ -72,6 +72,9 @@ class BaseLayer{
         this.ClearAll();
         
         $.get(url, (result) => {
+            if(result.error){
+                return toastr.error(result.error);
+            }
             this.bbox = null;
             if(result.layerName) this.layerName = result.layerName;
             //console.log(result);

@@ -3,6 +3,7 @@ from model.db import db
 import json
 from controller.logicTopoBasin import LogicTopoBasin
 from controller.logicTopoPlace import LogicTopoPlace
+from controller.logicTopoWaterwork import LogicTopoWaterwork
 
 class LogicTopoController():
     def ListKind(self):
@@ -53,3 +54,8 @@ class LogicTopoController():
                 return ltp.FindVillageWaterin(param)
             else:
                 return {}
+
+        elif kind == "淨水場":
+            ltww = LogicTopoWaterwork()
+            if transfer == "取水口為何":
+                return ltww.FindWaterinByID(param)

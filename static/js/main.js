@@ -18,7 +18,10 @@ let g_APP = new Vue({
             index: -1,
             quest: null,
         },
-        questHistory:[],
+        history:{
+            maxSize:  5,
+            questArr:[]
+        },
         player:{
             isPlay: false,
             playFn: "",
@@ -230,7 +233,6 @@ let g_APP = new Vue({
         ShowAllBasin: function(){
             if(!this.layer.basin) return;
             this.questArr = [];
-            this.ClearQuest();
             this.layer.basin.show = true;
             this.UpdateLayer();
             this.ZoomToBBox(this.layer.basin.bbox);
@@ -317,18 +319,21 @@ let g_APP = new Vue({
         },
         UpdateQuestHistory: function(){
             let quest = $.extend({}, this.curQuest);
-            this.questHistory.push(quest);
-            if(this.questHistory.length > 5){
-                this.ClearQuest(this.questHistory[0]);
-                this.questHistory.shift();
+            this.history.questArr.push(quest);
+            if(this.history.questArr.length > this.history.maxSize){
+                let diff = this.history.questArr.length-this.history.maxSize;
+                for(let i=0;i<diff;i++){
+                    this.ClearQuest(this.history.questArr[0]);
+                    this.history.questArr.shift();
+                }
             }
         },
         SelectQuestHistory: function(i){
-            let item = this.questHistory[i];
+            let item = this.history.questArr[i];
             this.curQuest.index = -1;
             this.curQuest.quest = item.quest;
             this.ZoomToBBox(this.curQuest.quest.bbox);
-            this.logicTopo.curKind = item.quest.quest.curKind;
+            this.logicTopo.curKind = item.quest.quest.targetKind;
             this.LoadQuest();
         }
     }

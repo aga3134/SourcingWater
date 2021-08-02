@@ -37,19 +37,31 @@
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseOptionPanel();">
                 <div class="container">
                     <div class="title">圖層選項</div>
-                    <div class="bt" @click="ShowAllBasin();">選擇流域</div>
-                    <div class="option-item" v-if="layer.rainStation">
-                        <input type="checkbox" v-model="layer.rainStation.show" @change="UpdateLayer();">
-                        <div class="item-label">顯示雨量站</div>
-                    </div>
-                    <div class="option-item" v-if="layer.floodStation">
-                        <input type="checkbox" v-model="layer.floodStation.show" @change="UpdateLayer();">
-                        <div class="item-label">顯示淹水測站</div>
+                    <div class="content-block">
+                        <div class="bt" @click="ShowAllBasin();">選擇流域</div>
+                        <div class="option-item" v-if="layer.rainStation">
+                            <input type="checkbox" v-model="layer.rainStation.show" @change="UpdateLayer();">
+                            <div class="item-label">顯示雨量站</div>
+                        </div>
+                        <div class="option-item" v-if="layer.floodStation">
+                            <input type="checkbox" v-model="layer.floodStation.show" @change="UpdateLayer();">
+                            <div class="item-label">顯示淹水測站</div>
+                        </div>
                     </div>
 
                     <div class="quest-history">
                         <div class="title">回溯探索</div>
-                        <div class="quest" v-for="(q,i) in questHistory" @click="SelectQuestHistory(i)">[[q.quest.quest.curKind]] - [[q.quest.quest.name]]</div>
+                        <div class="content-block">
+                            <div class="option-item">
+                                <div class="item-label">最大數量</div>
+                                <input type="number" v-model="history.maxSize" min=0 max=20>
+                            </div>
+                            <div class="quest-item" v-for="(q,i) in history.questArr" @click="SelectQuestHistory(i)">
+                                <div class="quest-content">
+                                    [[i+1]]. [[q.quest.quest.curKind]]-[[q.quest.quest.name]]-[[q.quest.nodeName]]
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +71,9 @@
                 <div class="container">
                     <div class="title">追本溯源</div>
                     <div class="sub-title" v-if="logicTopo && curQuest && curQuest.quest">[[logicTopo.curKind]]:[[curQuest.quest.nodeName]]</div>
-                    <div class="quest" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">[[i+1]]. [[q.name]]</div>
+                    <div class="quest-item" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">
+                        <div class="quest-content">[[i+1]]. [[q.name]]</div>
+                    </div>
                 </div>
             </div>
 

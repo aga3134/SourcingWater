@@ -122,12 +122,13 @@ html, body {
 .sourcing-water .left-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  overflow: auto;
+  border-radius: 0px 5px 5px 0px;
   top: 0px;
   left: -250px;
   width: 250px;
@@ -158,19 +159,35 @@ html, body {
   padding: 5px 10px;
 }
 
-.sourcing-water .left-panel .container .quest {
-  padding: 5px 10px;
-  font-size: 1.1em;
+.sourcing-water .left-panel .container .content-block {
+  margin: 10px 0px;
 }
 
-.sourcing-water .left-panel .container .quest:hover {
+.sourcing-water .left-panel .container .quest-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 5px 10px;
+}
+
+.sourcing-water .left-panel .container .quest-item:hover {
   border-radius: 5px;
   border: 1px solid #333333;
   cursor: pointer;
 }
 
-.sourcing-water .left-panel .container .quest.selected {
+.sourcing-water .left-panel .container .quest-item.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .left-panel .container .quest-item .quest-content {
+  font-size: 1.1em;
 }
 
 .sourcing-water .left-panel .container .bt {
@@ -198,6 +215,7 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 5px;
 }
 
 .sourcing-water .left-panel .container .option-item input[type="checkbox"] {
@@ -228,12 +246,13 @@ html, body {
 .sourcing-water .right-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  overflow: auto;
+  border-radius: 5px 0px 0px 5px;
   top: 0px;
   right: -250px;
   width: 250px;
@@ -264,19 +283,35 @@ html, body {
   padding: 5px 10px;
 }
 
-.sourcing-water .right-panel .container .quest {
-  padding: 5px 10px;
-  font-size: 1.1em;
+.sourcing-water .right-panel .container .content-block {
+  margin: 10px 0px;
 }
 
-.sourcing-water .right-panel .container .quest:hover {
+.sourcing-water .right-panel .container .quest-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 5px 10px;
+}
+
+.sourcing-water .right-panel .container .quest-item:hover {
   border-radius: 5px;
   border: 1px solid #333333;
   cursor: pointer;
 }
 
-.sourcing-water .right-panel .container .quest.selected {
+.sourcing-water .right-panel .container .quest-item.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .right-panel .container .quest-item .quest-content {
+  font-size: 1.1em;
 }
 
 .sourcing-water .right-panel .container .bt {
@@ -304,6 +339,7 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 5px;
 }
 
 .sourcing-water .right-panel .container .option-item input[type="checkbox"] {
@@ -334,12 +370,13 @@ html, body {
 .sourcing-water .bottom-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  overflow: auto;
+  border-radius: 5px 5px 0px 0px;
   bottom: -350px;
   left: 0px;
   width: 100%;
@@ -370,19 +407,35 @@ html, body {
   padding: 5px 10px;
 }
 
-.sourcing-water .bottom-panel .container .quest {
-  padding: 5px 10px;
-  font-size: 1.1em;
+.sourcing-water .bottom-panel .container .content-block {
+  margin: 10px 0px;
 }
 
-.sourcing-water .bottom-panel .container .quest:hover {
+.sourcing-water .bottom-panel .container .quest-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 5px 10px;
+}
+
+.sourcing-water .bottom-panel .container .quest-item:hover {
   border-radius: 5px;
   border: 1px solid #333333;
   cursor: pointer;
 }
 
-.sourcing-water .bottom-panel .container .quest.selected {
+.sourcing-water .bottom-panel .container .quest-item.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .bottom-panel .container .quest-item .quest-content {
+  font-size: 1.1em;
 }
 
 .sourcing-water .bottom-panel .container .bt {
@@ -410,6 +463,7 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 5px;
 }
 
 .sourcing-water .bottom-panel .container .option-item input[type="checkbox"] {
@@ -440,12 +494,13 @@ html, body {
 .sourcing-water .full-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  overflow: auto;
+  border-radius: 5px;
   left: 0px;
   top: 0px;
   margin: 10px;
@@ -477,19 +532,35 @@ html, body {
   padding: 5px 10px;
 }
 
-.sourcing-water .full-panel .container .quest {
-  padding: 5px 10px;
-  font-size: 1.1em;
+.sourcing-water .full-panel .container .content-block {
+  margin: 10px 0px;
 }
 
-.sourcing-water .full-panel .container .quest:hover {
+.sourcing-water .full-panel .container .quest-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 5px 10px;
+}
+
+.sourcing-water .full-panel .container .quest-item:hover {
   border-radius: 5px;
   border: 1px solid #333333;
   cursor: pointer;
 }
 
-.sourcing-water .full-panel .container .quest.selected {
+.sourcing-water .full-panel .container .quest-item.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .full-panel .container .quest-item .quest-content {
+  font-size: 1.1em;
 }
 
 .sourcing-water .full-panel .container .bt {
@@ -517,6 +588,7 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 5px;
 }
 
 .sourcing-water .full-panel .container .option-item input[type="checkbox"] {
@@ -543,12 +615,12 @@ html, body {
 .sourcing-water .player-panel {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  overflow: auto;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -581,19 +653,35 @@ html, body {
   padding: 5px 10px;
 }
 
-.sourcing-water .player-panel .container .quest {
-  padding: 5px 10px;
-  font-size: 1.1em;
+.sourcing-water .player-panel .container .content-block {
+  margin: 10px 0px;
 }
 
-.sourcing-water .player-panel .container .quest:hover {
+.sourcing-water .player-panel .container .quest-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 5px 10px;
+}
+
+.sourcing-water .player-panel .container .quest-item:hover {
   border-radius: 5px;
   border: 1px solid #333333;
   cursor: pointer;
 }
 
-.sourcing-water .player-panel .container .quest.selected {
+.sourcing-water .player-panel .container .quest-item.selected {
   background-color: #cccccc;
+}
+
+.sourcing-water .player-panel .container .quest-item .quest-content {
+  font-size: 1.1em;
 }
 
 .sourcing-water .player-panel .container .bt {
@@ -621,6 +709,7 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 5px;
 }
 
 .sourcing-water .player-panel .container .option-item input[type="checkbox"] {

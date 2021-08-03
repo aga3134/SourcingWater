@@ -59,3 +59,5 @@ class LogicTopoController():
             ltww = LogicTopoWaterwork()
             if transfer == "取水口為何":
                 return ltww.FindWaterinByID(param)
+            if transfer == "淨水場水質":
+                return ltww.FindWaterworkQuality(param)

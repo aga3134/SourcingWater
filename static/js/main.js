@@ -191,6 +191,7 @@ let g_APP = new Vue({
         },
         LoadQuest: function(){
             let transfer = this.logicTopo.transfer[this.logicTopo.curKind];
+            if(!transfer) return;
             //console.log(transfer);
             this.questArr = [];
             for(let i=0;i<transfer.length;i++){
@@ -204,28 +205,27 @@ let g_APP = new Vue({
                     "name": t["類別情境與問題"],
                     "class":t["quest_class"]?t["quest_class"]:"BaseQuest",
                     "geomUrl": geomUrl,
-                    "chartUrl":"",
                     "targetKind": t["to_類別"]
                 });
             }
         },
-        ZoomToBBox: function(bbox){
-            if(bbox){
+        ZoomToBBox: function(quest){
+            if(quest.bbox && quest.zoomToBBox){
                 //若bbox範圍太小就用zoom數值控制範圍
                 let thresh = 0.001;
-                if(Math.abs(bbox[0]-bbox[2]) < thresh && Math.abs(bbox[1]-bbox[3]) < thresh){
+                if(Math.abs(quest.bbox[0]-quest.bbox[2]) < thresh && Math.abs(quest.bbox[1]-quest.bbox[3]) < thresh){
                     this.map.flyTo({
                         center: [
-                            (bbox[0]+bbox[2])*0.5,
-                            (bbox[1]+bbox[3])*0.5
+                            (quest.bbox[0]+quest.bbox[2])*0.5,
+                            (quest.bbox[1]+quest.bbox[3])*0.5
                         ],
                         zoom: 15
                     });
                 }
                 else{
                     this.map.fitBounds([
-                        [bbox[0],bbox[1]],
-                        [bbox[2],bbox[3]]
+                        [quest.bbox[0],quest.bbox[1]],
+                        [quest.bbox[2],quest.bbox[3]]
                     ]);
                 }
             }
@@ -235,7 +235,7 @@ let g_APP = new Vue({
             this.questArr = [];
             this.layer.basin.show = true;
             this.UpdateLayer();
-            this.ZoomToBBox(this.layer.basin.bbox);
+            this.ZoomToBBox(this.layer.basin);
             toastr.info("請點選要探索的流域");
         },
         SelectBasin: function(name){
@@ -304,6 +304,9 @@ let g_APP = new Vue({
                 "map": this.map,
                 "quest": quest
             };
+            if(this.curQuest.quest){
+                this.curQuest.quest.Stop();
+            }
             this.curQuest.quest = new g_QuestClass[quest.class](param);
             this.curQuest.quest.Init(() => {
                 this.UpdateQuestHistory();
@@ -312,7 +315,7 @@ let g_APP = new Vue({
                     this.logicTopo.curKind = quest.targetKind;
                 }
                 this.logicTopo.nodeID = this.curQuest.quest.nodeID;
-                this.ZoomToBBox(this.curQuest.quest.bbox);
+                this.ZoomToBBox(this.curQuest.quest);
                 this.LoadQuest();
             });
             
@@ -330,11 +333,16 @@ let g_APP = new Vue({
         },
         SelectQuestHistory: function(i){
             let item = this.history.questArr[i];
+            if(this.curQuest.quest){
+                this.curQuest.quest.Stop();
+            }
             this.curQuest.index = -1;
             this.curQuest.quest = item.quest;
-            this.ZoomToBBox(this.curQuest.quest.bbox);
-            this.logicTopo.curKind = item.quest.quest.targetKind;
-            this.LoadQuest();
+            this.curQuest.quest.Init(() => {
+                this.ZoomToBBox(this.curQuest.quest);
+                this.logicTopo.curKind = item.quest.quest.targetKind;
+                this.LoadQuest();
+            });
         }
     }
 });

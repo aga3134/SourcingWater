@@ -6,6 +6,7 @@ class TracePathQuest extends BaseQuest{
         this.displayPath = [];
         this.displayIndex = 0;
         this.timer = null;
+        this.zoomToBBox = false;
     }
 
     Init(callback){

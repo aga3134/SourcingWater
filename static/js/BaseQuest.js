@@ -10,31 +10,47 @@ class BaseQuest extends BaseLayer{
     }
 
     Init(callback){
-        let promiseArr = [];
-        promiseArr.push(new Promise((resolve,reject) => {
+        let result = []
+        let p = new Promise((resolve,reject) => {
             this.LoadData(this.quest.geomUrl,resolve);
-        }));
-        promiseArr.push(new Promise((resolve,reject) => {
-            this.LoadChart(this.quest.chartUrl,resolve);
-        }));
-        Promise.all(promiseArr).then((values) => {
-            let dataResult = values[0];
-            this.nodeID = dataResult.nodeID;        //用來取資料庫資料
-            this.nodeName = dataResult.nodeName;    //用來顯示
-            this.setting = dataResult.setting;      //不同display_class會有不同的setting
-            if(callback) callback(values);
+        }).then((value) => {
+            this.nodeID = value.nodeID;        //用來取資料庫資料
+            this.nodeName = value.nodeName;    //用來顯示
+            this.setting = value.setting;      //不同display_class會有不同的setting
+            if(value.chart) this.ShowChart(value.chart);
+            if(callback) callback(result);
         });
     }
 
-    ClearAll(){
-        super.ClearAll();
-        //clear chart
+    ClearChart(){
+        
+    }
+
+    ShowChart(chart){
+        this.ClearChart();
+        var options = {
+            chart: {
+                type: 'line'
+            },
+            series: [{
+                name: 'sales',
+                data: [30,40,35,50,49,60,70,91,125]
+            }],
+            xaxis: {
+                categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+            }
+        }
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+        g_APP.OpenChartPanel();
+    }
+
+    Start(){
 
     }
 
-    LoadChart(url,callback){
-        let result = [];
-        if(callback) callback(result);
+    Stop(){
+        
     }
 }
 

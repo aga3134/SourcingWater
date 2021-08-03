@@ -40,3 +40,14 @@ class LogicTopoWaterwork():
             "nodeName":row["title"],
             "data":[row]
         }
+
+    def FindWaterworkQuality(self,param):
+        print(param)
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        return {
+            "chart":[
+                {"title":"水質", "data":[]},
+            ]
+        }

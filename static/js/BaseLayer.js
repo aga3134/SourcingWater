@@ -7,6 +7,7 @@ class BaseLayer{
         this.sourceHash = {};
         this.layerHash = {};
         this.bbox = null;
+        this.zoomToBBox = true;
         this.uuid = uuidv4();
         this.data = null;
         this.layerName = "";
@@ -147,7 +148,6 @@ class BaseLayer{
     }
 
     ClearAll(){
-        //clear data
         for(let key in this.layerHash){
             this.map.removeLayer(this.layerHash[key].name);
         }

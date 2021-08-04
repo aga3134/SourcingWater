@@ -1,0 +1,14 @@
+{
+    "sessionKey": "YOUR_SESSION_KEY",
+    "mapbox":{
+        "accessToken":"YOUR_MAPBOX_ACCESS_TOKEN"
+    },
+    "postgres":{
+        "user": "YOUR_DATABASE_USER_NAME",
+        "password": "YOUR_DATABASE_PASSWORK",
+        "host": "localhost",
+        "port": 5432,
+        "db": "YOUR_DATABASE_NAME"
+    },
+    "version": "1.0.0"
+}

@@ -17,7 +17,7 @@ class BaseQuest extends BaseLayer{
             this.nodeID = value.nodeID;        //用來取資料庫資料
             this.nodeName = value.nodeName;    //用來顯示
             this.setting = value.setting;      //不同display_class會有不同的setting
-            if(value.chart) this.ShowChart(value.chart);
+            if(value.chartArr) this.ShowChart(value.chartArr);
             if(callback) callback(result);
         });
     }
@@ -26,23 +26,22 @@ class BaseQuest extends BaseLayer{
         
     }
 
-    ShowChart(chart){
+    ShowChart(chartArr){
         this.ClearChart();
-        var options = {
-            chart: {
-                type: 'line'
-            },
-            series: [{
-                name: 'sales',
-                data: [30,40,35,50,49,60,70,91,125]
-            }],
-            xaxis: {
-                categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+        g_APP.chartArr = chartArr;
+        Vue.nextTick(() => {
+            for(let i=0;i<chartArr.length;i++){
+                let chartData = chartArr[i];
+                let id = "chart"+i;
+                let param = {
+                    "id": id,
+                    "option": chartData.option,
+                }
+                let chart = new BaseChart(param);
+                chart.Init();
             }
-        }
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-        g_APP.OpenChartPanel();
+            g_APP.OpenChartPanel();
+        });
     }
 
     Start(){

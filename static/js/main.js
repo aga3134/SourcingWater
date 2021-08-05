@@ -32,7 +32,8 @@ let g_APP = new Vue({
             basin: null,
             rainStation: null,
             floodStation: null
-        }
+        },
+        chartArr:[]
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
     created: function(){

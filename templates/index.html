@@ -79,7 +79,7 @@
 
             <div class="bottom-panel" :class="{open: openChartPanel}">
                 <div class="chart-container">
-                    <div class="chart" id="chart"></div>
+                    <div v-for="(chart,i) in chartArr" class="chart" :id="'chart'+i"></div>
                 </div>
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseChartPanel();">
             </div>
@@ -111,6 +111,7 @@
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="static/js/BaseLayer.js?v={{config.version}}"></script>
+        <script src="static/js/BaseChart.js?v={{config.version}}"></script>
         <script src="static/js/BaseQuest.js?v={{config.version}}"></script>
         <script src="static/js/TracePathQuest.js?v={{config.version}}"></script>
         <script src="static/js/main.js?v={{config.version}}"></script>

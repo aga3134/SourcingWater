@@ -31,3 +31,12 @@ def MergeRowsToGeoJson(rows,idKey="",geomKey="geom",skipArr=[]):
         f["properties"] = p
         geom["features"].append(f)
     return geom
+
+def ToFloat(s):
+    try:
+        if isinstance(s, float) or isinstance(s, int):
+            return float(s)
+        else:
+            return float(s.replace(",",""))
+    except ValueError:
+        return float('NaN')

@@ -178,8 +178,10 @@ $vue-transition: 0.5s;
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
+            flex-wrap: wrap;
             padding: 10px;
             .chart{
+                margin: 10px;
                 width: 400px;
             }
         }

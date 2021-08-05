@@ -1,7 +1,10 @@
 from sqlalchemy.sql.functions import func
 from model.db import db
 import json
-from controller.util import DictToGeoJsonProp
+from controller.util import DictToGeoJsonProp,ToFloat
+import datetime
+from dateutil.relativedelta import *
+import math
 
 class LogicTopoWaterwork():
     def FindWaterinByID(self,param):
@@ -46,8 +49,70 @@ class LogicTopoWaterwork():
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
+
+        sql = "select max(CAST(\"CKDATE\" as date)) as date from e_waterwork_q where \"PLANT\"='%s';" % nodeID
+        endD = db.engine.execute(sql).first()
+        if endD is None:
+            return {"error": "無水質資料"}
+        endD = dict(endD)["date"]
+        startD = endD + relativedelta(years=-1)
+
+        sql = "select \"ITEM\",CAST(\"CKDATE\" as date) as date,\"ITEMVAL\" from e_waterwork_q where \"PLANT\"='%s' and CAST(\"CKDATE\" as date) >= '%s' and CAST(\"CKDATE\" as date) <= '%s' order by CAST(\"CKDATE\" as date);" % (nodeID,startD,endD)
+        rows = db.engine.execute(sql)
+        data = {}
+        for row in rows:
+            d = dict(row)
+            if d["ITEM"] not in data:
+                data[d["ITEM"]] = []
+            value = ToFloat(d["ITEMVAL"])
+            #nan轉成json時會錯誤，暫時設為-1
+            if math.isnan(value):
+                value = -1
+            data[d["ITEM"]].append({
+                "x": datetime.datetime.strftime(d["date"],"%Y-%m-%d"),
+                "y": value
+            })
+
+        chartArr = []
+        for key in data:
+            d = data[key]
+            chartArr.append({
+                "option":{
+                    "series": [{
+                        "name": key,
+                        "data": d
+                    }],
+                    "chart": {
+                        "width": "100%",
+                        "type": 'line',
+                        "zoom": {
+                            "enabled": False
+                        }
+                    },
+                    "dataLabels": {
+                        "enabled": False
+                    },
+                    "stroke": {
+                        "curve": 'straight'
+                    },
+                    "title": {
+                        "text": key,
+                        "align": 'left'
+                    },
+                    "grid": {
+                        "row": {
+                            "colors": ['#f3f3f3', 'transparent'],
+                            "opacity": 0.5
+                        },
+                    },
+                    "xaxis": {
+                        "type": "datetime",
+                    }
+                }
+            })
+
         return {
-            "chart":[
-                {"title":"水質", "data":[]},
-            ]
+            "nodeID":nodeID,
+            "nodeName":nodeID,
+            "chartArr": chartArr
         }

@@ -249,10 +249,13 @@ html, body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 10px;
 }
 
 .sourcing-water .left-panel .chart-container .chart {
+  margin: 10px;
   width: 400px;
 }
 
@@ -390,10 +393,13 @@ html, body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 10px;
 }
 
 .sourcing-water .right-panel .chart-container .chart {
+  margin: 10px;
   width: 400px;
 }
 
@@ -531,10 +537,13 @@ html, body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 10px;
 }
 
 .sourcing-water .bottom-panel .chart-container .chart {
+  margin: 10px;
   width: 400px;
 }
 
@@ -673,10 +682,13 @@ html, body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 10px;
 }
 
 .sourcing-water .full-panel .chart-container .chart {
+  margin: 10px;
   width: 400px;
 }
 
@@ -811,10 +823,13 @@ html, body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 10px;
 }
 
 .sourcing-water .player-panel .chart-container .chart {
+  margin: 10px;
   width: 400px;
 }
 

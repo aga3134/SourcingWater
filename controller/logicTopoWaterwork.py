@@ -65,9 +65,9 @@ class LogicTopoWaterwork():
             if d["ITEM"] not in data:
                 data[d["ITEM"]] = []
             value = ToFloat(d["ITEMVAL"])
-            #nan轉成json時會錯誤，暫時設為-1
+            #nan轉成json時會錯誤，設為None
             if math.isnan(value):
-                value = -1
+                value = None
             data[d["ITEM"]].append({
                 "x": datetime.datetime.strftime(d["date"],"%Y-%m-%d"),
                 "y": value

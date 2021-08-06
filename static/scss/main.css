@@ -127,7 +127,6 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
-  overflow: auto;
   border-radius: 0px 5px 5px 0px;
   top: 0px;
   left: -250px;
@@ -140,8 +139,14 @@ html, body {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  right: 5px;
-  top: 5px;
+  right: 15px;
+  top: 10px;
+}
+
+.sourcing-water .left-panel .content-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .sourcing-water .left-panel .container {
@@ -293,14 +298,17 @@ html, body {
 .sourcing-water .left-panel .action-container .action-bt .icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
 }
 
-.sourcing-water .left-panel .action-container .action-bt .icon:hover {
-  border: 1px solid #333333;
+.sourcing-water .left-panel .action-container .action-bt.enable {
+  cursor: pointer;
+}
+
+.sourcing-water .left-panel .action-container .action-bt.enable:hover {
+  background-color: #cccccc;
 }
 
 .sourcing-water .left-panel .chart-container {
@@ -335,7 +343,6 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
-  overflow: auto;
   border-radius: 5px 0px 0px 5px;
   top: 0px;
   right: -250px;
@@ -348,8 +355,14 @@ html, body {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  right: 5px;
-  top: 5px;
+  right: 15px;
+  top: 10px;
+}
+
+.sourcing-water .right-panel .content-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .sourcing-water .right-panel .container {
@@ -501,14 +514,17 @@ html, body {
 .sourcing-water .right-panel .action-container .action-bt .icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
 }
 
-.sourcing-water .right-panel .action-container .action-bt .icon:hover {
-  border: 1px solid #333333;
+.sourcing-water .right-panel .action-container .action-bt.enable {
+  cursor: pointer;
+}
+
+.sourcing-water .right-panel .action-container .action-bt.enable:hover {
+  background-color: #cccccc;
 }
 
 .sourcing-water .right-panel .chart-container {
@@ -543,7 +559,6 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
-  overflow: auto;
   border-radius: 5px 5px 0px 0px;
   bottom: -300px;
   left: 0px;
@@ -556,8 +571,14 @@ html, body {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  right: 5px;
-  top: 5px;
+  right: 15px;
+  top: 10px;
+}
+
+.sourcing-water .bottom-panel .content-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .sourcing-water .bottom-panel .container {
@@ -709,14 +730,17 @@ html, body {
 .sourcing-water .bottom-panel .action-container .action-bt .icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
 }
 
-.sourcing-water .bottom-panel .action-container .action-bt .icon:hover {
-  border: 1px solid #333333;
+.sourcing-water .bottom-panel .action-container .action-bt.enable {
+  cursor: pointer;
+}
+
+.sourcing-water .bottom-panel .action-container .action-bt.enable:hover {
+  background-color: #cccccc;
 }
 
 .sourcing-water .bottom-panel .chart-container {
@@ -751,7 +775,6 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
-  overflow: auto;
   border-radius: 5px;
   left: 0px;
   top: 0px;
@@ -765,8 +788,14 @@ html, body {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  right: 5px;
-  top: 5px;
+  right: 15px;
+  top: 10px;
+}
+
+.sourcing-water .full-panel .content-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .sourcing-water .full-panel .container {
@@ -918,14 +947,17 @@ html, body {
 .sourcing-water .full-panel .action-container .action-bt .icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
 }
 
-.sourcing-water .full-panel .action-container .action-bt .icon:hover {
-  border: 1px solid #333333;
+.sourcing-water .full-panel .action-container .action-bt.enable {
+  cursor: pointer;
+}
+
+.sourcing-water .full-panel .action-container .action-bt.enable:hover {
+  background-color: #cccccc;
 }
 
 .sourcing-water .full-panel .chart-container {
@@ -956,7 +988,6 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
-  overflow: auto;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -970,8 +1001,14 @@ html, body {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  right: 5px;
-  top: 5px;
+  right: 15px;
+  top: 10px;
+}
+
+.sourcing-water .player-panel .content-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .sourcing-water .player-panel .container {
@@ -1123,14 +1160,17 @@ html, body {
 .sourcing-water .player-panel .action-container .action-bt .icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
 }
 
-.sourcing-water .player-panel .action-container .action-bt .icon:hover {
-  border: 1px solid #333333;
+.sourcing-water .player-panel .action-container .action-bt.enable {
+  cursor: pointer;
+}
+
+.sourcing-water .player-panel .action-container .action-bt.enable:hover {
+  background-color: #cccccc;
 }
 
 .sourcing-water .player-panel .chart-container {

@@ -224,19 +224,83 @@ html, body {
 }
 
 .sourcing-water .left-panel .container .quest-history {
+  overflow-x: auto;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table thead {
+  background-color: #cccccc;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table td {
+  padding: 5px;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table .history-row {
+  cursor: pointer;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table .history-row:nth-child(even) {
+  background-color: #eeeeee;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table .history-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table .history-row:hover {
+  background-color: #ffffcc;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table .history-row.selected {
+  background-color: #f0d5c2;
+}
+
+.sourcing-water .left-panel .action-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .left-panel .action-container .action-bt {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .left-panel .action-container .action-bt .icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sourcing-water .left-panel .action-container .action-bt .icon:hover {
+  border: 1px solid #333333;
 }
 
 .sourcing-water .left-panel .chart-container {
@@ -368,19 +432,83 @@ html, body {
 }
 
 .sourcing-water .right-panel .container .quest-history {
+  overflow-x: auto;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table thead {
+  background-color: #cccccc;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table td {
+  padding: 5px;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table .history-row {
+  cursor: pointer;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table .history-row:nth-child(even) {
+  background-color: #eeeeee;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table .history-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table .history-row:hover {
+  background-color: #ffffcc;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table .history-row.selected {
+  background-color: #f0d5c2;
+}
+
+.sourcing-water .right-panel .action-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .right-panel .action-container .action-bt {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .right-panel .action-container .action-bt .icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sourcing-water .right-panel .action-container .action-bt .icon:hover {
+  border: 1px solid #333333;
 }
 
 .sourcing-water .right-panel .chart-container {
@@ -512,19 +640,83 @@ html, body {
 }
 
 .sourcing-water .bottom-panel .container .quest-history {
+  overflow-x: auto;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table thead {
+  background-color: #cccccc;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table td {
+  padding: 5px;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row {
+  cursor: pointer;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row:nth-child(even) {
+  background-color: #eeeeee;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row:hover {
+  background-color: #ffffcc;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row.selected {
+  background-color: #f0d5c2;
+}
+
+.sourcing-water .bottom-panel .action-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .bottom-panel .action-container .action-bt {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .bottom-panel .action-container .action-bt .icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sourcing-water .bottom-panel .action-container .action-bt .icon:hover {
+  border: 1px solid #333333;
 }
 
 .sourcing-water .bottom-panel .chart-container {
@@ -657,19 +849,83 @@ html, body {
 }
 
 .sourcing-water .full-panel .container .quest-history {
+  overflow-x: auto;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table thead {
+  background-color: #cccccc;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table td {
+  padding: 5px;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table .history-row {
+  cursor: pointer;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table .history-row:nth-child(even) {
+  background-color: #eeeeee;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table .history-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table .history-row:hover {
+  background-color: #ffffcc;
+}
+
+.sourcing-water .full-panel .container .quest-history .history-table .history-row.selected {
+  background-color: #f0d5c2;
+}
+
+.sourcing-water .full-panel .action-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .full-panel .action-container .action-bt {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .full-panel .action-container .action-bt .icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sourcing-water .full-panel .action-container .action-bt .icon:hover {
+  border: 1px solid #333333;
 }
 
 .sourcing-water .full-panel .chart-container {
@@ -798,19 +1054,83 @@ html, body {
 }
 
 .sourcing-water .player-panel .container .quest-history {
+  overflow-x: auto;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table thead {
+  background-color: #cccccc;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table td {
+  padding: 5px;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row {
+  cursor: pointer;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row:nth-child(even) {
+  background-color: #eeeeee;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row:hover {
+  background-color: #ffffcc;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row.selected {
+  background-color: #f0d5c2;
+}
+
+.sourcing-water .player-panel .action-container {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .player-panel .action-container .action-bt {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .player-panel .action-container .action-bt .icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sourcing-water .player-panel .action-container .action-bt .icon:hover {
+  border: 1px solid #333333;
 }
 
 .sourcing-water .player-panel .chart-container {

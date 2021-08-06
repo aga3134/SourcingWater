@@ -20,7 +20,8 @@ let g_APP = new Vue({
         },
         history:{
             maxSize:  5,
-            questArr:[]
+            questArr:[],
+            index:-1
         },
         player:{
             isPlay: false,
@@ -313,7 +314,7 @@ let g_APP = new Vue({
                 this.UpdateQuestHistory();
                 if(this.logicTopo.curKind != quest.targetKind){
                     this.curQuest.index = -1;
-                    this.logicTopo.curKind = quest.targetKind;
+                    if(quest.targetKind != null) this.logicTopo.curKind = quest.targetKind;
                 }
                 this.logicTopo.nodeID = this.curQuest.quest.nodeID;
                 this.ZoomToBBox(this.curQuest.quest);
@@ -331,8 +332,10 @@ let g_APP = new Vue({
                     this.history.questArr.shift();
                 }
             }
+            this.history.index = this.history.questArr.length-1;
         },
         SelectQuestHistory: function(i){
+            this.history.index = i;
             let item = this.history.questArr[i];
             if(this.curQuest.quest){
                 this.curQuest.quest.Stop();
@@ -340,8 +343,9 @@ let g_APP = new Vue({
             this.curQuest.index = -1;
             this.curQuest.quest = item.quest;
             this.curQuest.quest.Init(() => {
+                this.logicTopo.nodeID = this.curQuest.quest.nodeID;
                 this.ZoomToBBox(this.curQuest.quest);
-                this.logicTopo.curKind = item.quest.quest.targetKind;
+                this.logicTopo.curKind = item.quest.quest.targetKind==null?item.quest.quest.curKind:item.quest.quest.targetKind;
                 this.LoadQuest();
             });
         }

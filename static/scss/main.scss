@@ -168,10 +168,59 @@ $vue-transition: 0.5s;
                 }
             }
             .quest-history{
+                overflow-x: auto;
+                .history-table{
+                    width: 100%;
+                    border-collapse:collapse;
+                    thead{
+                        background-color: #cccccc;
+                    }
+                    td{
+                        padding: 5px;
+                    }
+                    .history-row{
+                        cursor: pointer;
+                        &:nth-child(even){
+                            background-color: #eeeeee;
+                        }
+                        &:nth-child(odd){
+                            background-color: #ffffff;
+                        }
+                        &:hover{
+                            background-color: #ffffcc;
+                        }
+                        &.selected{
+                            background-color: #f0d5c2;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        .action-container{
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            border-top: 1px solid #333333;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            .action-bt{
+                flex-grow: 1;
                 display: flex;
-                justify-content: flex-start;
-                align-items: flex-start;
-                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .icon{
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    margin: 5px;
+                    padding: 5px;
+                    border-radius: 5px;
+                    &:hover{
+                        border: 1px solid #333333;
+                    }
+                }
             }
         }
         .chart-container{

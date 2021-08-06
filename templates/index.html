@@ -56,11 +56,18 @@
                                 <div class="item-label">最大數量</div>
                                 <input type="number" v-model="history.maxSize" min=0 max=20>
                             </div>
-                            <div class="quest-item" v-for="(q,i) in history.questArr" @click="SelectQuestHistory(i)">
-                                <div class="quest-content">
-                                    [[i+1]]. [[q.quest.quest.curKind]]-[[q.quest.quest.name]]-[[q.quest.nodeName]]
-                                </div>
-                            </div>
+                            <table class="history-table">
+                                <thead>
+                                    <th></th>
+                                    <th>探索</th>
+                                    <th>目標</th>
+                                </thead>
+                                <tr class="history-row" :class="{selected: history.index==i}" v-for="(q,i) in history.questArr" @click="SelectQuestHistory(i)">
+                                    <td>[[i+1]]</td>
+                                    <td>[[q.quest.quest.name]]</td>
+                                    <td>[[q.quest.nodeName]]</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -73,6 +80,16 @@
                     <div class="sub-title" v-if="logicTopo && curQuest && curQuest.quest">[[logicTopo.curKind]]:[[curQuest.quest.nodeName]]</div>
                     <div class="quest-item" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">
                         <div class="quest-content">[[i+1]]. [[q.name]]</div>
+                    </div>
+                </div>
+                <div class="action-container">
+                    <div class="action-bt">
+                        <img class="icon" v-if="history.index>0" title="上一頁" src="static/image/icon-prev.png" @click="SelectQuestHistory(history.index-1);">
+                        <img class="icon" v-else src="static/image/icon-prev-disable.png">
+                    </div>
+                    <div class="action-bt">
+                        <img class="icon" v-if="history.index<history.questArr.length-1" title="下一頁" src="static/image/icon-next.png" @click="SelectQuestHistory(history.index+1);">
+                        <img class="icon" v-else src="static/image/icon-next-disable.png">
                     </div>
                 </div>
             </div>

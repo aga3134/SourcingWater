@@ -45,19 +45,19 @@ class LogicTopoWaterwork():
         }
 
     def FindWaterworkQuality(self,param):
-        print(param)
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
 
-        sql = "select max(CAST(\"CKDATE\" as date)) as date from e_waterwork_q where \"PLANT\"='%s';" % nodeID
+        sql = "select max(CAST(\"CKDATE\" as date)) as date from hackathon.e_waterwork_q where \"PLANT\"='%s';" % nodeID
         endD = db.engine.execute(sql).first()
+        endD = dict(endD)["date"]
         if endD is None:
             return {"error": "無水質資料"}
-        endD = dict(endD)["date"]
         startD = endD + relativedelta(years=-1)
 
-        sql = "select \"ITEM\",CAST(\"CKDATE\" as date) as date,\"ITEMVAL\" from e_waterwork_q where \"PLANT\"='%s' and CAST(\"CKDATE\" as date) >= '%s' and CAST(\"CKDATE\" as date) <= '%s' order by CAST(\"CKDATE\" as date);" % (nodeID,startD,endD)
+        sql = "select \"ITEM\",CAST(\"CKDATE\" as date) as date,\"ITEMVAL\" from hackathon.e_waterwork_q where \"PLANT\"='%s' and CAST(\"CKDATE\" as date) >= '%s' and CAST(\"CKDATE\" as date) <= '%s' order by CAST(\"CKDATE\" as date);" % (nodeID,startD,endD)
+        #print(sql)
         rows = db.engine.execute(sql)
         data = {}
         for row in rows:

@@ -228,6 +228,11 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .left-panel .container .option-item select {
+  padding: 3px;
+  border-radius: 3px;
+}
+
 .sourcing-water .left-panel .container .quest-history {
   overflow-x: auto;
 }
@@ -444,6 +449,11 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .right-panel .container .option-item select {
+  padding: 3px;
+  border-radius: 3px;
+}
+
 .sourcing-water .right-panel .container .quest-history {
   overflow-x: auto;
 }
@@ -658,6 +668,11 @@ html, body {
 .sourcing-water .bottom-panel .container .option-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
+}
+
+.sourcing-water .bottom-panel .container .option-item select {
+  padding: 3px;
+  border-radius: 3px;
 }
 
 .sourcing-water .bottom-panel .container .quest-history {
@@ -877,6 +892,11 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .full-panel .container .option-item select {
+  padding: 3px;
+  border-radius: 3px;
+}
+
 .sourcing-water .full-panel .container .quest-history {
   overflow-x: auto;
 }
@@ -1088,6 +1108,11 @@ html, body {
 .sourcing-water .player-panel .container .option-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
+}
+
+.sourcing-water .player-panel .container .option-item select {
+  padding: 3px;
+  border-radius: 3px;
 }
 
 .sourcing-water .player-panel .container .quest-history {

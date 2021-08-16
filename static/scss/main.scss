@@ -170,6 +170,10 @@ $vue-transition: 0.5s;
                     width: 20px;
                     height: 20px;
                 }
+                select{
+                    padding: 3px;
+                    border-radius: 3px;
+                }
             }
             .quest-history{
                 overflow-x: auto;

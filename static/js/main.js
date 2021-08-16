@@ -32,8 +32,10 @@ let g_APP = new Vue({
         layer:{
             basin: null,
             rainStation: null,
-            floodStation: null
+            floodStation: null,
+            LUIMap: null
         },
+        curBasin:"",
         chartArr:[]
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
@@ -171,6 +173,9 @@ let g_APP = new Vue({
                 });
                 document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map));
 
+                this.layer.LUIMap = new LUIMapLayer({map:this.map,show:false});
+                this.layer.LUIMap.Init();
+
                 if(callback) callback();
             }.bind(this));
 
@@ -241,6 +246,8 @@ let g_APP = new Vue({
             toastr.info("請點選要探索的流域");
         },
         SelectBasin: function(name){
+            this.ClearQuestHistory();
+            this.curBasin = name;
             this.logicTopo.curKind = "流域";
             this.logicTopo.nodeID = name;
             this.LoadQuest();
@@ -333,6 +340,13 @@ let g_APP = new Vue({
                 }
             }
             this.history.index = this.history.questArr.length-1;
+        },
+        ClearQuestHistory: function(){
+            for(let i=0;i<this.history.questArr.length;i++){
+                this.ClearQuest(this.history.questArr[i]); 
+            }
+            this.history.questArr = [];
+            this.history.index = -1;
         },
         SelectQuestHistory: function(i){
             this.history.index = i;

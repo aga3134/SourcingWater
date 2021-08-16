@@ -29,7 +29,7 @@ class LogicTopoController():
         elif kind == "地點":
             return LogicTopoPlace().FindVillageByLatLng(param)
         else:
-            return {}
+            return {"error":"not implemented"}
 
     def FindNodeByTransfer(self,param):
         if not "kind" in param:
@@ -45,7 +45,7 @@ class LogicTopoController():
             elif transfer in ["主要河道","源頭到海洋路徑"]:
                 return ltb.FindMainRiverByID(param)
             else:
-                return {}
+                return {"error":"not implemented"}
         elif kind == "地點":
             ltp = LogicTopoPlace()
             if transfer == "淨水廠為何":
@@ -53,11 +53,14 @@ class LogicTopoController():
             elif transfer == "取水口為何":
                 return ltp.FindVillageWaterin(param)
             else:
-                return {}
-
+                return {"error":"not implemented"}
         elif kind == "淨水場":
             ltww = LogicTopoWaterwork()
             if transfer == "取水口為何":
                 return ltww.FindWaterinByID(param)
-            if transfer == "淨水場水質":
+            elif transfer == "淨水場水質":
                 return ltww.FindWaterworkQuality(param)
+            else:
+                return {"error":"not implemented"}
+        else:
+            return {"error":"not implemented"}

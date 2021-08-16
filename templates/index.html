@@ -48,6 +48,21 @@
                                 <input type="checkbox" v-model="layer.floodStation.show" @change="UpdateLayer();">
                                 <div class="item-label">顯示淹水測站</div>
                             </div>
+                            <div class="option-item" v-if="layer.LUIMap">
+                                <input type="checkbox" v-model="layer.LUIMap.show" @change="layer.LUIMap.Update();">
+                                <div class="item-label">國土利用</div>
+                                <select v-model="layer.LUIMap.mapName" @change="layer.LUIMap.Update();">
+                                    <option value="LUIMAP01">農業</option>
+                                    <option value="LUIMAP02">森林</option>
+                                    <option value="LUIMAP03">交通</option>
+                                    <option value="LUIMAP04">水利</option>
+                                    <option value="LUIMAP05">建築</option>
+                                    <option value="LUIMAP06">公共</option>
+                                    <option value="LUIMAP07">遊憩</option>
+                                    <option value="LUIMAP08">礦鹽</option>
+                                    <option value="LUIMAP09">其他</option>
+                                </select> 
+                            </div>
                         </div>
 
                         <div class="quest-history">
@@ -89,13 +104,16 @@
                 
                 <div class="action-container">
                     <div class="action-bt enable" v-if="history.index>0" @click="SelectQuestHistory(history.index-1);">
-                        <img class="icon"  title="上一頁" src="static/image/icon-prev.png">
+                        <img class="icon"  title="上一項" src="static/image/icon-prev.png">
                     </div>
                     <div class="action-bt" v-else>
                         <img class="icon" src="static/image/icon-prev-disable.png">
                     </div>
+                    <div class="action-bt enable" @click="SelectBasin(curBasin);">
+                        <img class="icon"  title="回流域" src="static/image/icon-home.png">
+                    </div>
                     <div class="action-bt enable" v-if="history.index<history.questArr.length-1" @click="SelectQuestHistory(history.index+1);">
-                        <img class="icon"  title="下一頁" src="static/image/icon-next.png">
+                        <img class="icon"  title="下一項" src="static/image/icon-next.png">
                     </div>
                     <div class="action-bt" v-else>
                         <img class="icon" src="static/image/icon-next-disable.png">
@@ -139,6 +157,8 @@
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="static/js/BaseLayer.js?v={{config.version}}"></script>
+        <script src="static/js/WMTSLayer.js?v={{config.version}}"></script>
+        <script src="static/js/LUIMapLayer.js?v={{config.version}}"></script>
         <script src="static/js/BaseChart.js?v={{config.version}}"></script>
         <script src="static/js/BaseQuest.js?v={{config.version}}"></script>
         <script src="static/js/TracePathQuest.js?v={{config.version}}"></script>

@@ -146,6 +146,15 @@ $vue-transition: 0.5s;
                 }
                 .quest-content{
                     font-size: 1.1em;
+                    &.status-ok{
+                        color: #000000;
+                    }
+                    &.status-demo{
+                        color: #ff9933;
+                    }
+                    &.status-no-data{
+                        color: #ff3333;
+                    }
                 }
             }
             .bt{

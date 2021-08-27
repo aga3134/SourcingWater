@@ -195,6 +195,18 @@ html, body {
   font-size: 1.1em;
 }
 
+.sourcing-water .left-panel .container .quest-item .quest-content.status-ok {
+  color: #000000;
+}
+
+.sourcing-water .left-panel .container .quest-item .quest-content.status-demo {
+  color: #ff9933;
+}
+
+.sourcing-water .left-panel .container .quest-item .quest-content.status-no-data {
+  color: #ff3333;
+}
+
 .sourcing-water .left-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -416,6 +428,18 @@ html, body {
   font-size: 1.1em;
 }
 
+.sourcing-water .right-panel .container .quest-item .quest-content.status-ok {
+  color: #000000;
+}
+
+.sourcing-water .right-panel .container .quest-item .quest-content.status-demo {
+  color: #ff9933;
+}
+
+.sourcing-water .right-panel .container .quest-item .quest-content.status-no-data {
+  color: #ff3333;
+}
+
 .sourcing-water .right-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -635,6 +659,18 @@ html, body {
 
 .sourcing-water .bottom-panel .container .quest-item .quest-content {
   font-size: 1.1em;
+}
+
+.sourcing-water .bottom-panel .container .quest-item .quest-content.status-ok {
+  color: #000000;
+}
+
+.sourcing-water .bottom-panel .container .quest-item .quest-content.status-demo {
+  color: #ff9933;
+}
+
+.sourcing-water .bottom-panel .container .quest-item .quest-content.status-no-data {
+  color: #ff3333;
 }
 
 .sourcing-water .bottom-panel .container .bt {
@@ -859,6 +895,18 @@ html, body {
   font-size: 1.1em;
 }
 
+.sourcing-water .full-panel .container .quest-item .quest-content.status-ok {
+  color: #000000;
+}
+
+.sourcing-water .full-panel .container .quest-item .quest-content.status-demo {
+  color: #ff9933;
+}
+
+.sourcing-water .full-panel .container .quest-item .quest-content.status-no-data {
+  color: #ff3333;
+}
+
 .sourcing-water .full-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -1075,6 +1123,18 @@ html, body {
 
 .sourcing-water .player-panel .container .quest-item .quest-content {
   font-size: 1.1em;
+}
+
+.sourcing-water .player-panel .container .quest-item .quest-content.status-ok {
+  color: #000000;
+}
+
+.sourcing-water .player-panel .container .quest-item .quest-content.status-demo {
+  color: #ff9933;
+}
+
+.sourcing-water .player-panel .container .quest-item .quest-content.status-no-data {
+  color: #ff3333;
 }
 
 .sourcing-water .player-panel .container .bt {

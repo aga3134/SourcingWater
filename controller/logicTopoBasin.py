@@ -36,7 +36,7 @@ class LogicTopoBasin():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
         #目前資料庫只有頭前溪主河道，先用這個測試
-        sql = "select ogc_fid,ST_AsGeoJson(wkb_geometry)::json as geom from c1300 limit 1;"
+        sql = "select ogc_fid,ST_AsGeoJson(geom)::json as geom from c1300 limit 1;"
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無主流資料"}

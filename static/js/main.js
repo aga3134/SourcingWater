@@ -203,6 +203,7 @@ let g_APP = new Vue({
             this.questArr = [];
             for(let i=0;i<transfer.length;i++){
                 let t = transfer[i];
+                //status 0:完成 1:展示 2:沒資料 3:待整理 4:發想中 5:使用者操作
                 let geomUrl = "logicTopo/findNodeByTransfer";
                 geomUrl += "?kind="+t["from_類別"];
                 geomUrl += "&transfer="+t["類別情境與問題"];
@@ -212,7 +213,8 @@ let g_APP = new Vue({
                     "name": t["類別情境與問題"],
                     "class":t["quest_class"]?t["quest_class"]:"BaseQuest",
                     "geomUrl": geomUrl,
-                    "targetKind": t["to_類別"]
+                    "targetKind": t["to_類別"],
+                    "status":t["問題狀態"]
                 });
             }
         },

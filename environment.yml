@@ -1,0 +1,28 @@
+name: sourcingwater
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.7
+  - flask
+  - Flask-SQLAlchemy
+  - GeoAlchemy2
+  - psycopg2
+  - rasterio
+  - pandas=1.0.5
+  - geopandas=0.8.1
+  - pyflwdir
+  - matplotlib
+  - odfpy
+  - requests
+  - pandasql
+  - csvkit
+  - configobj
+  - networkx
+  - cartopy
+  - descartes
+  - decorator
+  - fiona=1.8.18
+  - libcurl=7.77.0
+  - jupyter
+prefix: 

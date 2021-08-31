@@ -98,7 +98,7 @@ let g_APP = new Vue({
                         onClick: (e) => {
                             let f = e.features[0];
                             if(!f) return;
-                            this.SelectBasin(f.properties.basin_name);
+                            this.SelectBasin(f.properties.basin_id);
                         },
                     };
                     this.layer.basin = new BaseLayer(param);
@@ -124,7 +124,7 @@ let g_APP = new Vue({
                 }));
                 
                 Promise.all(promiseArr).then(() => {
-                    this.SelectBasin("頭前溪");
+                    this.SelectBasin("1300");   //頭前溪
                     this.OpenQuestPanel();
                 });
             });
@@ -173,6 +173,7 @@ let g_APP = new Vue({
                 });
                 document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map));
 
+                //國土利用圖層
                 this.layer.LUIMap = new LUIMapLayer({map:this.map,show:false});
                 this.layer.LUIMap.Init();
 
@@ -191,7 +192,7 @@ let g_APP = new Vue({
                     "name": "位於哪個里",
                     "class":"BaseQuest",
                     "geomUrl": url,
-                    "targetKind": "地點",
+                    "targetKind": "生活區域",
                 }];
                 this.SelectQuest(0);
             }.bind(this));
@@ -203,7 +204,7 @@ let g_APP = new Vue({
             this.questArr = [];
             for(let i=0;i<transfer.length;i++){
                 let t = transfer[i];
-                //status 0:完成 1:展示 2:沒資料 3:待整理 4:發想中 5:使用者操作
+                //status 0:完成 1:展示 2:沒資料 3:待整理 4:發想中
                 let geomUrl = "logicTopo/findNodeByTransfer";
                 geomUrl += "?kind="+t["from_類別"];
                 geomUrl += "&transfer="+t["類別情境與問題"];
@@ -247,11 +248,11 @@ let g_APP = new Vue({
             this.ZoomToBBox(this.layer.basin);
             toastr.info("請點選要探索的流域");
         },
-        SelectBasin: function(name){
+        SelectBasin: function(basinID){
             this.ClearQuestHistory();
-            this.curBasin = name;
+            this.curBasin = basinID;
             this.logicTopo.curKind = "流域";
-            this.logicTopo.nodeID = name;
+            this.logicTopo.nodeID = basinID;
             this.LoadQuest();
             this.SelectQuest(0);
             this.layer.basin.show = false;

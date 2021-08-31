@@ -104,6 +104,8 @@ $vue-transition: 0.5s;
         z-index: 1000;
         transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
         box-shadow: 0px 0px 5px #333333;
+        display: flex;
+        flex-direction: column;
         .close-bt{
             position: absolute;
             width: 30px;
@@ -119,6 +121,7 @@ $vue-transition: 0.5s;
         }
         .container{
             padding: 20px 10px;
+            flex-grow: 1;
             .title{
                 font-size: 1.3em;
                 padding: 5px 10px;
@@ -215,9 +218,7 @@ $vue-transition: 0.5s;
             }
         }
         .action-container{
-            position: absolute;
             width: 100%;
-            bottom: 0px;
             border-top: 1px solid #333333;
             display: flex;
             justify-content: space-around;

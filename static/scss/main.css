@@ -127,6 +127,13 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   border-radius: 0px 5px 5px 0px;
   top: 0px;
   left: -250px;
@@ -151,6 +158,9 @@ html, body {
 
 .sourcing-water .left-panel .container {
   padding: 20px 10px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .sourcing-water .left-panel .container .title {
@@ -283,9 +293,7 @@ html, body {
 }
 
 .sourcing-water .left-panel .action-container {
-  position: absolute;
   width: 100%;
-  bottom: 0px;
   border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -360,6 +368,13 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   border-radius: 5px 0px 0px 5px;
   top: 0px;
   right: -250px;
@@ -384,6 +399,9 @@ html, body {
 
 .sourcing-water .right-panel .container {
   padding: 20px 10px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .sourcing-water .right-panel .container .title {
@@ -516,9 +534,7 @@ html, body {
 }
 
 .sourcing-water .right-panel .action-container {
-  position: absolute;
   width: 100%;
-  bottom: 0px;
   border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -593,6 +609,13 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   border-radius: 5px 5px 0px 0px;
   bottom: -300px;
   left: 0px;
@@ -617,6 +640,9 @@ html, body {
 
 .sourcing-water .bottom-panel .container {
   padding: 20px 10px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .sourcing-water .bottom-panel .container .title {
@@ -749,9 +775,7 @@ html, body {
 }
 
 .sourcing-water .bottom-panel .action-container {
-  position: absolute;
   width: 100%;
-  bottom: 0px;
   border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -826,6 +850,13 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   border-radius: 5px;
   left: 0px;
   top: 0px;
@@ -851,6 +882,9 @@ html, body {
 
 .sourcing-water .full-panel .container {
   padding: 20px 10px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .sourcing-water .full-panel .container .title {
@@ -983,9 +1017,7 @@ html, body {
 }
 
 .sourcing-water .full-panel .action-container {
-  position: absolute;
   width: 100%;
-  bottom: 0px;
   border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1056,6 +1088,13 @@ html, body {
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   -webkit-box-shadow: 0px 0px 5px #333333;
           box-shadow: 0px 0px 5px #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -1081,6 +1120,9 @@ html, body {
 
 .sourcing-water .player-panel .container {
   padding: 20px 10px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .sourcing-water .player-panel .container .title {
@@ -1213,9 +1255,7 @@ html, body {
 }
 
 .sourcing-water .player-panel .action-container {
-  position: absolute;
   width: 100%;
-  bottom: 0px;
   border-top: 1px solid #333333;
   display: -webkit-box;
   display: -ms-flexbox;

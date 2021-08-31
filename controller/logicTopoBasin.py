@@ -2,13 +2,34 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp
+from waterswak.flwdir import *
+
+def load_json_local(filename):
+    data = None
+    try:
+        data_date = ""
+        with open(filename , 'r', encoding='UTF-8') as json_file:
+            data = json.load(json_file)
+            return data
+    except:
+        print("%s:%s" %(filename,"EXCEPTION!"))
+        return None
+fd=None
+
+#load cx_dict
+filename="data/catchment.json"
+data = load_json_local(filename)
+cx_dicts = {}
+for i in range(len(data)):
+    cx_dicts[data[i]['basin_id']]=data[i]
+#print(cx_dicts)
 
 class LogicTopoBasin():
     def FindBasinByID(self,param):
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
-        sql = "select basin_no,basin_name as title,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_name='%s';" % nodeID
+        sql = "select basin_no,basin_name as title,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_no='%s';" % nodeID
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無流域資料"}
@@ -24,10 +45,9 @@ class LogicTopoBasin():
                 }
             }
         ]
-
         return {
             "nodeID":nodeID,
-            "nodeName":nodeID+"流域",
+            "nodeName":row["title"]+"流域",
             "data":[row]
         }
 
@@ -41,8 +61,8 @@ class LogicTopoBasin():
         if row is None:
             return {"error": "無主流資料"}
         row = dict(row)
-        row["title"] = "頭前溪"
 
+        row["title"] = "頭前溪"
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [
             {
@@ -59,5 +79,73 @@ class LogicTopoBasin():
             "setting":{
                 "pathIndex":0
             },
+            "data":[row]
+        }
+
+    def FindStreams(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+
+        cx_dict = cx_dicts[nodeID]
+        if "sto" in param:
+            sto = param["sto"]
+        else:
+            sto = cx_dict['min_sto']
+        
+        fd = FlwDir()
+        fd.reload(cx_dict["dtm"],cx_dict["ldd"])
+        fd.init()
+
+        row = {}
+        row["title"] = cx_dict["basin_name"]+"河川細緻度"
+        row["geom"] = json.loads(fd.streams(sto))
+        for key in row["geom"]:
+            print(key)
+        row["layer"] = [
+            {
+                "type": "line",
+                "paint":{
+                    "line-color": "#f33",
+                    "line-width": 2
+                }
+            }
+        ]
+        return {
+            "nodeID":nodeID,
+            "nodeName":cx_dict["basin_name"],
+            "data":[row]
+        }
+
+    def FindSubBasins(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        
+        cx_dict = cx_dicts[nodeID]
+        if "sto" in param:
+            sto = param["sto"]
+        else:
+            sto = cx_dict['min_sto']
+        
+        fd = FlwDir()
+        fd.reload(cx_dict["dtm"],cx_dict["ldd"])
+        fd.init()
+
+        row = {}
+        row["title"] = cx_dict["basin_name"]+"流域細緻度"
+        row["geom"] = fd.subbasins_streamorder(sto)
+        row["layer"] = [
+            {
+                "type": "fill",
+                "paint":{
+                    "fill-color": "#f33",
+                    "fill-opacity": 0.5
+                }
+            }
+        ]
+        return {
+            "nodeID":nodeID,
+            "nodeName":cx_dict["basin_name"],
             "data":[row]
         }

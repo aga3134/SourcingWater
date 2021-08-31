@@ -21,7 +21,7 @@ if __name__ == "__main__":
             line=line.strip()
             cols=line.split(",")
             #預設:完成
-            color="black"
+            color="green"
             style = ""
             if cols[3]=="1": #展示
                 color="orange"
@@ -30,9 +30,7 @@ if __name__ == "__main__":
             elif cols[3]=="3": #待整合
                 color="blue" 
             elif cols[3]=="4": #發想中
-                color="green"
-            elif cols[3]=="5": #使用者操作
-                color="chocolate"
+                color="gray"
             data += "\t\"%s\"->\"%s\"[label=\"%s\",color=\"%s\",style=\"%s\"]\n" %(cols[0],cols[2],cols[1],color,style)
 
         data += "}\n"

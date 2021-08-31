@@ -1,0 +1,21 @@
+[
+  {
+    "basin_id": "1300",
+    "basin_name": "頭前溪",
+    "geo": "data/basin-河川流域範圍圖/basin-河川流域範圍圖.shp",
+    "dtm": "data/catchment/C1300_20m_elv0.tif",
+    "ldd": "data/catchment/C1300_20m_ldd.tif",
+    "min_sto": 9,
+    "load_type": 0
+  },
+  {
+    "basin_id": "1290",
+    "basin_name": "鳳山溪",
+    "geo": "data/basin-河川流域範圍圖/basin-河川流域範圍圖.shp",
+    "dtm": "data/catchment/C1290_20m_elv0.tif",
+    "ldd": "data/catchment/C1290_20m_ldd.tif",
+    "min_sto": 6,
+    "load_type": 0
+  }
+]
+

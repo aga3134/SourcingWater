@@ -44,9 +44,11 @@ class LogicTopoController():
                 return ltb.FindBasinByID(param)
             elif transfer in ["主要河道","源頭到海洋路徑"]:
                 return ltb.FindMainRiverByID(param)
+            elif transfer in ["所有河道"]:
+                return ltb.FindStreams(param)
             else:
                 return {"error":"not implemented"}
-        elif kind == "地點":
+        elif kind == "生活區域":
             ltp = LogicTopoPlace()
             if transfer == "淨水廠為何":
                 return ltp.FindVillageWaterwork(param)

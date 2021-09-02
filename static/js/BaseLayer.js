@@ -18,6 +18,7 @@ class BaseLayer{
         this.onMouseMove = param.onMouseMove;
         this.onMouseLeave = param.onMouseLeave;
         this.onClick = param.onClick;
+        
         //add default mouse functions if not provided
         if(!this.onMouseMove){
             this.onMouseMove = (e) => {

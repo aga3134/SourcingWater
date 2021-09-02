@@ -66,3 +66,9 @@ class LogicTopoController():
                 return {"error":"not implemented"}
         else:
             return {"error":"not implemented"}
+
+    def GetNodeInfo(self,param):
+        if not "kind" in param:
+            return {"error":"no kind parameter"}
+        kind = param["kind"]
+        return {"error":" 查無基本資料"}

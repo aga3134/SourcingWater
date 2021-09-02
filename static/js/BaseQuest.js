@@ -4,6 +4,13 @@ class BaseQuest extends BaseLayer{
         param.show = true;
         super(param);
         this.quest = param.quest;
+        if(!param.onClick){
+            this.onClick = (e) => {
+                let f = e.features[0];
+                if(!f) return;
+                g_APP.GetNodeInfo(this.quest.targetKind,f.title);
+            };
+        }
         this.nodeID = null;
         this.nodeName = "";
         this.setting = {};

@@ -33,3 +33,13 @@ def findNodeByTransfer():
     ltc = LogicTopoController()
     data = ltc.FindNodeByTransfer(param)
     return jsonify(data)
+
+
+@logicTopoRoute.route("/getNodeInfo", methods=["GET"])
+def GetNodeInfo():
+    param = {}
+    for key in request.args:
+        param[key] = request.args[key]
+    ltc = LogicTopoController()
+    data = ltc.GetNodeInfo(param)
+    return jsonify(data)

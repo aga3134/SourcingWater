@@ -121,7 +121,7 @@ html, body {
 
 .sourcing-water .left-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -176,6 +176,30 @@ html, body {
 
 .sourcing-water .left-panel .container .content-block {
   margin: 10px 0px;
+}
+
+.sourcing-water .left-panel .container .content-block p {
+  text-indent: 1em;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.sourcing-water .left-panel .container .content-block p:first-of-type::first-letter {
+  color: #ff3333;
+  font-size: 1.3em;
+}
+
+.sourcing-water .left-panel .container .content-block a {
+  color: #6666ff;
+  text-decoration: none;
+}
+
+.sourcing-water .left-panel .container .content-block a:hover {
+  color: #ff3333;
+}
+
+.sourcing-water .left-panel .container .content-block ul li {
+  line-height: 1.5em;
 }
 
 .sourcing-water .left-panel .container .quest-item {
@@ -362,7 +386,7 @@ html, body {
 
 .sourcing-water .right-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -417,6 +441,30 @@ html, body {
 
 .sourcing-water .right-panel .container .content-block {
   margin: 10px 0px;
+}
+
+.sourcing-water .right-panel .container .content-block p {
+  text-indent: 1em;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.sourcing-water .right-panel .container .content-block p:first-of-type::first-letter {
+  color: #ff3333;
+  font-size: 1.3em;
+}
+
+.sourcing-water .right-panel .container .content-block a {
+  color: #6666ff;
+  text-decoration: none;
+}
+
+.sourcing-water .right-panel .container .content-block a:hover {
+  color: #ff3333;
+}
+
+.sourcing-water .right-panel .container .content-block ul li {
+  line-height: 1.5em;
 }
 
 .sourcing-water .right-panel .container .quest-item {
@@ -603,7 +651,7 @@ html, body {
 
 .sourcing-water .bottom-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -658,6 +706,30 @@ html, body {
 
 .sourcing-water .bottom-panel .container .content-block {
   margin: 10px 0px;
+}
+
+.sourcing-water .bottom-panel .container .content-block p {
+  text-indent: 1em;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.sourcing-water .bottom-panel .container .content-block p:first-of-type::first-letter {
+  color: #ff3333;
+  font-size: 1.3em;
+}
+
+.sourcing-water .bottom-panel .container .content-block a {
+  color: #6666ff;
+  text-decoration: none;
+}
+
+.sourcing-water .bottom-panel .container .content-block a:hover {
+  color: #ff3333;
+}
+
+.sourcing-water .bottom-panel .container .content-block ul li {
+  line-height: 1.5em;
 }
 
 .sourcing-water .bottom-panel .container .quest-item {
@@ -842,9 +914,9 @@ html, body {
   bottom: 0px;
 }
 
-.sourcing-water .full-panel {
+.sourcing-water .center-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -861,11 +933,15 @@ html, body {
   left: 0px;
   top: 0px;
   margin: 10px;
-  width: calc(100% - 20px);
+  width: 600px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  max-width: calc(100% - 20px);
   height: calc(100% - 20px);
 }
 
-.sourcing-water .full-panel .close-bt {
+.sourcing-water .center-panel .close-bt {
   position: absolute;
   width: 30px;
   height: 30px;
@@ -874,35 +950,59 @@ html, body {
   top: 10px;
 }
 
-.sourcing-water .full-panel .content-scroll {
+.sourcing-water .center-panel .content-scroll {
   width: 100%;
   height: 100%;
   overflow: auto;
 }
 
-.sourcing-water .full-panel .container {
+.sourcing-water .center-panel .container {
   padding: 20px 10px;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
 
-.sourcing-water .full-panel .container .title {
+.sourcing-water .center-panel .container .title {
   font-size: 1.3em;
   padding: 5px 10px;
   border-bottom: 1px solid #333333;
 }
 
-.sourcing-water .full-panel .container .sub-title {
+.sourcing-water .center-panel .container .sub-title {
   font-size: 1.2em;
   padding: 5px 10px;
 }
 
-.sourcing-water .full-panel .container .content-block {
+.sourcing-water .center-panel .container .content-block {
   margin: 10px 0px;
 }
 
-.sourcing-water .full-panel .container .quest-item {
+.sourcing-water .center-panel .container .content-block p {
+  text-indent: 1em;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.sourcing-water .center-panel .container .content-block p:first-of-type::first-letter {
+  color: #ff3333;
+  font-size: 1.3em;
+}
+
+.sourcing-water .center-panel .container .content-block a {
+  color: #6666ff;
+  text-decoration: none;
+}
+
+.sourcing-water .center-panel .container .content-block a:hover {
+  color: #ff3333;
+}
+
+.sourcing-water .center-panel .container .content-block ul li {
+  line-height: 1.5em;
+}
+
+.sourcing-water .center-panel .container .quest-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -915,33 +1015,33 @@ html, body {
   padding: 5px 10px;
 }
 
-.sourcing-water .full-panel .container .quest-item:hover {
+.sourcing-water .center-panel .container .quest-item:hover {
   border-radius: 5px;
   border: 1px solid #333333;
   cursor: pointer;
 }
 
-.sourcing-water .full-panel .container .quest-item.selected {
+.sourcing-water .center-panel .container .quest-item.selected {
   background-color: #cccccc;
 }
 
-.sourcing-water .full-panel .container .quest-item .quest-content {
+.sourcing-water .center-panel .container .quest-item .quest-content {
   font-size: 1.1em;
 }
 
-.sourcing-water .full-panel .container .quest-item .quest-content.status-ok {
+.sourcing-water .center-panel .container .quest-item .quest-content.status-ok {
   color: #000000;
 }
 
-.sourcing-water .full-panel .container .quest-item .quest-content.status-demo {
+.sourcing-water .center-panel .container .quest-item .quest-content.status-demo {
   color: #ff9933;
 }
 
-.sourcing-water .full-panel .container .quest-item .quest-content.status-no-data {
+.sourcing-water .center-panel .container .quest-item .quest-content.status-no-data {
   color: #ff3333;
 }
 
-.sourcing-water .full-panel .container .bt {
+.sourcing-water .center-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
   background-color: #555555;
@@ -951,12 +1051,12 @@ html, body {
   text-align: center;
 }
 
-.sourcing-water .full-panel .container .item-label {
+.sourcing-water .center-panel .container .item-label {
   margin: 5px;
   color: #333333;
 }
 
-.sourcing-water .full-panel .container .option-item {
+.sourcing-water .center-panel .container .option-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -969,54 +1069,54 @@ html, body {
   margin: 5px;
 }
 
-.sourcing-water .full-panel .container .option-item input[type="checkbox"] {
+.sourcing-water .center-panel .container .option-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
 
-.sourcing-water .full-panel .container .option-item select {
+.sourcing-water .center-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
 }
 
-.sourcing-water .full-panel .container .quest-history {
+.sourcing-water .center-panel .container .quest-history {
   overflow-x: auto;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table {
+.sourcing-water .center-panel .container .quest-history .history-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table thead {
+.sourcing-water .center-panel .container .quest-history .history-table thead {
   background-color: #cccccc;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table td {
+.sourcing-water .center-panel .container .quest-history .history-table td {
   padding: 5px;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table .history-row {
+.sourcing-water .center-panel .container .quest-history .history-table .history-row {
   cursor: pointer;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table .history-row:nth-child(even) {
+.sourcing-water .center-panel .container .quest-history .history-table .history-row:nth-child(even) {
   background-color: #eeeeee;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table .history-row:nth-child(odd) {
+.sourcing-water .center-panel .container .quest-history .history-table .history-row:nth-child(odd) {
   background-color: #ffffff;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table .history-row:hover {
+.sourcing-water .center-panel .container .quest-history .history-table .history-row:hover {
   background-color: #ffffcc;
 }
 
-.sourcing-water .full-panel .container .quest-history .history-table .history-row.selected {
+.sourcing-water .center-panel .container .quest-history .history-table .history-row.selected {
   background-color: #f0d5c2;
 }
 
-.sourcing-water .full-panel .action-container {
+.sourcing-water .center-panel .action-container {
   width: 100%;
   border-top: 1px solid #333333;
   display: -webkit-box;
@@ -1029,7 +1129,7 @@ html, body {
           align-items: center;
 }
 
-.sourcing-water .full-panel .action-container .action-bt {
+.sourcing-water .center-panel .action-container .action-bt {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -1044,7 +1144,7 @@ html, body {
           align-items: center;
 }
 
-.sourcing-water .full-panel .action-container .action-bt .icon {
+.sourcing-water .center-panel .action-container .action-bt .icon {
   width: 30px;
   height: 30px;
   margin: 5px;
@@ -1052,15 +1152,15 @@ html, body {
   border-radius: 5px;
 }
 
-.sourcing-water .full-panel .action-container .action-bt.enable {
+.sourcing-water .center-panel .action-container .action-bt.enable {
   cursor: pointer;
 }
 
-.sourcing-water .full-panel .action-container .action-bt.enable:hover {
+.sourcing-water .center-panel .action-container .action-bt.enable:hover {
   background-color: #cccccc;
 }
 
-.sourcing-water .full-panel .chart-container {
+.sourcing-water .center-panel .chart-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1075,14 +1175,14 @@ html, body {
   padding: 10px;
 }
 
-.sourcing-water .full-panel .chart-container .chart {
+.sourcing-water .center-panel .chart-container .chart {
   margin: 10px;
   width: 400px;
 }
 
 .sourcing-water .player-panel {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   z-index: 1000;
   -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
@@ -1138,6 +1238,30 @@ html, body {
 
 .sourcing-water .player-panel .container .content-block {
   margin: 10px 0px;
+}
+
+.sourcing-water .player-panel .container .content-block p {
+  text-indent: 1em;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.sourcing-water .player-panel .container .content-block p:first-of-type::first-letter {
+  color: #ff3333;
+  font-size: 1.3em;
+}
+
+.sourcing-water .player-panel .container .content-block a {
+  color: #6666ff;
+  text-decoration: none;
+}
+
+.sourcing-water .player-panel .container .content-block a:hover {
+  color: #ff3333;
+}
+
+.sourcing-water .player-panel .container .content-block ul li {
+  line-height: 1.5em;
 }
 
 .sourcing-water .player-panel .container .quest-item {

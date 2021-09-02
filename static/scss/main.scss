@@ -100,7 +100,7 @@ $vue-transition: 0.5s;
 
     @mixin panel{
         position: absolute;
-        background-color: rgba(255,255,255,0.9);
+        background-color: rgba(255, 255, 255, 0.95);
         z-index: 1000;
         transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
         box-shadow: 0px 0px 5px #333333;
@@ -133,6 +133,29 @@ $vue-transition: 0.5s;
             }
             .content-block{
                 margin: 10px 0px;
+                p{
+                    text-indent: 1em;
+                    font-size: 1.1em;
+                    line-height: 1.5em;
+                    &:first-of-type{
+                        &::first-letter{
+                            color: #ff3333;
+                            font-size: 1.3em;
+                        }
+                    }
+                }
+                a{
+                    color: #6666ff;
+                    text-decoration: none;
+                    &:hover{
+                        color: #ff3333;
+                    }
+                }
+                ul{
+                    li{
+                        line-height: 1.5em;
+                    }
+                }
             }
             .quest-item{
                 display: flex;
@@ -289,13 +312,16 @@ $vue-transition: 0.5s;
             bottom: 0px;
         }
     }
-    .full-panel{
+    .center-panel{
         @include panel;
         border-radius: 5px;
         left: 0px;
         top: 0px;
         margin: 10px;
-        width: calc(100% - 20px);
+        width: 600px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: calc(100% - 20px);
         height: calc(100% - 20px);
     }
     .player-panel{

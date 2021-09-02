@@ -365,6 +365,17 @@ let g_APP = new Vue({
                 this.logicTopo.curKind = item.quest.quest.targetKind==null?item.quest.quest.curKind:item.quest.quest.targetKind;
                 this.LoadQuest();
             });
+        },
+        GetNodeInfo: function(kind,nodeID){
+            let url = "logicTopo/getNodeInfo?";
+            url += "kind="+kind;
+            url += "&nodeID="+nodeID;
+            $.get(url,(result) => {
+                if(result.error){
+                    return toastr.error(result.error);
+                }
+                
+            });
         }
     }
 });

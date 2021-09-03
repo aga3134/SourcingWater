@@ -13,6 +13,7 @@ class BaseLayer{
         this.layerName = "";
         this.hoverFeature = null;
         this.hoverSource = null;
+        this.inited = false;
 
         this.onMouseEnter = param.onMouseEnter;
         this.onMouseMove = param.onMouseMove;
@@ -63,6 +64,7 @@ class BaseLayer{
             this.LoadData(this.url,resolve);
         }));
         Promise.all(promiseArr).then((values) => {
+            this.inited = true;
             if(callback) callback(values);
         });
     }
@@ -141,11 +143,18 @@ class BaseLayer{
     }
 
     Update(){
-        var visible = this.show?"visible":"none";
-        for(let key in this.layerHash){
-            var layer = this.layerHash[key].name;
-            this.map.setLayoutProperty(layer,"visibility",visible);
+        let UpdateLayer = () => {
+            let visible = this.show?"visible":"none";
+            for(let key in this.layerHash){
+                let layer = this.layerHash[key].name;
+                this.map.setLayoutProperty(layer,"visibility",visible);
+            }
         }
+
+        if(!this.inited){
+            this.Init(UpdateLayer);
+        }
+        else UpdateLayer();
     }
 
     ClearAll(){

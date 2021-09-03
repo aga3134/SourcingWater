@@ -2,6 +2,7 @@ let g_APP = new Vue({
     el: "#app",
     data: {
         map: null,
+        isLoading: true,
         openOptionPanel: false,
         openQuestPanel: false,
         openChartPanel: false,
@@ -11,7 +12,8 @@ let g_APP = new Vue({
             kind:{},
             transfer:{},
             curKind:"",
-            nodeID:""
+            nodeID:"",
+            nodeName:""
         },
         questArr: [],
         curQuest: {
@@ -33,10 +35,12 @@ let g_APP = new Vue({
             basin: null,
             rainStation: null,
             floodStation: null,
-            LUIMap: null
+            LUIMap: null,
+            commutag: null
         },
         curBasin:"",
-        chartArr:[]
+        chartArr:[],
+        infoWindow: null
     },
     delimiters: ['[[',']]'],    //vue跟jinja的語法會衝突
     created: function(){
@@ -78,6 +82,7 @@ let g_APP = new Vue({
                 {name:"marker-blue",url:"static/image/marker-blue-24.png"},
                 {name:"waterin",url:"static/image/waterin-24.png"},
                 {name:"waterwork",url:"static/image/waterwork-24.png"},
+                {name:"camera",url:"static/image/camera-24.png"},
             ];
             for(let i=0;i<iconArr.length;i++){
                 let icon = iconArr[i];
@@ -111,7 +116,7 @@ let g_APP = new Vue({
                         url: "layer/rainStation",
                     };
                     this.layer.rainStation = new BaseLayer(param);
-                    this.layer.rainStation.Init(resolve);
+                    resolve();
                 }));
                 promiseArr.push(new Promise((resolve,reject) => {
                     let param = {
@@ -120,7 +125,50 @@ let g_APP = new Vue({
                         url: "layer/floodStation",
                     };
                     this.layer.floodStation = new BaseLayer(param);
-                    this.layer.floodStation.Init(resolve);
+                    resolve();
+                }));
+                promiseArr.push(new Promise((resolve,reject) => {
+                    let param = {
+                        show: false,
+                        map: this.map,
+                        url: "layer/commutag?dataset=60c0307db652fe1483444844",
+                        onClick: (e) => {
+                            let f = e.features[0];
+                            if(!f) return;
+                            let pt = f.geometry.coordinates;
+                            let content = "<div class='commutag'>";
+                            content += "<a href='"+f.properties.url+"' target='_blank'>";
+                            content += "<img class='photo' src='"+f.properties.photo+"'>";
+                            content += "</a>";
+                            if(f.properties["名稱"]){
+                                content += "<div class='title'>"+f.properties["名稱"]+"</div>";
+                            }
+                            if(f.properties.remark){
+                                content += "<div>"+f.properties.remark+"</div>";
+                            }
+                            
+                            if(this.infoWindow){
+                                this.infoWindow.remove();
+                            }
+                            this.infoWindow = new mapboxgl.Popup({
+                                closeOnClick: false,
+                                maxWidth:"100%"
+                            })
+                            .setLngLat([pt[0], pt[1]])
+                            .setHTML(content)
+                            .addTo(this.map);
+
+                            if(f.properties["類別"] && f.properties["名稱"]){
+                                this.logicTopo.curKind = f.properties["類別"];
+                                this.logicTopo.nodeID = f.properties["名稱"];
+                                this.logicTopo.nodeName = f.properties["名稱"];
+                                this.LoadQuest();
+                                this.curQuest.index = -1;
+                            }
+                        }
+                    };
+                    this.layer.commutag = new BaseLayer(param);
+                    resolve();
                 }));
                 
                 Promise.all(promiseArr).then(() => {
@@ -135,6 +183,7 @@ let g_APP = new Vue({
             "hideDuration": 300,
             "timeOut": 3000
         };
+        this.isLoading = false;
     },
     methods:{
         InitMap: function(callback){
@@ -327,6 +376,7 @@ let g_APP = new Vue({
                     if(quest.targetKind != null) this.logicTopo.curKind = quest.targetKind;
                 }
                 this.logicTopo.nodeID = this.curQuest.quest.nodeID;
+                this.logicTopo.nodeName = this.curQuest.quest.nodeName;
                 this.ZoomToBBox(this.curQuest.quest);
                 this.LoadQuest();
             });

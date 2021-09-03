@@ -20,3 +20,12 @@ def floodStation():
     lc = LayerController()
     data = lc.GetFloodStation()
     return jsonify(data)
+
+@layerRoute.route("/commutag", methods=["GET"])
+def commutag():
+    param = {}
+    for key in request.args:
+        param[key] = request.args[key]
+    lc = LayerController()
+    data = lc.GetCommutag(current_app.config["app"]["commutag"],param)
+    return jsonify(data)

@@ -63,6 +63,10 @@
                                     <option value="LUIMAP09">其他</option>
                                 </select> 
                             </div>
+                            <div class="option-item" v-if="layer.commutag">
+                                <input type="checkbox" v-model="layer.commutag.show" @change="UpdateLayer();">
+                                <div class="item-label">群眾標註</div>
+                            </div>
                         </div>
 
                         <div class="quest-history">
@@ -95,7 +99,7 @@
                 <div class="content-scroll">
                     <div class="container">
                         <div class="title">追本溯源</div>
-                        <div class="sub-title" v-if="logicTopo && curQuest && curQuest.quest">[[logicTopo.curKind]]:[[curQuest.quest.nodeName]]</div>
+                        <div class="sub-title" v-if="logicTopo">[[logicTopo.curKind]]:[[logicTopo.nodeName]]</div>
                         <div class="quest-item" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" v-if="q.status <= 3" @click="SelectQuest(i);">
                             <div class="quest-content" :class="{
                                 'status-ok': q.status==0,
@@ -149,8 +153,8 @@
                     <div class="container">
                         <div class="title">關於本站</div>
                         <div class="content-block">
-                            <p>「思源地圖」 為<a href="https://www.facebook.com/groups/1607718702812067" target="_blank">LASS社群</a>的開放專案，整合了水資源相關的政府開放資料和民間的標註、分析資料，並以上下游拓樸的方式在地圖上呈現。使用者可以用問答介面追溯不同資料的關聯，快速掌握台灣各地的水文狀況。</p>
-                            <p>本專案同時也是一個檢核工具，用流域整體的視角來評估政府開放資料的正確性和完整性，突破政府部門各自有資料卻很難互相流通的現狀。在資料完備且流通順暢的基礎下，政府跟民間才能共同建立更完善的流域治理架構，達到「喝好水 吃好物 有良居」的理想目標。</p>
+                            <p>「思源地圖」 為<a href="https://www.facebook.com/groups/1607718702812067" target="_blank">LASS社群</a>的開放專案，整合了水資源相關的政府開放資料和民間的標註、分析資料，並以上下游拓樸的方式呈現在地圖上。使用者可以用問答介面追溯不同資料的關聯，快速掌握流域內的水文狀況。</p>
+                            <p>本專案同時也是一個檢核工具，用整體流域的視角來評估政府開放資料的正確性和完整性，突破政府部門各自擁有資料卻很難互相流通的現狀。在資料完備且流通順暢的基礎下，政府跟民間才能多方交流，共同建立更完善的流域治理架構，達到「喝好水 吃好物 有良居」的願景目標。</p>
                         </div>
                         <div class="title">相關連結</div>
                         <div class="content-block">
@@ -163,6 +167,13 @@
                     </div>
                 </div>
             </transition>
+
+            <div class="loading-page" v-show="isLoading">
+                <div class="center-box">
+                    <img class="logo" src="static/image/logo.png">
+                    <div class="title">思源地圖</div>
+                </div>
+            </div>
         </div>
 
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>

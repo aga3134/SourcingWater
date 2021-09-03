@@ -28,6 +28,8 @@ class LogicTopoController():
             return LogicTopoBasin().FindBasinByID(param)
         elif kind == "地點":
             return LogicTopoPlace().FindVillageByLatLng(param)
+        elif kind == "淨水場":
+            return LogicTopoWaterwork().FindWaterworkByID(param)
         else:
             return {"error":"not implemented"}
 

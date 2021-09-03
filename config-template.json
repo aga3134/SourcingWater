@@ -10,5 +10,9 @@
         "port": 5432,
         "db": "YOUR_DATABASE_NAME"
     },
+    "commutag":{
+        "host":"https://commutag.agawork.tw",
+        "apiKey":"YOUR_COMMUTAG_API_KEY"
+    },
     "version": "1.0.0"
 }

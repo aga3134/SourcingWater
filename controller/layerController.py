@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import MergeRowsToGeoJson
+import requests
 
 class LayerController():
     def GetBasin(self):
@@ -62,7 +63,7 @@ class LayerController():
                         "text-field": ["get", "name"],
                         "text-size": 12,
                         "text-offset": [0, 1.25],
-                        "text-anchor": "top"
+                        "text-anchor": "top",
                     },
                     "paint":{
                         "text-color": "#ff3"
@@ -100,7 +101,7 @@ class LayerController():
                         "text-field": ["get", "stationName"],
                         "text-size": 12,
                         "text-offset": [0, 1.25],
-                        "text-anchor": "top"
+                        "text-anchor": "top",
                     },
                     "paint":{
                         "text-color": "#ff3"
@@ -111,5 +112,83 @@ class LayerController():
         #print(data)
         return {
             "layerName": "淹水測站",
+            "data": [data]
+        }
+
+    def GetCommutag(self,config,param):
+        if not "dataset" in param:
+            #param["dataset"] = "60c0307db652fe1483444844" #頭前溪水環境
+            param["dataset"] = "5e6b06a177e80cf258b9ba72" #測試集
+        
+        #load dataset info & images
+        url = config["host"]+"/dataset/view-dataset?id="+param["dataset"]
+        r = requests.get(url).json()
+        if r["status"] != "ok":
+            return {"error":"讀取資料集失敗"}
+        dataset = r["data"]
+        form = {}
+        if "form" in dataset and dataset["form"] != '':
+            for formItem in dataset["form"]["itemArr"]:
+                key = formItem["id"]
+                form[key] = formItem["quest"]
+        #print(form)
+
+        url = config["host"]+"/dataset/list-image?all=1&dataset="+param["dataset"]
+        r = requests.get(url).json()
+        if r["status"] != "ok":
+            return {"error":"讀取影像列表失敗"}
+        imageArr = r["data"]
+        #print(imageArr)
+
+        #generate geojson from data
+        geom = {}
+        geom["type"] = "FeatureCollection"
+        geom["features"] = []
+        for image in imageArr:
+            f = {}
+            f["type"] = "Feature"
+            f["geometry"] = {
+                "type": "Point",
+                "coordinates": [image["lng"],image["lat"]]
+            }
+            f["id"] = image["_id"]
+            p = {
+                "url":config["host"]+"/image?dataset="+param["dataset"]+"&image="+image["_id"],
+                "photo":config["host"]+"/static/upload/dataset/"+param["dataset"]+"/image/"+image["_id"]+".jpg"
+            }
+            if "remark" in image:
+                p["remark"] = image["remark"]
+            if image["formReply"] is not None:
+                for key in image["formReply"]:
+                    value = image["formReply"][key]["value"]
+                    name = form[key]
+                    p[name] = value
+            f["properties"] = p
+            geom["features"] .append(f)
+        #print(geom)
+
+        #generate json_def
+        data = {
+            "geom": geom,
+            "layer": [
+                {
+                    "type": "symbol",
+                    "layout":{
+                        "icon-image": "camera",
+                        "text-field": ["get", "名稱"],
+                        "text-size": 12,
+                        "text-offset": [0, 1.25],
+                        "text-anchor": "top",
+                        "icon-allow-overlap": True,
+                        "text-allow-overlap": True
+                    },
+                    "paint":{
+                        "text-color": "#ff3"
+                    }
+                }
+            ],
+        }
+        return {
+            "layerName": "群眾標註",
             "data": [data]
         }

@@ -7,6 +7,37 @@ from dateutil.relativedelta import *
 import math
 
 class LogicTopoWaterwork():
+    def FindWaterworkByID(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+
+        sql = "select 淨水場名稱 as title,主要供水轄區,原水來源,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from m_waterwork_area where \"淨水場名稱\"='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無淨水廠資料"}
+        row = dict(row)
+        
+        row["geom"] = DictToGeoJsonProp(row)
+        row["layer"] = [{
+                "type": "symbol",
+                "layout":{
+                    "icon-image": "waterwork",
+                    "text-field": ["get", "title"],
+                    "text-size": 12,
+                    "text-offset": [0, 1.25],
+                    "text-anchor": "top"
+                },
+                "paint":{
+                    "text-color": "#ff3"
+                }
+            }]
+        return {
+            "nodeID":row["title"],
+            "nodeName":row["title"],
+            "data":[row]
+        }
+
     def FindWaterinByID(self,param):
         if not "nodeID" in param:
             return {"error":"no id parameter"}

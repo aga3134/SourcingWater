@@ -48,6 +48,33 @@ $vue-transition: 0.5s;
 	height: 100%;
     position: relative;
     overflow: hidden;
+    .loading-page{
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #dae5ec;
+        z-index: 2000;
+        .center-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            .logo{
+                width: 100px;
+                height: 100px;
+            }
+            .title{
+                font-size: 2em;
+                color: #333333;
+            }
+        }
+    }
     .main-map{
         width: 100%;
         height: 100%;
@@ -345,6 +372,20 @@ $vue-transition: 0.5s;
                 margin: 5px;
                 cursor: pointer;
             }
+        }
+    }
+    .commutag{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        color: #333333;
+        .photo{
+            padding: 5px;
+            width: 200px;
+        }
+        .title{
+            font-weight: bold;
         }
     }
 }

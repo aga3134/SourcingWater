@@ -48,6 +48,8 @@ class LogicTopoController():
                 return ltb.FindMainRiverByID(param)
             elif transfer in ["所有河道"]:
                 return ltb.FindStreams(param)
+            elif transfer in ["流域分區"]:
+                return ltb.FindSubBasins(param)
             else:
                 return {"error":"not implemented"}
         elif kind == "生活區域":

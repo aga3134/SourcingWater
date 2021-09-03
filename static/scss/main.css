@@ -282,6 +282,14 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .left-panel .container .quest-item .quest-content.status-develop {
+  color: #3333ff;
+}
+
+.sourcing-water .left-panel .container .quest-item .quest-content.status-plan {
+  color: #cccccc;
+}
+
 .sourcing-water .left-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -547,6 +555,14 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .right-panel .container .quest-item .quest-content.status-develop {
+  color: #3333ff;
+}
+
+.sourcing-water .right-panel .container .quest-item .quest-content.status-plan {
+  color: #cccccc;
+}
+
 .sourcing-water .right-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -810,6 +826,14 @@ html, body {
 
 .sourcing-water .bottom-panel .container .quest-item .quest-content.status-no-data {
   color: #ff3333;
+}
+
+.sourcing-water .bottom-panel .container .quest-item .quest-content.status-develop {
+  color: #3333ff;
+}
+
+.sourcing-water .bottom-panel .container .quest-item .quest-content.status-plan {
+  color: #cccccc;
 }
 
 .sourcing-water .bottom-panel .container .bt {
@@ -1082,6 +1106,14 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .center-panel .container .quest-item .quest-content.status-develop {
+  color: #3333ff;
+}
+
+.sourcing-water .center-panel .container .quest-item .quest-content.status-plan {
+  color: #cccccc;
+}
+
 .sourcing-water .center-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -1344,6 +1376,14 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .player-panel .container .quest-item .quest-content.status-develop {
+  color: #3333ff;
+}
+
+.sourcing-water .player-panel .container .quest-item .quest-content.status-plan {
+  color: #cccccc;
+}
+
 .sourcing-water .player-panel .container .bt {
   margin: 5px;
   padding: 5px 10px;
@@ -1522,6 +1562,7 @@ html, body {
       -ms-flex-direction: column;
           flex-direction: column;
   color: #333333;
+  max-width: 240px;
 }
 
 .sourcing-water .commutag .photo {

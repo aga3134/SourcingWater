@@ -3,6 +3,7 @@ from model.db import db
 import json
 from controller.util import DictToGeoJsonProp
 from waterswak.flwdir import *
+from colour import Color
 
 def load_json_local(filename):
     data = None
@@ -134,12 +135,20 @@ class LogicTopoBasin():
 
         row = {}
         row["title"] = cx_dict["basin_name"]+"流域細緻度"
-        row["geom"] = fd.subbasins_streamorder(sto)
+        row["geom"] = json.loads(fd.subbasins_streamorder(sto))
+        
+        #setup color
+        startColor = Color("#edf5fc")
+        endColor = Color("#084286")
+        colorList = list(startColor.range_to(endColor,len(row["geom"]["features"])))
+        for (i,feat) in enumerate(row["geom"]["features"]):
+            feat["properties"]["color"] = colorList[i].hex
+        
         row["layer"] = [
             {
                 "type": "fill",
                 "paint":{
-                    "fill-color": "#f33",
+                    "fill-color": ["get","color"],
                     "fill-opacity": 0.5
                 }
             }

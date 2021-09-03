@@ -100,11 +100,13 @@
                     <div class="container">
                         <div class="title">追本溯源</div>
                         <div class="sub-title" v-if="logicTopo">[[logicTopo.curKind]]:[[logicTopo.nodeName]]</div>
-                        <div class="quest-item" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" v-if="q.status <= 3" @click="SelectQuest(i);">
+                        <div class="quest-item" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">
                             <div class="quest-content" :class="{
                                 'status-ok': q.status==0,
                                 'status-demo': q.status==1,
-                                'status-no-data':q.status==2}">
+                                'status-no-data':q.status==2,
+                                'status-develop':q.status==3,
+                                'status-plan':q.status==4}">
                                 [[i+1]]. [[q.name]]
                             </div>
                         </div>

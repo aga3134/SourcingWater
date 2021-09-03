@@ -114,6 +114,9 @@ class FlwDir():
         #河道
         feats = self.flw.streams(min_sto=min_sto)
         self.gdf = gpd.GeoDataFrame.from_features(feats, crs=self.crs)
+        #轉經緯度並簡化
+        self.gdf = self.gdf.to_crs("EPSG:4326")
+        self.gdf = self.gdf.simplify(0.0001)
 
         if filename=='':
             filename = 'output/river_c1300_stream_%i.geojson' %(min_sto)
@@ -130,6 +133,9 @@ class FlwDir():
         # calculate subbasins with a minimum stream order 7
         subbas = self.flw.subbasins_streamorder(min_sto=min_sto, mask=None)
         self.gdf_subbas = self.vectorize(subbas.astype(np.int32), 0, self.flw.transform,self.crs)
+        #轉經緯度
+        self.gdf_subbas = self.gdf_subbas.to_crs("EPSG:4326")
+        self.gdf_subbas = self.gdf_subbas.simplify(0.0002)
 
         if filename=='':
             filename = 'output/river_c1300_subbas_%i.geojson' %(min_sto)

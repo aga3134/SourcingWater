@@ -208,6 +208,12 @@ $vue-transition: 0.5s;
                     &.status-no-data{
                         color: #ff3333;
                     }
+                    &.status-develop{
+                        color: #3333ff;
+                    }
+                    &.status-plan{
+                        color: #cccccc;
+                    }
                 }
             }
             .bt{
@@ -380,6 +386,7 @@ $vue-transition: 0.5s;
         align-items: center;
         flex-direction: column;
         color: #333333;
+        max-width: 240px;
         .photo{
             padding: 5px;
             width: 200px;

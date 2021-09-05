@@ -149,6 +149,16 @@
                 </div>
             </div>
 
+            <div class="quest-input-panel" :class="{open: openQuestInputPanel}">
+                <div class="input-container">
+                    <div class="input-item" v-for="input in questInput.config">
+                        <div class="title">[[input.name]]</div>
+                        <input type="number" v-if="input.type == 'number' " v-model="input.value" :min="input.min" :max="input.max" :step="input.step" @change="questInput.updateFn">
+                    </div>
+                </div>
+                <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestInputPanel();">
+            </div>
+
             <transition name="fade">
                 <div class="center-panel" v-if="openAboutPanel">
                     <img src="static/image/icon-close.png" class="close-bt" @click="CloseAboutPanel();">

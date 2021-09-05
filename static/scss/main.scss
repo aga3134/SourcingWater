@@ -359,6 +359,7 @@ $vue-transition: 0.5s;
     }
     .player-panel{
         @include panel;
+        border-radius: 5px 5px 0px 0px;
         left: 50%;
         transform: translateX(-50%);
         bottom: -50px;
@@ -379,6 +380,38 @@ $vue-transition: 0.5s;
                 cursor: pointer;
             }
         }
+    }
+    .quest-input-panel{
+        @include panel;
+        border-radius: 5px 5px 0px 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -50px;
+        width: 400px;
+        max-height: 300px;
+        &.open{
+            bottom: 0px;
+        }
+        .input-container{
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 5px;
+            .input-item{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 5px 10px;
+                .title{
+                    padding: 5px;
+                }
+                input[type="number"]{
+                    width: 50px;
+                }
+            }
+        }
+        
     }
     .commutag{
         display: flex;

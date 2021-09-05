@@ -88,11 +88,14 @@ class LogicTopoBasin():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
 
+        if nodeID not in cx_dicts:
+            return {"error":"查無河道資料"}
         cx_dict = cx_dicts[nodeID]
         if "sto" in param:
-            sto = param["sto"]
+            sto = int(param["sto"])
         else:
             sto = cx_dict['min_sto']
+        #print(sto)
         
         fd = FlwDir()
         fd.reload(cx_dict["dtm"],cx_dict["ldd"])
@@ -101,8 +104,6 @@ class LogicTopoBasin():
         row = {}
         row["title"] = cx_dict["basin_name"]+"河川細緻度"
         row["geom"] = json.loads(fd.streams(sto))
-        for key in row["geom"]:
-            print(key)
         row["layer"] = [
             {
                 "type": "line",
@@ -115,6 +116,19 @@ class LogicTopoBasin():
         return {
             "nodeID":nodeID,
             "nodeName":cx_dict["basin_name"],
+            "setting":{
+                "inputConfig":[
+                    {
+                        "name":"河川細緻度",
+                        "variable": "sto",
+                        "value": sto,
+                        "type": "number",
+                        "min": 4,
+                        "max": 11,
+                        "step": 1
+                    }
+                ]
+            },
             "data":[row]
         }
 
@@ -123,6 +137,8 @@ class LogicTopoBasin():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
         
+        if nodeID not in cx_dicts:
+            return {"error":"查無流域分區資料"}
         cx_dict = cx_dicts[nodeID]
         if "sto" in param:
             sto = param["sto"]
@@ -136,7 +152,7 @@ class LogicTopoBasin():
         row = {}
         row["title"] = cx_dict["basin_name"]+"流域細緻度"
         row["geom"] = json.loads(fd.subbasins_streamorder(sto))
-        
+
         #setup color
         startColor = Color("#edf5fc")
         endColor = Color("#084286")

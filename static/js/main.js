@@ -8,6 +8,7 @@ let g_APP = new Vue({
         openChartPanel: false,
         openAboutPanel: false,
         openPlayerPanel: false,
+        openQuestInputPanel: false,
         logicTopo:{
             kind:{},
             transfer:{},
@@ -30,6 +31,10 @@ let g_APP = new Vue({
             playFn: "",
             pauseFn: "",
             stopFn: ""
+        },
+        questInput:{
+            config:[],
+            updateFn:""
         },
         layer:{
             basin: null,
@@ -103,7 +108,7 @@ let g_APP = new Vue({
                         onClick: (e) => {
                             let f = e.features[0];
                             if(!f) return;
-                            this.SelectBasin(f.properties.basin_id);
+                            this.SelectBasin(f.properties.basin_no);
                         },
                     };
                     this.layer.basin = new BaseLayer(param);
@@ -350,6 +355,12 @@ let g_APP = new Vue({
         },
         ClosePlayerPanel: function(){
             this.openPlayerPanel = false;
+        },
+        OpenQuestInputPanel: function(){
+            this.openQuestInputPanel = true;
+        },
+        CloseQuestInputPanel: function(){
+            this.openQuestInputPanel = false;
         },
         ClearQuest: function(item){
             if(item.quest){

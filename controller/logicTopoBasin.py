@@ -141,7 +141,7 @@ class LogicTopoBasin():
             return {"error":"查無流域分區資料"}
         cx_dict = cx_dicts[nodeID]
         if "sto" in param:
-            sto = param["sto"]
+            sto = int(param["sto"])
         else:
             sto = cx_dict['min_sto']
         
@@ -167,10 +167,30 @@ class LogicTopoBasin():
                     "fill-color": ["get","color"],
                     "fill-opacity": 0.5
                 }
+            },
+            {
+                "type": "line",
+                "paint":{
+                    "line-color": "#fff",
+                    "line-width": 1
+                }
             }
         ]
         return {
             "nodeID":nodeID,
             "nodeName":cx_dict["basin_name"],
+            "setting":{
+                "inputConfig":[
+                    {
+                        "name":"流域細緻度",
+                        "variable": "sto",
+                        "value": sto,
+                        "type": "number",
+                        "min": 6,
+                        "max": 11,
+                        "step": 1
+                    }
+                ]
+            },
             "data":[row]
         }

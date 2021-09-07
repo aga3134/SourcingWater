@@ -25,6 +25,7 @@ class BaseQuest extends BaseLayer{
             this.nodeName = result.nodeName;    //用來顯示
             this.setting = result.setting;      //不同display_class會有不同的setting
             if(result.chartArr) this.ShowChart(result.chartArr);
+            this.inited = true;
             if(callback) callback(result);
         });
     }

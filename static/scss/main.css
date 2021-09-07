@@ -341,7 +341,7 @@ html, body {
   background-color: #cccccc;
 }
 
-.sourcing-water .left-panel .container .quest-history .history-table td {
+.sourcing-water .left-panel .container .quest-history .history-table td, .sourcing-water .left-panel .container .quest-history .history-table th {
   padding: 5px;
 }
 
@@ -614,7 +614,7 @@ html, body {
   background-color: #cccccc;
 }
 
-.sourcing-water .right-panel .container .quest-history .history-table td {
+.sourcing-water .right-panel .container .quest-history .history-table td, .sourcing-water .right-panel .container .quest-history .history-table th {
   padding: 5px;
 }
 
@@ -887,7 +887,7 @@ html, body {
   background-color: #cccccc;
 }
 
-.sourcing-water .bottom-panel .container .quest-history .history-table td {
+.sourcing-water .bottom-panel .container .quest-history .history-table td, .sourcing-water .bottom-panel .container .quest-history .history-table th {
   padding: 5px;
 }
 
@@ -1165,7 +1165,7 @@ html, body {
   background-color: #cccccc;
 }
 
-.sourcing-water .center-panel .container .quest-history .history-table td {
+.sourcing-water .center-panel .container .quest-history .history-table td, .sourcing-water .center-panel .container .quest-history .history-table th {
   padding: 5px;
 }
 
@@ -1436,7 +1436,7 @@ html, body {
   background-color: #cccccc;
 }
 
-.sourcing-water .player-panel .container .quest-history .history-table td {
+.sourcing-water .player-panel .container .quest-history .history-table td, .sourcing-water .player-panel .container .quest-history .history-table th {
   padding: 5px;
 }
 
@@ -1731,7 +1731,7 @@ html, body {
   background-color: #cccccc;
 }
 
-.sourcing-water .quest-input-panel .container .quest-history .history-table td {
+.sourcing-water .quest-input-panel .container .quest-history .history-table td, .sourcing-water .quest-input-panel .container .quest-history .history-table th {
   padding: 5px;
 }
 

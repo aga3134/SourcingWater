@@ -73,6 +73,10 @@ class DrawShapeQuest extends BaseQuest{
         this.map.removeLayer(key);
         this.map.removeSource(key);
     }
+    ClearEventFn(){
+        g_APP.eventFn.onClick = null;
+        g_APP.eventFn.onMouseMove = null;
+    }
     DrawPoint(lat,lng){
         let config = this.setting.shapeConfig;
         if(!this.shapeData.ptArr) this.shapeData.ptArr = [];
@@ -132,6 +136,7 @@ class DrawShapeQuest extends BaseQuest{
         //console.log(this.quest.geomUrl);
         this.Init(this.confirmCallback);
         this.ClearShape();
+        this.ClearEventFn();
     }
 }
 

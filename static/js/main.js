@@ -240,22 +240,6 @@ let g_APP = new Vue({
 
             this.map.on('click', function(e) {
                 if(this.eventFn.onClick) return this.eventFn.onClick(e);
-
-                //預設點地圖若沒點到東西，就用座標取得里的資訊
-                var features = this.map.queryRenderedFeatures(e.point);
-                if(features.length > 0) return;   //有點到其他東西
-                this.logicTopo.curKind = "座標";
-                let url = "logicTopo/findNodeByKind?kind=地點";
-                url += "&lat="+e.lngLat.lat;
-                url += "&lng="+e.lngLat.lng;
-                this.questArr = [{
-                    "curKind": "座標",
-                    "name": "位於哪個里",
-                    "class":"BaseQuest",
-                    "geomUrl": url,
-                    "targetKind": "生活區域",
-                }];
-                this.SelectQuest(0);
             }.bind(this));
 
             this.map.on("mousemove", function(e){

@@ -3,8 +3,8 @@ class DrawShapeQuest extends BaseQuest{
     constructor(param){
         super(param);
         this.shapeData = {};
-        this.shapeSource = {};  //存在地圖上畫出的形狀
-        this.shapeLayer = {};   //存在地圖上畫出的形狀
+        this.shapeSource = null;  //存在地圖上畫出的形狀
+        this.shapeLayer = null;   //存在地圖上畫出的形狀
         this.confirmCallback = null;
     }
     GetShapeKey(){
@@ -19,7 +19,7 @@ class DrawShapeQuest extends BaseQuest{
 
                 //add shape layer
                 let key = this.GetShapeKey();
-                this.map.addSource(key, {
+                this.shapeSource = this.map.addSource(key, {
                     "type": "geojson",
                     "data": null
                 });
@@ -30,7 +30,7 @@ class DrawShapeQuest extends BaseQuest{
                 }
                 if("paint" in config.layer) option.paint = config.layer.paint;
                 if("layout" in config.layer) option.layout = config.layer.layout;
-                this.map.addLayer(option);
+                this.shapeLayer = this.map.addLayer(option);
 
                 g_APP.eventFn.onClick = (e) => {
                     switch(config.type){
@@ -70,8 +70,24 @@ class DrawShapeQuest extends BaseQuest{
     }
     ClearShape(){
         let key = this.GetShapeKey();
-        this.map.removeLayer(key);
-        this.map.removeSource(key);
+        if(this.shapeLayer){
+            this.map.removeLayer(key);
+            this.shapeLayer = null;
+        }
+        if(this.shapeSource){
+            this.map.removeSource(key);
+            this.shapeSource = null;
+        }
+        this.shapeData = {};
+
+        //reset geomUrl
+        if(this.setting.shapeConfig){
+            let config = this.setting.shapeConfig;
+            let urlString = this.quest.geomUrl.split("?");
+            var params = new URLSearchParams(urlString[1]);
+            params.delete(config.variable);
+            this.quest.geomUrl = urlString[0]+"?"+params.toString();
+        }
     }
     ClearEventFn(){
         g_APP.eventFn.onClick = null;
@@ -103,6 +119,9 @@ class DrawShapeQuest extends BaseQuest{
         }
         if(this.shapeData.ptArr.length >= config.num){
             this.ConfirmShape();
+        }
+        else{
+            toastr.info("請再點選"+config.num-this.shapeData.ptArr.length+"點");
         }
     }
 

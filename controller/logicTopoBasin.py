@@ -80,12 +80,20 @@ class LogicTopoBasin():
         row = {}
         row["title"] = cx_dict["basin_name"]+"河川細緻度"
         row["geom"] = json.loads(fd.streams(sto))
+
+        #setup color
+        startColor = Color("#ff3333")
+        endColor = Color("#3333ff")
+        colorList = list(startColor.range_to(endColor,len(row["geom"]["features"])))
+        for (i,feat) in enumerate(row["geom"]["features"]):
+            feat["properties"]["color"] = colorList[i].hex
+
         row["layer"] = [
             {
                 "type": "line",
                 "paint":{
-                    "line-color": "#f33",
-                    "line-width": 1
+                    "line-color": ["get","color"],
+                    "line-width": 1.5
                 }
             }
         ]
@@ -164,5 +172,68 @@ class LogicTopoBasin():
                     }
                 ]
             },
+            "data":[row]
+        }
+
+    def FindLivingArea(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        sql = "select basin_no,basin_name from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+
+        #shape資訊不完整
+        if not "shape" in param:
+            return {
+                "info":"請在流域內點選一個位置",
+                "nodeID":nodeID,
+                "nodeName":row["basin_name"],
+                "setting":{
+                    "shapeConfig":{
+                        "type":"point",
+                        "variable": "shape",
+                        "num": 1,
+                        "layer":{
+                            "type": "symbol",
+                            "layout":{
+                                "icon-image": "marker-red",
+                                "icon-allow-overlap": True,
+                                "text-allow-overlap": True
+                            }
+                        }
+                    }
+                }
+            }
+        shape = json.loads(param["shape"])
+
+        #check if lat,lng in basin
+        lat = shape["ptArr"][0][1]
+        lng = shape["ptArr"][0][0]
+        sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "位置需在流域內"}
+
+        sql = "select countyname,townname,villname as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無村里資料"}
+        row = dict(row)
+
+        row["geom"] = DictToGeoJsonProp(row)
+        row["layer"] = [
+            {
+                "type": "line",
+                "paint": {
+                    "line-color": "#3f3",
+                    "line-width": 4
+                }
+            }
+        ]
+        return {
+            "nodeID":row["title"],
+            "nodeName":row["title"],
             "data":[row]
         }

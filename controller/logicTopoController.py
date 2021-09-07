@@ -47,18 +47,24 @@ class LogicTopoController():
                 return ltb.FindBasinByID(param)
             elif transfer in ["主要河道","源頭到海洋路徑"]:
                 return ltb.FindMainRiverByID(param)
-            elif transfer in ["所有河道"]:
+            elif transfer == "所有河道":
                 return ltb.FindStreams(param)
-            elif transfer in ["流域分區"]:
+            elif transfer == "流域分區":
                 return ltb.FindSubBasins(param)
+            elif transfer == "生活區域":
+                return ltb.FindLivingArea(param)
+            elif transfer in ["雨水下水道","污水下水道","圳路"]:
+                return {"error":"無開放資料"}
             else:
                 return {"error":"not implemented"}
         elif kind == "流路":
             ltfp = LogicTopoFlowPath()
             if transfer == "上游集水區":
                 return ltfp.FindUpstreamCatchment(param)
-            if transfer == "下游入海線":
+            elif transfer == "下游入海線":
                 return ltfp.FindDownstreamPath(param)
+            elif transfer == "所屬流域":
+                return ltfp.FindBasin(param)
         elif kind == "生活區域":
             ltp = LogicTopoPlace()
             if transfer == "淨水廠為何":

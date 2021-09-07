@@ -43,6 +43,10 @@ let g_APP = new Vue({
             LUIMap: null,
             commutag: null
         },
+        eventFn:{
+            onMouseMove: null,
+            onClick:null
+        },
         curBasin:"",
         chartArr:[],
         infoWindow: null
@@ -235,6 +239,9 @@ let g_APP = new Vue({
             }.bind(this));
 
             this.map.on('click', function(e) {
+                if(this.eventFn.onClick) return this.eventFn.onClick(e);
+
+                //預設點地圖若沒點到東西，就用座標取得里的資訊
                 var features = this.map.queryRenderedFeatures(e.point);
                 if(features.length > 0) return;   //有點到其他東西
                 this.logicTopo.curKind = "座標";
@@ -250,6 +257,11 @@ let g_APP = new Vue({
                 }];
                 this.SelectQuest(0);
             }.bind(this));
+
+            this.map.on("mousemove", function(e){
+                if(this.eventFn.onMouseMove) return this.eventFn.onMouseMove(e);
+            }.bind(this));
+
         },
         LoadQuest: function(){
             let transfer = this.logicTopo.transfer[this.logicTopo.curKind];
@@ -380,7 +392,7 @@ let g_APP = new Vue({
                 this.curQuest.quest.Stop();
             }
             this.curQuest.quest = new g_QuestClass[quest.class](param);
-            this.curQuest.quest.Init(() => {
+            this.curQuest.quest.Init((result) => {
                 this.UpdateQuestHistory();
                 if(this.logicTopo.curKind != quest.targetKind){
                     this.curQuest.index = -1;

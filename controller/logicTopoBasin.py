@@ -1,29 +1,9 @@
 from sqlalchemy.sql.functions import func
 from model.db import db
 import json
-from controller.util import DictToGeoJsonProp
-from waterswak.flwdir import *
+from controller.util import DictToGeoJsonProp,InitFlow
+
 from colour import Color
-
-def load_json_local(filename):
-    data = None
-    try:
-        data_date = ""
-        with open(filename , 'r', encoding='UTF-8') as json_file:
-            data = json.load(json_file)
-            return data
-    except:
-        print("%s:%s" %(filename,"EXCEPTION!"))
-        return None
-fd=None
-
-#load cx_dict
-filename="data/catchment.json"
-data = load_json_local(filename)
-cx_dicts = {}
-for i in range(len(data)):
-    cx_dicts[data[i]['basin_id']]=data[i]
-#print(cx_dicts)
 
 class LogicTopoBasin():
     def FindBasinByID(self,param):
@@ -88,18 +68,14 @@ class LogicTopoBasin():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
 
-        if nodeID not in cx_dicts:
+        fd, cx_dict = InitFlow(nodeID)
+        if fd is None:
             return {"error":"查無河道資料"}
-        cx_dict = cx_dicts[nodeID]
         if "sto" in param:
             sto = int(param["sto"])
         else:
             sto = cx_dict['min_sto']
         #print(sto)
-        
-        fd = FlwDir()
-        fd.reload(cx_dict["dtm"],cx_dict["ldd"])
-        fd.init()
 
         row = {}
         row["title"] = cx_dict["basin_name"]+"河川細緻度"
@@ -109,7 +85,7 @@ class LogicTopoBasin():
                 "type": "line",
                 "paint":{
                     "line-color": "#f33",
-                    "line-width": 2
+                    "line-width": 1
                 }
             }
         ]
@@ -136,18 +112,14 @@ class LogicTopoBasin():
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
-        
-        if nodeID not in cx_dicts:
+
+        fd, cx_dict = InitFlow(nodeID)
+        if fd is None:
             return {"error":"查無流域分區資料"}
-        cx_dict = cx_dicts[nodeID]
         if "sto" in param:
             sto = int(param["sto"])
         else:
             sto = cx_dict['min_sto']
-        
-        fd = FlwDir()
-        fd.reload(cx_dict["dtm"],cx_dict["ldd"])
-        fd.init()
 
         row = {}
         row["title"] = cx_dict["basin_name"]+"流域細緻度"

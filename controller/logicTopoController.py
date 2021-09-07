@@ -4,6 +4,7 @@ import json
 from controller.logicTopoBasin import LogicTopoBasin
 from controller.logicTopoPlace import LogicTopoPlace
 from controller.logicTopoWaterwork import LogicTopoWaterwork
+from controller.logicTopoFlowPath import LogicTopoFlowPath
 
 class LogicTopoController():
     def ListKind(self):
@@ -52,6 +53,12 @@ class LogicTopoController():
                 return ltb.FindSubBasins(param)
             else:
                 return {"error":"not implemented"}
+        elif kind == "流路":
+            ltfp = LogicTopoFlowPath()
+            if transfer == "上游集水區":
+                return ltfp.FindUpstreamCatchment(param)
+            if transfer == "下游入海線":
+                return ltfp.FindDownstreamPath(param)
         elif kind == "生活區域":
             ltp = LogicTopoPlace()
             if transfer == "淨水廠為何":

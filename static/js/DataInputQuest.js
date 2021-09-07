@@ -4,7 +4,7 @@ class DataInputQuest extends BaseQuest{
         super(param);
     }
     Init(callback){
-        super.Init(() => {
+        super.Init((result) => {
             Vue.set(g_APP.questInput,"config",this.setting.inputConfig);
             g_APP.questInput.updateFn = () => {
                 //console.log(this.quest.geomUrl);
@@ -19,7 +19,7 @@ class DataInputQuest extends BaseQuest{
                 this.Init();
             };
             g_APP.OpenQuestInputPanel();
-            if(callback) callback();
+            if(callback) callback(result);
         });
     }
 }

@@ -63,9 +63,9 @@ class BaseLayer{
         promiseArr.push(new Promise((resolve,reject) => {
             this.LoadData(this.url,resolve);
         }));
-        Promise.all(promiseArr).then((values) => {
+        Promise.all(promiseArr).then((result) => {
             this.inited = true;
-            if(callback) callback(values);
+            if(callback) callback(result);
         });
     }
     GetGeomKey(index){

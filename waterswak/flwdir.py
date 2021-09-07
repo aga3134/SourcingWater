@@ -28,7 +28,7 @@ matplotlib.rcParams['savefig.dpi'] = 256
 plt.style.use('seaborn-whitegrid')
 
 def to_crs(xy,from_srid,to_srid): #[121.1359083, 24.74512778], 4326, 3826
-    s_from = gpd.GeoSeries([Point(121.1359083, 24.74512778)], crs=from_srid)
+    s_from = gpd.GeoSeries([Point(xy[0], xy[1])], crs=from_srid)
     s_to = s_from.to_crs(to_srid)
     return [s_to.iloc[0].x,s_to.iloc[0].y]
 
@@ -151,8 +151,10 @@ class FlwDir():
         x=[]
         y=[]
         for p in points:
-            x.append(p[0])
-            y.append(p[1])
+            #轉3826
+            pt = to_crs(p,4326,3826)
+            x.append(pt[0])
+            y.append(pt[1])
         xy = (x,y)
         #points=[[260993,2735861,'油羅上坪匯流'],[253520,2743364,'隆恩堰'],[247785,2746443,'湳雅取水口']]
         #xy=([260993, 253520, 247785], [2735861, 2743364, 2746443])
@@ -163,6 +165,9 @@ class FlwDir():
         # which we than use to vectorize to geofeatures
         feats = self.flw.geofeatures(flowpaths)
         self.gdf_paths = gpd.GeoDataFrame.from_features(feats, crs=self.crs).reset_index()
+        #轉回經緯度
+        self.gdf_paths = self.gdf_paths.to_crs("EPSG:4326")
+
         self.gdf_pnts = gpd.GeoDataFrame(geometry=gpd.points_from_xy(*xy)).reset_index()
         if filename is None:
             return self.gdf_paths.to_json()
@@ -173,13 +178,15 @@ class FlwDir():
     def basins(self,points,filename=''): # None: return json, '' use default filename
         # 通過點的上游流域
         #points=[[260993,2735861,'油羅上坪匯流'],[253520,2743364,'隆恩堰'],[247785,2746443,'湳雅取水口']]
-
+    
         nodata=0
         transform = self.flw.transform
         crs = self.crs
         featss = []
         for p in points:
-            x, y = np.array([p[0], p[0]]), np.array([p[1], p[1]])
+            #轉3826
+            pt = to_crs(p,4326,3826)
+            x, y = np.array([pt[0], pt[0]]), np.array([pt[1], pt[1]])
             name = p[2]
             subbasins = self.flw.basins(xy=(x,y), streams=self.flw.stream_order()>=4)
             gdf_bas = self.vectorize(subbasins.astype(np.int32), 0, self.flw.transform,self.crs)
@@ -194,6 +201,9 @@ class FlwDir():
             featss.extend(feats)
 
         self.gdf_bas = gpd.GeoDataFrame.from_features(featss, crs=crs)
+        #轉回經緯度
+        self.gdf_bas = self.gdf_bas.to_crs("EPSG:4326")
+
         if filename=='':
             filename = 'output/river_c1300_basin.geojson'
 

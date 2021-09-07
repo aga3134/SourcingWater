@@ -1,3 +1,4 @@
+from waterswak.flwdir import *
 
 def DictToGeoJsonProp(d,geomKey = "geom"):
     geom = {
@@ -40,3 +41,33 @@ def ToFloat(s):
             return float(s.replace(",",""))
     except ValueError:
         return float('NaN')
+
+
+#flow direction related
+def load_json_local(filename):
+    data = None
+    try:
+        data_date = ""
+        with open(filename , 'r', encoding='UTF-8') as json_file:
+            data = json.load(json_file)
+            return data
+    except:
+        print("%s:%s" %(filename,"EXCEPTION!"))
+        return None
+
+#load cx_dict
+filename="data/catchment.json"
+data = load_json_local(filename)
+cx_dicts = {}
+for i in range(len(data)):
+    cx_dicts[data[i]['basin_id']]=data[i]
+#print(cx_dicts)
+
+def InitFlow(basinID):
+    if basinID not in cx_dicts:
+        return None
+    cx_dict = cx_dicts[basinID]
+    fd = FlwDir()
+    fd.reload(cx_dict["dtm"],cx_dict["ldd"])
+    fd.init()
+    return (fd,cx_dict)

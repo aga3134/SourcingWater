@@ -2,7 +2,7 @@ class WMTSLayer extends BaseLayer{
     constructor(param){
         super(param);
     }
-    LoadData(url,callback){
+    LoadData(url,succFn,failFn){
         this.ClearAll();
         let sourceKey = this.GetGeomKey(0);
         this.map.addSource(sourceKey, {
@@ -19,5 +19,6 @@ class WMTSLayer extends BaseLayer{
         this.map.setLayoutProperty(sourceKey,"visibility",visible);
         this.sourceHash[sourceKey] = {"name":sourceKey};
         this.layerHash[sourceKey] = {"name":sourceKey};
+        if(succFn) succFn();
     }
 }

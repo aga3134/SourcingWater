@@ -9,10 +9,12 @@ class TracePathQuest extends BaseQuest{
         this.zoomToBBox = false;
     }
 
-    Init(callback){
-        super.Init(() => {
+    Init(succFn,failFn){
+        super.Init((result) => {
             this.Play();
-            if(callback) callback();
+            if(succFn) succFn(result);
+        }, (reason) => {
+            if(failFn) failFn(reason);
         });
         g_APP.OpenPlayerPanel();
         g_APP.player.playFn = (event) => {

@@ -16,17 +16,19 @@ class BaseQuest extends BaseLayer{
         this.setting = {};
     }
 
-    Init(callback){
+    Init(succFn,failFn){
         let result = []
         let p = new Promise((resolve,reject) => {
-            this.LoadData(this.quest.geomUrl,resolve);
+            this.LoadData(this.quest.geomUrl,resolve,reject);
         }).then((result) => {
             this.nodeID = result.nodeID;        //用來取資料庫資料
             this.nodeName = result.nodeName;    //用來顯示
             this.setting = result.setting;      //不同display_class會有不同的setting
             if(result.chartArr) this.ShowChart(result.chartArr);
             this.inited = true;
-            if(callback) callback(result);
+            if(succFn) succFn(result);
+        }, (reason) => {
+            if(failFn) failFn(reason);
         });
     }
 

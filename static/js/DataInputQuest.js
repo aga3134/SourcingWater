@@ -3,7 +3,7 @@ class DataInputQuest extends BaseQuest{
     constructor(param){
         super(param);
     }
-    Init(callback){
+    Init(succFn,failFn){
         super.Init((result) => {
             Vue.set(g_APP.questInput,"config",this.setting.inputConfig);
             g_APP.questInput.updateFn = () => {
@@ -19,7 +19,9 @@ class DataInputQuest extends BaseQuest{
                 this.Init();
             };
             g_APP.OpenQuestInputPanel();
-            if(callback) callback(result);
+            if(succFn) succFn(result);
+        }, (reason) => {
+            if(failFn) failFn(reason);
         });
     }
 }

@@ -3,7 +3,7 @@ from model.db import db
 import json
 from controller.util import DictToGeoJsonProp
 
-class LogicTopoPlace():
+class LogicTopoLivingArea():
     def FindVillageByLatLng(self,param):
         if not "lat" in param or not "lng" in param:
             return {"error":"no location parameter"}
@@ -108,3 +108,6 @@ class LogicTopoPlace():
             "nodeName":row["title"],
             "data":[row]
         }
+
+    def FindPollution(self,param):
+        pass

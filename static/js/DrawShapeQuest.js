@@ -10,8 +10,8 @@ class DrawShapeQuest extends BaseQuest{
     GetShapeKey(){
         return this.uuid+"_shape";
     }
-    Init(callback){
-        this.confirmCallback = callback;
+    Init(succFn,failFn){
+        this.confirmCallback = succFn;
         super.Init((result) => {
             if(result.info){
                 toastr.info(result.info);
@@ -65,7 +65,17 @@ class DrawShapeQuest extends BaseQuest{
                 }
             }
             //取得資料成功才跳轉到下個類別
-            else if(callback) callback(result);
+            else if(succFn) succFn(result);
+        }, (reason) => {
+            //reset geomUrl
+            if(this.setting.shapeConfig){
+                let config = this.setting.shapeConfig;
+                let urlString = this.quest.geomUrl.split("?");
+                var params = new URLSearchParams(urlString[1]);
+                params.delete(config.variable);
+                this.quest.geomUrl = urlString[0]+"?"+params.toString();
+            }
+            if(failFn) failFn();
         });
     }
     ClearShape(){
@@ -79,15 +89,6 @@ class DrawShapeQuest extends BaseQuest{
             this.shapeSource = null;
         }
         this.shapeData = {};
-
-        //reset geomUrl
-        if(this.setting.shapeConfig){
-            let config = this.setting.shapeConfig;
-            let urlString = this.quest.geomUrl.split("?");
-            var params = new URLSearchParams(urlString[1]);
-            params.delete(config.variable);
-            this.quest.geomUrl = urlString[0]+"?"+params.toString();
-        }
     }
     ClearEventFn(){
         g_APP.eventFn.onClick = null;

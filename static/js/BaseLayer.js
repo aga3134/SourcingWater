@@ -58,26 +58,31 @@ class BaseLayer{
 
     }
     
-    Init(callback){
+    Init(succFn,failFn){
         let promiseArr = [];
         promiseArr.push(new Promise((resolve,reject) => {
-            this.LoadData(this.url,resolve);
+            this.LoadData(this.url,resolve,reject);
         }));
         Promise.all(promiseArr).then((result) => {
             this.inited = true;
-            if(callback) callback(result);
+            if(succFn) succFn(result);
+        }, (reason) => {
+            this.inited = false;
+            if(failFn) failFn(reason);
         });
     }
     GetGeomKey(index){
         return this.uuid+"_"+index;
     }
 
-    LoadData(url,callback){
+    LoadData(url,succFn,failFn){
         this.ClearAll();
         
         $.get(url, (result) => {
             if(result.error){
-                return toastr.error(result.error);
+                toastr.error(result.error);
+                if(failFn) failFn(result);
+                return;
             }
             this.bbox = null;
             if(result.layerName) this.layerName = result.layerName;
@@ -138,7 +143,7 @@ class BaseLayer{
                     }
                 }
             }
-            if(callback) callback(result);
+            if(succFn) succFn(result);
         });
     }
 

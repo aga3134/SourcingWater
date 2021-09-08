@@ -2,7 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.logicTopoBasin import LogicTopoBasin
-from controller.logicTopoPlace import LogicTopoPlace
+from controller.logicTopoLivingArea import LogicTopoLivingArea
 from controller.logicTopoWaterwork import LogicTopoWaterwork
 from controller.logicTopoFlowPath import LogicTopoFlowPath
 
@@ -66,11 +66,13 @@ class LogicTopoController():
             elif transfer == "所屬流域":
                 return ltfp.FindBasin(param)
         elif kind == "生活區域":
-            ltp = LogicTopoPlace()
+            ltla = LogicTopoLivingArea()
             if transfer == "淨水廠為何":
-                return ltp.FindVillageWaterwork(param)
+                return ltla.FindVillageWaterwork(param)
             elif transfer == "取水口為何":
-                return ltp.FindVillageWaterin(param)
+                return ltla.FindVillageWaterin(param)
+            elif transfer == "有哪些污染源":
+                return ltla.FindPollution(param)
             else:
                 return {"error":"not implemented"}
         elif kind == "淨水場":

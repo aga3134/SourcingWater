@@ -72,7 +72,7 @@ class LogicTopoController():
             elif transfer == "取水口為何":
                 return ltla.FindVillageWaterin(param)
             elif transfer == "有哪些污染源":
-                return ltla.FindPollution(param)
+                return ltla.FindVillagePollution(param)
             else:
                 return {"error":"not implemented"}
         elif kind == "淨水場":

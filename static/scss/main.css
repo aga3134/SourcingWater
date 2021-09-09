@@ -365,6 +365,23 @@ html, body {
   background-color: #f0d5c2;
 }
 
+.sourcing-water .left-panel .container .quest-history .history-table .history-row .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .left-panel .container .quest-history .history-table .history-row .icon-container .icon {
+  width: 15px;
+  height: 15px;
+}
+
 .sourcing-water .left-panel .action-container {
   width: 100%;
   border-top: 1px solid #333333;
@@ -638,6 +655,23 @@ html, body {
   background-color: #f0d5c2;
 }
 
+.sourcing-water .right-panel .container .quest-history .history-table .history-row .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .right-panel .container .quest-history .history-table .history-row .icon-container .icon {
+  width: 15px;
+  height: 15px;
+}
+
 .sourcing-water .right-panel .action-container {
   width: 100%;
   border-top: 1px solid #333333;
@@ -909,6 +943,23 @@ html, body {
 
 .sourcing-water .bottom-panel .container .quest-history .history-table .history-row.selected {
   background-color: #f0d5c2;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .bottom-panel .container .quest-history .history-table .history-row .icon-container .icon {
+  width: 15px;
+  height: 15px;
 }
 
 .sourcing-water .bottom-panel .action-container {
@@ -1189,6 +1240,23 @@ html, body {
   background-color: #f0d5c2;
 }
 
+.sourcing-water .center-panel .container .quest-history .history-table .history-row .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .center-panel .container .quest-history .history-table .history-row .icon-container .icon {
+  width: 15px;
+  height: 15px;
+}
+
 .sourcing-water .center-panel .action-container {
   width: 100%;
   border-top: 1px solid #333333;
@@ -1458,6 +1526,23 @@ html, body {
 
 .sourcing-water .player-panel .container .quest-history .history-table .history-row.selected {
   background-color: #f0d5c2;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .player-panel .container .quest-history .history-table .history-row .icon-container .icon {
+  width: 15px;
+  height: 15px;
 }
 
 .sourcing-water .player-panel .action-container {
@@ -1753,6 +1838,23 @@ html, body {
 
 .sourcing-water .quest-input-panel .container .quest-history .history-table .history-row.selected {
   background-color: #f0d5c2;
+}
+
+.sourcing-water .quest-input-panel .container .quest-history .history-table .history-row .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .quest-input-panel .container .quest-history .history-table .history-row .icon-container .icon {
+  width: 15px;
+  height: 15px;
 }
 
 .sourcing-water .quest-input-panel .action-container {

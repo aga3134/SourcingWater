@@ -427,6 +427,13 @@ let g_APP = new Vue({
                 this.LoadQuest();
             });
         },
+        RemoveQuestHistory: function(i){
+            let q = this.history.questArr[i];
+            if(confirm("確定刪除回溯探索「"+q.quest.quest.name+" - "+q.quest.nodeName+"」?")){
+                this.ClearQuest(this.history.questArr[i]); 
+                this.history.questArr.splice(i,1);
+            }
+        },
         GetNodeInfo: function(kind,nodeID){
             let url = "logicTopo/getNodeInfo?";
             url += "kind="+kind;

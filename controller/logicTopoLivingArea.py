@@ -113,24 +113,12 @@ class LogicTopoLivingArea():
         if not "nodeID" in param:
             return {"error":"no nodeID parameter"}
         nodeID = param["nodeID"]
-        sql = "select countyname,townname,villname as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where villname='%s';" % (nodeID)
-        row = db.engine.execute(sql).first()
-        if row is None:
-            return {"error": "無村里資料"}
-        row = dict(row)
-
-        row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "fill",
-                "paint":{
-                    "fill-color": "#ffffff",
-                    "fill-opacity": 0.3
-                }
-            }
-        ]
+        nodeName = ""
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+        
         return {
-            "nodeID":row["title"],
-            "nodeName":row["title"],
-            "data":[row]
+            "nodeID":nodeID,
+            "nodeName":nodeName,
+            "info":"請選擇要觀察哪種類型的污染源"
         }

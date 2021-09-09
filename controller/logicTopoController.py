@@ -5,6 +5,7 @@ from controller.logicTopoBasin import LogicTopoBasin
 from controller.logicTopoLivingArea import LogicTopoLivingArea
 from controller.logicTopoWaterwork import LogicTopoWaterwork
 from controller.logicTopoFlowPath import LogicTopoFlowPath
+from controller.logicTopoPollution import LogicTopoPollution
 
 class LogicTopoController():
     def ListKind(self):
@@ -81,6 +82,12 @@ class LogicTopoController():
                 return ltww.FindWaterinByID(param)
             elif transfer == "淨水場水質":
                 return ltww.FindWaterworkQuality(param)
+            else:
+                return {"error":"not implemented"}
+        elif kind == "鄰近污染源":
+            ltp = LogicTopoPollution()
+            if transfer == "工廠":
+                return ltp.FindFactory(param)
             else:
                 return {"error":"not implemented"}
         else:

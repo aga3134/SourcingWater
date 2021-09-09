@@ -84,6 +84,9 @@ class BaseLayer{
                 if(failFn) failFn(result);
                 return;
             }
+            if(result.info){
+                toastr.info(result.info);
+            }
             this.bbox = null;
             if(result.layerName) this.layerName = result.layerName;
             //console.log(result);

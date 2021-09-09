@@ -89,6 +89,7 @@ let g_APP = new Vue({
                 {name:"rain-station",url:"static/image/water-24.png"},
                 {name:"marker-red",url:"static/image/marker-red-24.png"},
                 {name:"marker-blue",url:"static/image/marker-blue-24.png"},
+                {name:"marker-black",url:"static/image/marker-black-24.png"},
                 {name:"waterin",url:"static/image/waterin-24.png"},
                 {name:"waterwork",url:"static/image/waterwork-24.png"},
                 {name:"camera",url:"static/image/camera-24.png"},
@@ -259,6 +260,7 @@ let g_APP = new Vue({
                 geomUrl += "?kind="+t["from_類別"];
                 geomUrl += "&transfer="+t["類別情境與問題"];
                 geomUrl += "&nodeID="+this.logicTopo.nodeID;
+                geomUrl += "&nodeName="+this.logicTopo.nodeName;
                 this.questArr.push({
                     "curKind":t["from_類別"],
                     "name": t["類別情境與問題"],
@@ -299,7 +301,7 @@ let g_APP = new Vue({
             toastr.info("請點選要探索的流域");
         },
         SelectBasin: function(basinID){
-            this.ClearQuestHistory();
+            //this.ClearQuestHistory();
             this.curBasin = basinID;
             this.logicTopo.curKind = "流域";
             this.logicTopo.nodeID = basinID;
@@ -416,8 +418,10 @@ let g_APP = new Vue({
             }
             this.curQuest.index = -1;
             this.curQuest.quest = item.quest;
+            this.curQuest.quest.show = true;
             this.curQuest.quest.Init(() => {
                 this.logicTopo.nodeID = this.curQuest.quest.nodeID;
+                this.logicTopo.nodeName = this.curQuest.quest.nodeName;
                 this.ZoomToBBox(this.curQuest.quest);
                 this.logicTopo.curKind = item.quest.quest.targetKind==null?item.quest.quest.curKind:item.quest.quest.targetKind;
                 this.LoadQuest();

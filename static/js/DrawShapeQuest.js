@@ -13,10 +13,8 @@ class DrawShapeQuest extends BaseQuest{
     Init(succFn,failFn){
         this.confirmCallback = succFn;
         super.Init((result) => {
-            if(result.info){
-                toastr.info(result.info);
+            if(result.setting && result.setting.shapeConfig){
                 let config = this.setting.shapeConfig;
-
                 //add shape layer
                 let key = this.GetShapeKey();
                 this.shapeSource = this.map.addSource(key, {
@@ -128,9 +126,21 @@ class DrawShapeQuest extends BaseQuest{
 
     DrawCircle(lat,lng){
         let config = this.setting.shapeConfig;
+        this.shapeData.center = [lng,lat];
+        this.shapeData.radius = 1000;
+        this.ConfirmShape();
     }
-    DrawMove(lat,lng){
+    DrawCircleMove(lat,lng){
         let config = this.setting.shapeConfig;
+        let options = {steps:64, units:"meters"};
+        let center = [lng,lat]; 
+        var circleGeom = turf.circle(center, 1000, options);
+
+        let key = this.GetShapeKey();
+        let source = this.map.getSource(key);
+        if(source){
+            source.setData(circleGeom);
+        }
     }
 
     DrawPolyline(lat,lng){

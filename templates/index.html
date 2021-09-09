@@ -78,13 +78,11 @@
                                 </div>
                                 <table class="history-table">
                                     <thead>
-                                        <th></th>
                                         <th>探索</th>
                                         <th>目標</th>
                                         <th></th>
                                     </thead>
                                     <tr class="history-row" :class="{selected: history.index==i}" v-for="(q,i) in history.questArr" @click="SelectQuestHistory(i)">
-                                        <td>[[i+1]]</td>
                                         <td>[[q.quest.quest.name]]</td>
                                         <td>[[q.quest.nodeName]]</td>
                                         <td>

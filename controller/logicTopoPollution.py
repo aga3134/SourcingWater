@@ -41,7 +41,7 @@ class LogicTopoPollution():
         url = "https://egis.moea.gov.tw/MoeaEGFxData_WebAPI_Inside/InnoServe/Factory?resptype=GeoJson&x=%f&y=%f&buffer=%d" % (lng,lat,radius)
         #print(url)
         geom = requests.get(url).json()
-        #print(geom)
+        print(geom)
         if len(geom["features"]) == 0:
             return {"error":"鄰近範圍查無工廠"}
 

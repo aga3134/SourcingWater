@@ -4,7 +4,9 @@ import json
 from controller.logicTopoBasin import LogicTopoBasin
 from controller.logicTopoLivingArea import LogicTopoLivingArea
 from controller.logicTopoWaterwork import LogicTopoWaterwork
+from controller.logicTopoWaterin import LogicTopoWaterin
 from controller.logicTopoFlowPath import LogicTopoFlowPath
+from controller.logicTopoCatchment import LogicTopoCatchment
 from controller.logicTopoPollution import LogicTopoPollution
 
 class LogicTopoController():
@@ -70,7 +72,7 @@ class LogicTopoController():
             ltla = LogicTopoLivingArea()
             if transfer == "淨水廠為何":
                 return ltla.FindVillageWaterwork(param)
-            elif transfer == "取水口為何":
+            elif transfer == "水源在哪":
                 return ltla.FindVillageWaterin(param)
             elif transfer == "有哪些污染源":
                 return ltla.FindVillagePollution(param)
@@ -82,6 +84,18 @@ class LogicTopoController():
                 return ltww.FindWaterinByID(param)
             elif transfer == "淨水場水質":
                 return ltww.FindWaterworkQuality(param)
+            else:
+                return {"error":"not implemented"}
+        elif kind == "取水口":
+            ltwi = LogicTopoWaterin()
+            if transfer == "集水區為何":
+                return ltwi.FindCatchmentByID(param)
+            else:
+                return {"error":"not implemented"}
+        elif kind == "集水區":
+            ltc = LogicTopoCatchment()
+            if transfer == "有哪些污染源":
+                return ltc.FindCatchmentPollution(param)
             else:
                 return {"error":"not implemented"}
         elif kind == "鄰近污染源":

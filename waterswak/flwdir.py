@@ -304,8 +304,10 @@ class FlwDir():
 
     #單點到 stream 資訊: 距離，最近點，哪一個線段
     def point_with_streams(self,point_src,dist_min=5000): #[253520,2743364]
-
-        point = Point(point_src[0],point_src[1])
+        #需先跑self.streams建立self.gdf
+        #轉3826
+        pt = to_crs(point_src,4326,3826)
+        point = Point(pt[0],pt[1])
         #dist_min=5000
         idx_min=None
         for index, row in self.gdf.iterrows():
@@ -323,6 +325,8 @@ class FlwDir():
             pt_in = nearest_points(line_ori, point)[0]
             #print(pt_in.coords[0][0])
             xy=pt_in.coords[0]
+            #轉回經緯度
+            xy = to_crs(xy,3826,4326)
 
             return [idx_min,dist_min,xy[0],xy[1]] #index, distance, point_x, point_y
 

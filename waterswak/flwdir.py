@@ -303,8 +303,10 @@ class FlwDir():
         self.gdf.to_file('output/river_c1300_mergeline.geojson', driver='GeoJSON')
 
     #單點到 stream 資訊: 距離，最近點，哪一個線段
-    def point_with_streams(self,point_src,dist_min=5000): #[253520,2743364]
-        #需先跑self.streams建立self.gdf
+    def point_with_streams(self,point_src,dist_min=5000,min_sto=9): #[253520,2743364]
+        #計算河道
+        feats = self.flw.streams(min_sto=min_sto)
+        self.gdf = gpd.GeoDataFrame.from_features(feats, crs=self.crs)
         #轉3826
         pt = to_crs(point_src,4326,3826)
         point = Point(pt[0],pt[1])

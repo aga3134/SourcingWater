@@ -37,13 +37,12 @@ class LogicTopoWaterin():
         if fd is None:
             return {"error":"查無流域資料"}
 
-        #取得最近河川點(目前跑point_with_streams會失敗)
-        """fd.streams(cx_dict["min_sto"])
-        streamPt = fd.point_with_streams(coord,dist_min=5000)
+        #取得最近河川點
+        streamPt = fd.point_with_streams(coord,dist_min=5000,min_sto=cx_dict["min_sto"])
         if streamPt is None:
             return {"error":"查無最近河川點位"}
-        ptArr = [[streamPt[2],streamPt[3],"%s集水區" % nodeName]]"""
-        ptArr = [[coord[0],coord[1],"%s集水區" % nodeName]]
+        ptArr = [[streamPt[2],streamPt[3],"%s集水區" % nodeName]]
+        #ptArr = [[coord[0],coord[1],"%s集水區" % nodeName]]
 
         #產生集水區
         row = {}

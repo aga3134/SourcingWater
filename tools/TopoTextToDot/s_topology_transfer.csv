@@ -29,6 +29,8 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 取水口,工業供給範圍,工業區域,4,NULL,,
 流域,流域範圍,流域,0,NULL,,
 流域,生活區域,生活區域,0,NULL,DrawShapeQuest,點一個點
+流域,農業區域,農業區域,0,NULL,DrawShapeQuest,點一個點
+流域,工業區域,工業區域,0,NULL,DrawShapeQuest,點一個點
 流域,主要河道,流路,1,NULL,,
 流域,源頭到海洋路徑,流路,1,NULL,TracePathQuest,
 流域,所有河道,流路,1,NULL,DataInputQuest,輸入河道細緻度
@@ -37,8 +39,6 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 流域,污水下水道,流路,2,NULL,,
 流域,圳路,流路,2,NULL,,
 流域,親水河道,流路,4,NULL,,
-流域,農業區域,農業區域,4,NULL,DrawShapeQuest,點一個點
-流域,工業區域,工業區域,4,NULL,DrawShapeQuest,點一個點
 流域,排水系統,流路,4,NULL,,
 流域,兩點河道,流路,4,NULL,DrawShapeQuest,點兩個點
 流域,兩點間集水區為何,集水區,4,NULL,DrawShapeQuest,點兩個點

@@ -3,6 +3,7 @@ from model.db import db
 import json
 from controller.logicTopoBasin import LogicTopoBasin
 from controller.logicTopoLivingArea import LogicTopoLivingArea
+from controller.logicTopoAgricultureArea import LogicTopoAgricultureArea
 from controller.logicTopoWaterwork import LogicTopoWaterwork
 from controller.logicTopoWaterin import LogicTopoWaterin
 from controller.logicTopoFlowPath import LogicTopoFlowPath
@@ -56,6 +57,10 @@ class LogicTopoController():
                 return ltb.FindSubBasins(param)
             elif transfer == "生活區域":
                 return ltb.FindLivingArea(param)
+            elif transfer == "農業區域":
+                return ltb.FindAgricultureArea(param)
+            elif transfer == "工業區域":
+                return ltb.FindIndustryArea(param)
             elif transfer in ["雨水下水道","污水下水道","圳路"]:
                 return {"error":"無開放資料"}
             else:
@@ -76,6 +81,12 @@ class LogicTopoController():
                 return ltla.FindVillageWaterin(param)
             elif transfer == "有哪些污染源":
                 return ltla.FindVillagePollution(param)
+            else:
+                return {"error":"not implemented"}
+        elif kind == "農業區域":
+            ltaa = LogicTopoAgricultureArea()
+            if transfer == "有哪些污染源":
+                return ltaa.FindAgriculturePollution(param)
             else:
                 return {"error":"not implemented"}
         elif kind == "淨水場":

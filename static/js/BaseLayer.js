@@ -79,6 +79,7 @@ class BaseLayer{
         this.ClearAll();
         
         $.get(url, (result) => {
+            //console.log(result);
             if(result.error){
                 toastr.error(result.error);
                 if(failFn) failFn(result);
@@ -89,7 +90,6 @@ class BaseLayer{
             }
             this.bbox = null;
             if(result.layerName) this.layerName = result.layerName;
-            //console.log(result);
             if(result.data){
                 this.data = result.data;
                 var visible = this.show?"visible":"none";

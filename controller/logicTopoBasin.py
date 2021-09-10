@@ -1,7 +1,7 @@
 from sqlalchemy.sql.functions import func
 from model.db import db
 import json
-from controller.util import DictToGeoJsonProp,InitFlow
+from controller.util import DictToGeoJsonProp,InitFlow,MergeRowsToGeoJson
 
 from colour import Color
 
@@ -236,4 +236,150 @@ class LogicTopoBasin():
             "nodeID":row["title"],
             "nodeName":row["title"],
             "data":[row]
+        }
+
+    def FindAgricultureArea(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        sql = "select basin_no,basin_name from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+
+        #shape資訊不完整
+        if not "shape" in param:
+            return {
+                "info":"請在流域內點選一個位置",
+                "nodeID":nodeID,
+                "nodeName":row["basin_name"],
+                "setting":{
+                    "shapeConfig":{
+                        "type":"point",
+                        "variable": "shape",
+                        "num": 1,
+                        "layer":{
+                            "type": "symbol",
+                            "layout":{
+                                "icon-image": "marker-red",
+                                "icon-allow-overlap": True,
+                                "text-allow-overlap": True
+                            }
+                        }
+                    }
+                }
+            }
+        shape = json.loads(param["shape"])
+
+        #check if lat,lng in basin
+        lat = shape["ptArr"][0][1]
+        lng = shape["ptArr"][0][0]
+        sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "位置需在流域內"}
+
+        sql = "select countyname,townname as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3824),4326))::json as geom from town_moi where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3824),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無縣市資料"}
+        row = dict(row)
+
+        row["geom"] = DictToGeoJsonProp(row)
+        row["layer"] = [
+            {
+                "type": "line",
+                "paint": {
+                    "line-color": "#3f3",
+                    "line-width": 4
+                }
+            }
+        ]
+        return {
+            "nodeID":row["title"],
+            "nodeName":row["title"],
+            "data":[row]
+        }
+    
+    def FindIndustryArea(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        sql = "select basin_no,basin_name from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+
+        #shape資訊不完整
+        if not "shape" in param:
+            return {
+                "info":"請在流域內點選一個位置",
+                "nodeID":nodeID,
+                "nodeName":row["basin_name"],
+                "setting":{
+                    "shapeConfig":{
+                        "type":"point",
+                        "variable": "shape",
+                        "num": 1,
+                        "layer":{
+                            "type": "symbol",
+                            "layout":{
+                                "icon-image": "marker-red",
+                                "icon-allow-overlap": True,
+                                "text-allow-overlap": True
+                            }
+                        }
+                    }
+                }
+            }
+        shape = json.loads(param["shape"])
+
+        #check if lat,lng in basin
+        lat = shape["ptArr"][0][1]
+        lng = shape["ptArr"][0][0]
+        sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "位置需在流域內"}
+
+        pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
+        geom = "ST_SetSRID(geom,3826)"
+        sql = """
+            select fd,fname as title,type,catagory,
+            ST_AsGeoJson(ST_Transform(%s,4326))::json as geom,
+            ST_Distance(%s,%s) as dist
+            from \"25598-台灣各工業區範圍圖資料集\" where
+            ST_DWithin(%s,%s, 10000)
+            order by dist;
+        """ % (geom,pt,geom,pt,geom)
+
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "十公里內無工業區資料"}
+        arr = []
+        firstRow = None
+        for row in rows:
+            d = dict(row)
+            if firstRow is None:
+                firstRow = d
+            d["geom"] = d["geom"]
+            arr.append(d)
+
+        geom = MergeRowsToGeoJson(arr,idKey="fd",skipArr=["geom"])
+
+        data = {}
+        data["geom"] = geom
+        data["layer"] = [
+            {
+                "type": "line",
+                "paint": {
+                    "line-color": "#3f3",
+                    "line-width": 4
+                }
+            }
+        ]
+        return {
+            "nodeID":firstRow["title"],
+            "nodeName":firstRow["title"],
+            "data":[data]
         }

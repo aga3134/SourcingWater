@@ -147,3 +147,73 @@ class LogicTopoWaterwork():
             "nodeName":nodeID,
             "chartArr": chartArr
         }
+
+    def FindWaterworkQuantity(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+
+        sql = "select max(date) as date from s_waterwork_qty where waterwork='%s';" % nodeID
+        endD = db.engine.execute(sql).first()
+        endD = dict(endD)["date"]
+        if endD is None:
+            return {"error": "無水量資料"}
+        startD = endD + relativedelta(years=-1)
+
+        sql="select * from s_waterwork_qty where waterwork='%s' and date >='%s' and date < '%s' order by date" %(nodeID,startD,endD)
+        rows = db.engine.execute(sql).fetchall()
+        data = {"水量":[]}
+        for row in rows:
+            d = dict(row)
+            value = ToFloat(d["qty"])
+            #nan轉成json時會錯誤，設為None
+            if math.isnan(value):
+                value = None
+            data["水量"].append({
+                "x": datetime.datetime.strftime(d["date"],"%Y-%m-%d"),
+                "y": value
+            })
+
+        chartArr = []
+        for key in data:
+            d = data[key]
+            chartArr.append({
+                "option":{
+                    "series": [{
+                        "name": key,
+                        "data": d
+                    }],
+                    "chart": {
+                        "width": "100%",
+                        "type": 'line',
+                        "zoom": {
+                            "enabled": False
+                        }
+                    },
+                    "dataLabels": {
+                        "enabled": False
+                    },
+                    "stroke": {
+                        "curve": 'straight'
+                    },
+                    "title": {
+                        "text": key,
+                        "align": 'left'
+                    },
+                    "grid": {
+                        "row": {
+                            "colors": ['#f3f3f3', 'transparent'],
+                            "opacity": 0.5
+                        },
+                    },
+                    "xaxis": {
+                        "type": "datetime",
+                    }
+                }
+            })
+
+        return {
+            "nodeID":nodeID,
+            "nodeName":nodeID,
+            "chartArr": chartArr
+        }

@@ -357,11 +357,8 @@ class LogicTopoBasin():
         if len(rows) == 0:
             return {"error": "十公里內無工業區資料"}
         arr = []
-        firstRow = None
         for row in rows:
             d = dict(row)
-            if firstRow is None:
-                firstRow = d
             d["geom"] = d["geom"]
             arr.append(d)
 
@@ -379,7 +376,7 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":firstRow["title"],
-            "nodeName":firstRow["title"],
+            "nodeID":rows[0]["fd"],
+            "nodeName":rows[0]["title"],
             "data":[data]
         }

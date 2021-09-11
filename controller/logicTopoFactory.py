@@ -89,7 +89,7 @@ class LogicTopoFactory():
             return {"error":"node nodeName parameter"}
         nodeName = param["nodeName"]
 
-        #查工業區範圍
+        #查工廠位置
         url = "https://egis.moea.gov.tw/MoeaEGFxData_WebAPI_Inside/InnoServe/Factory?resptype=GeoJson&keyword=%s" % (nodeName)
         geom = requests.get(url).json()
         if len(geom["features"]) == 0:

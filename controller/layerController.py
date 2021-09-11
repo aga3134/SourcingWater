@@ -175,7 +175,7 @@ class LayerController():
                     "type": "symbol",
                     "layout":{
                         "icon-image": "camera",
-                        "text-field": ["get", "名稱"],
+                        "text-field": ["get", "思源地圖名稱"],
                         "text-size": 12,
                         "text-offset": [0, 1.25],
                         "text-anchor": "top",
@@ -183,7 +183,7 @@ class LayerController():
                         "text-allow-overlap": True
                     },
                     "paint":{
-                        "text-color": "#ff3"
+                        "text-color": "#ff3",
                     }
                 }
             ],

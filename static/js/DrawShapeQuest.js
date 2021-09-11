@@ -210,7 +210,7 @@ class DrawShapeQuest extends BaseQuest{
     }
 
     Stop(){
-        this.ClearAll();
+        this.ClearShape();
     }
 }
 

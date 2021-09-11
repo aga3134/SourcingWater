@@ -77,12 +77,14 @@ class BaseLayer{
 
     LoadData(url,succFn,failFn){
         this.ClearAll();
+        g_APP.isProcessing = true;
         
         $.get(url, (result) => {
             //console.log(result);
             if(result.error){
                 toastr.error(result.error);
                 if(failFn) failFn(result);
+                g_APP.isProcessing = false;
                 return;
             }
             if(result.info){
@@ -147,6 +149,7 @@ class BaseLayer{
                 }
             }
             if(succFn) succFn(result);
+            g_APP.isProcessing = false;
         });
     }
 

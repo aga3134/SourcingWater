@@ -192,6 +192,12 @@
                 </div>
             </transition>
 
+            <div class="processing-page" v-show="isProcessing">
+                <div class="bottom-box">
+                    <div class="info">資料處理中...</div>
+                </div>
+            </div>
+
             <div class="loading-page" v-show="isLoading">
                 <div class="center-box">
                     <img class="logo" src="static/image/logo.png">

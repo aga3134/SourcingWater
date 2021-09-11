@@ -371,10 +371,17 @@ class LogicTopoBasin():
         data["geom"] = geom
         data["layer"] = [
             {
+                "type": "fill",
+                "paint": {
+                    "fill-color": "#33f",
+                    "fill-opacity": 0.5
+                }
+            },
+            {
                 "type": "line",
                 "paint": {
-                    "line-color": "#3f3",
-                    "line-width": 4
+                    "line-color": "#fff",
+                    "line-width": 2
                 }
             }
         ]

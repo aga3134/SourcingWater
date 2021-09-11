@@ -148,7 +148,7 @@ class LogicTopoWaterin():
         for r in rows:
             r = dict(r)
             vArr.append("'"+r["VILLCODE"]+"'")
-        print(vArr)
+        #print(vArr)
         
         sql = "select countyname,townname,villname as id,villname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where villcode in (%s)" % ",".join(vArr)
         rows = db.engine.execute(sql).fetchall()

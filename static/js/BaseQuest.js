@@ -55,6 +55,11 @@ class BaseQuest extends BaseLayer{
         });
     }
 
+    ClearAll(){
+        this.ClearChart();
+        super.ClearAll();
+    }
+
     Start(){
 
     }

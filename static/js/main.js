@@ -3,6 +3,7 @@ let g_APP = new Vue({
     data: {
         map: null,
         isLoading: true,
+        isProcessing: false,
         openOptionPanel: false,
         openQuestPanel: false,
         openChartPanel: false,
@@ -171,8 +172,8 @@ let g_APP = new Vue({
 
                             if(f.properties["思源地圖類別"] && f.properties["思源地圖名稱"]){
                                 this.logicTopo.curKind = f.properties["思源地圖類別"];
-                                this.logicTopo.nodeID = f.properties["思源地圖名稱"];
-                                this.logicTopo.nodeName = f.properties["思源地圖名稱"];
+                                this.logicTopo.nodeID = this.curQuest.nodeID = f.properties["思源地圖名稱"];
+                                this.logicTopo.nodeName = this.curQuest.nodeName = f.properties["思源地圖名稱"];
                                 this.LoadQuest();
                                 this.curQuest.index = -1;
                             }
@@ -451,8 +452,10 @@ let g_APP = new Vue({
             }
         },
         GetNodeInfo: function(kind,nodeID,nodeName){
-            this.logicTopo.nodeID = nodeID;
-            this.logicTopo.nodeName = nodeName;
+            this.logicTopo.nodeID = this.curQuest.quest.nodeID = nodeID;
+            this.logicTopo.nodeName = this.curQuest.quest.nodeName = nodeName;
+            this.logicTopo.curKind = kind;
+            this.LoadQuest();
             
             /*let url = "logicTopo/getNodeInfo?";
             url += "kind="+kind;

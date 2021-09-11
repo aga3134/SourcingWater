@@ -65,7 +65,7 @@ for i in range(len(data)):
 
 def InitFlow(basinID):
     if basinID not in cx_dicts:
-        return None
+        return (None,None)
     cx_dict = cx_dicts[basinID]
     fd = FlwDir()
     fd.reload(cx_dict["dtm"],cx_dict["ldd"])

@@ -10,7 +10,7 @@ class LogicTopoBasin():
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
-        sql = "select basin_no,basin_name as title,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_no='%s';" % nodeID
+        sql = "select basin_no as id,basin_name as name,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_no='%s';" % nodeID
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無流域資料"}
@@ -27,8 +27,8 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":row["title"]+"流域",
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
 
@@ -37,13 +37,14 @@ class LogicTopoBasin():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
         #目前資料庫只有頭前溪主河道，先用這個測試
-        sql = "select ogc_fid,ST_AsGeoJson(geom)::json as geom from c1300 limit 1;"
+        sql = "select ogc_fid as id,ST_AsGeoJson(geom)::json as geom from c1300 limit 1;"
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無主流資料"}
         row = dict(row)
 
-        row["title"] = "頭前溪"
+        row["id"] = nodeID
+        row["name"] = "頭前溪"
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = [
             {
@@ -55,8 +56,8 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":"頭前溪",
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "setting":{
                 "pathIndex":0
             },
@@ -78,7 +79,8 @@ class LogicTopoBasin():
         #print(sto)
 
         row = {}
-        row["title"] = cx_dict["basin_name"]+"河川細緻度"
+        row["id"] = nodeID
+        row["name"] = cx_dict["basin_name"]
         row["geom"] = json.loads(fd.streams(sto))
 
         #setup color
@@ -98,8 +100,8 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":cx_dict["basin_name"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "setting":{
                 "inputConfig":[
                     {
@@ -130,7 +132,8 @@ class LogicTopoBasin():
             sto = cx_dict['min_sto']
 
         row = {}
-        row["title"] = cx_dict["basin_name"]+"流域細緻度"
+        row["id"] = nodeID
+        row["name"] = cx_dict["basin_name"]
         row["geom"] = json.loads(fd.subbasins_streamorder(sto))
 
         #setup color
@@ -157,8 +160,8 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":cx_dict["basin_name"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "setting":{
                 "inputConfig":[
                     {
@@ -216,7 +219,7 @@ class LogicTopoBasin():
         if row is None:
             return {"error": "位置需在流域內"}
 
-        sql = "select countyname,townname,villname as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
+        sql = "select countyname,townname,villname as id,villname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無村里資料"}
@@ -233,8 +236,8 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":row["title"],
-            "nodeName":row["title"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
 
@@ -279,7 +282,7 @@ class LogicTopoBasin():
         if row is None:
             return {"error": "位置需在流域內"}
 
-        sql = "select countyname,townname as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3824),4326))::json as geom from town_moi where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3824),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
+        sql = "select countyname,townname as id,townname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3824),4326))::json as geom from town_moi where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3824),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無縣市資料"}
@@ -296,8 +299,8 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":row["title"],
-            "nodeName":row["title"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
     
@@ -318,15 +321,14 @@ class LogicTopoBasin():
                 "nodeName":row["basin_name"],
                 "setting":{
                     "shapeConfig":{
-                        "type":"point",
+                        "type":"circle",
                         "variable": "shape",
-                        "num": 1,
+                        "fixedRadius": 10000,
                         "layer":{
-                            "type": "symbol",
-                            "layout":{
-                                "icon-image": "marker-red",
-                                "icon-allow-overlap": True,
-                                "text-allow-overlap": True
+                            "type": "line",
+                            "paint": {
+                                "line-color": "#f33",
+                                "line-width": 2
                             }
                         }
                     }
@@ -335,8 +337,9 @@ class LogicTopoBasin():
         shape = json.loads(param["shape"])
 
         #check if lat,lng in basin
-        lat = shape["ptArr"][0][1]
-        lng = shape["ptArr"][0][0]
+        lat = shape["center"][1]
+        lng = shape["center"][0]
+        radius = shape["radius"]
         sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
         row = db.engine.execute(sql).first()
         if row is None:
@@ -345,13 +348,13 @@ class LogicTopoBasin():
         pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
         geom = "ST_SetSRID(geom,3826)"
         sql = """
-            select fd,fname as title,type,catagory,
+            select fd as id,fname as name,type,catagory,
             ST_AsGeoJson(ST_Transform(%s,4326))::json as geom,
             ST_Distance(%s,%s) as dist
             from \"25598-台灣各工業區範圍圖資料集\" where
-            ST_DWithin(%s,%s, 10000)
+            ST_DWithin(%s,%s, %d)
             order by dist;
-        """ % (geom,pt,geom,pt,geom)
+        """ % (geom,pt,geom,pt,geom,radius)
 
         rows = db.engine.execute(sql).fetchall()
         if len(rows) == 0:
@@ -362,7 +365,7 @@ class LogicTopoBasin():
             d["geom"] = d["geom"]
             arr.append(d)
 
-        geom = MergeRowsToGeoJson(arr,idKey="fd",skipArr=["geom"])
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
 
         data = {}
         data["geom"] = geom
@@ -376,7 +379,7 @@ class LogicTopoBasin():
             }
         ]
         return {
-            "nodeID":rows[0]["fd"],
-            "nodeName":rows[0]["title"],
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
             "data":[data]
         }

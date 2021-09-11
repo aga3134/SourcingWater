@@ -63,6 +63,10 @@
                                     <option value="LUIMAP09">其他</option>
                                 </select> 
                             </div>
+                            <!--<div class="option-item" v-if="layer.irrigationMap">
+                                <input type="checkbox" v-model="layer.irrigationMap.show" @change="UpdateLayer();">
+                                <div class="item-label">圳路圖層</div>
+                            </div>-->
                             <div class="option-item" v-if="layer.commutag">
                                 <input type="checkbox" v-model="layer.commutag.show" @change="UpdateLayer();">
                                 <div class="item-label">群眾標註</div>

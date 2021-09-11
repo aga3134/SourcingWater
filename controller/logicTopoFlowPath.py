@@ -45,7 +45,8 @@ class LogicTopoFlowPath():
         #print(shape)
 
         row = {}
-        row["title"] = cx_dict["basin_name"]+"上游集水區"
+        row["id"] = nodeID
+        row["name"] = cx_dict["basin_name"]+"上游集水區"
         row["geom"] = json.loads(fd.basins(shape["ptArr"],filename=None))
         row["layer"] = [
             {
@@ -57,8 +58,8 @@ class LogicTopoFlowPath():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":cx_dict["basin_name"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
         
@@ -103,7 +104,8 @@ class LogicTopoFlowPath():
         #print(shape)
 
         row = {}
-        row["title"] = cx_dict["basin_name"]+"下游入海線"
+        row["id"] = nodeID
+        row["name"] = cx_dict["basin_name"]+"下游入海線"
         row["geom"] = json.loads(fd.path(shape["ptArr"],filename=None))
         row["layer"] = [
             {
@@ -115,8 +117,8 @@ class LogicTopoFlowPath():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":cx_dict["basin_name"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
 
@@ -124,7 +126,7 @@ class LogicTopoFlowPath():
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
-        sql = "select basin_no,basin_name as title,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_no='%s';" % nodeID
+        sql = "select basin_no as id,basin_name as name,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin where basin_no='%s';" % nodeID
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無流域資料"}
@@ -141,7 +143,7 @@ class LogicTopoFlowPath():
             }
         ]
         return {
-            "nodeID":nodeID,
-            "nodeName":row["title"]+"流域",
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }

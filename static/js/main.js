@@ -41,6 +41,7 @@ let g_APP = new Vue({
             rainStation: null,
             floodStation: null,
             LUIMap: null,
+            //irrigationMap: null,
             commutag: null
         },
         eventFn:{
@@ -151,7 +152,7 @@ let g_APP = new Vue({
                             content += "<img class='photo' src='"+f.properties.photo+"'>";
                             content += "</a>";
                             if(f.properties["名稱"]){
-                                content += "<div class='title'>"+f.properties["名稱"]+"</div>";
+                                content += "<div class='title'>"+f.properties["思源地圖名稱"]+"</div>";
                             }
                             if(f.properties.remark){
                                 content += "<div>"+f.properties.remark+"</div>";
@@ -168,10 +169,10 @@ let g_APP = new Vue({
                             .setHTML(content)
                             .addTo(this.map);
 
-                            if(f.properties["類別"] && f.properties["名稱"]){
-                                this.logicTopo.curKind = f.properties["類別"];
-                                this.logicTopo.nodeID = f.properties["名稱"];
-                                this.logicTopo.nodeName = f.properties["名稱"];
+                            if(f.properties["思源地圖類別"] && f.properties["思源地圖名稱"]){
+                                this.logicTopo.curKind = f.properties["思源地圖類別"];
+                                this.logicTopo.nodeID = f.properties["思源地圖名稱"];
+                                this.logicTopo.nodeName = f.properties["思源地圖名稱"];
                                 this.LoadQuest();
                                 this.curQuest.index = -1;
                             }
@@ -202,6 +203,7 @@ let g_APP = new Vue({
             this.map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/aga3134/ckpqd8kxb0pph17px4usqsea5',
+                //style: 'mapbox://styles/aga3134/cktf22irw2v2d19pjwuxxjb9v',
                 center: [121, 23.7],
                 zoom: 6.5
             });
@@ -234,7 +236,14 @@ let g_APP = new Vue({
 
                 //國土利用圖層
                 this.layer.LUIMap = new LUIMapLayer({map:this.map,show:false});
-                this.layer.LUIMap.Init();
+
+                //圳路圖層(太糊不使用)
+                /*this.layer.irrigationMap = new WMTSLayer({
+                    map: this.map,
+                    show: false,
+                    url: "https://irrggis.aerc.org.tw/arcgis/services/WMS/OpenData/MapServer/WmsServer?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=512&height=512&layers=0&styles=default"
+                })*/
+
 
                 if(callback) callback();
             }.bind(this));
@@ -441,8 +450,11 @@ let g_APP = new Vue({
                 this.history.questArr.splice(i,1);
             }
         },
-        GetNodeInfo: function(kind,nodeID){
-            let url = "logicTopo/getNodeInfo?";
+        GetNodeInfo: function(kind,nodeID,nodeName){
+            this.logicTopo.nodeID = nodeID;
+            this.logicTopo.nodeName = nodeName;
+            
+            /*let url = "logicTopo/getNodeInfo?";
             url += "kind="+kind;
             url += "&nodeID="+nodeID;
             $.get(url,(result) => {
@@ -450,7 +462,7 @@ let g_APP = new Vue({
                     return toastr.error(result.error);
                 }
                 
-            });
+            });*/
         }
     }
 });

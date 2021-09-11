@@ -12,7 +12,7 @@ class LogicTopoWaterwork():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
 
-        sql = "select 淨水場名稱 as title,主要供水轄區,原水來源,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from m_waterwork_area where \"淨水場名稱\"='%s';" % nodeID
+        sql = "select 淨水場名稱 as id,淨水場名稱 as name,主要供水轄區,原水來源,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from m_waterwork_area where \"淨水場名稱\"='%s';" % nodeID
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無淨水廠資料"}
@@ -23,18 +23,20 @@ class LogicTopoWaterwork():
                 "type": "symbol",
                 "layout":{
                     "icon-image": "waterwork",
-                    "text-field": ["get", "title"],
+                    "text-field": ["get", "name"],
                     "text-size": 12,
                     "text-offset": [0, 1.25],
-                    "text-anchor": "top"
+                    "text-anchor": "top",
+                    "icon-allow-overlap": True,
+                    "text-allow-overlap": True
                 },
                 "paint":{
                     "text-color": "#ff3"
                 }
             }]
         return {
-            "nodeID":row["title"],
-            "nodeName":row["title"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
 
@@ -49,7 +51,7 @@ class LogicTopoWaterwork():
             return {"error": "無取水口資料"}
         v = dict(v)
 
-        sql = "select name as title,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from s_waterin_b where name='%s';" % v["WATERIN"]
+        sql = "select name as id,name,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from s_waterin_b where name='%s';" % v["WATERIN"]
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無取水口資料"}
@@ -60,18 +62,20 @@ class LogicTopoWaterwork():
                 "type": "symbol",
                 "layout":{
                     "icon-image": "waterin",
-                    "text-field": ["get", "title"],
+                    "text-field": ["get", "name"],
                     "text-size": 12,
                     "text-offset": [0, 1.25],
-                    "text-anchor": "top"
+                    "text-anchor": "top",
+                    "icon-allow-overlap": True,
+                    "text-allow-overlap": True
                 },
                 "paint":{
                     "text-color": "#ff3"
                 }
             }]
         return {
-            "nodeID":row["title"],
-            "nodeName":row["title"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[row]
         }
 

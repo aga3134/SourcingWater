@@ -23,6 +23,7 @@ class LogicTopoPollution():
                     "shapeConfig":{
                         "type":"circle",
                         "variable": "shape",
+                        "fixedRadius": 1000,
                         "layer":{
                             "type": "line",
                             "paint": {
@@ -45,6 +46,9 @@ class LogicTopoPollution():
         if len(geom["features"]) == 0:
             return {"error":"鄰近範圍查無工廠"}
 
+        for f in geom["features"]:
+            f["properties"]["id"] = f["properties"]["FactoryID"]
+            f["properties"]["name"] = f["properties"]["FactoryName"]
         f = geom["features"][0]
 
         #generate json_def
@@ -86,13 +90,14 @@ class LogicTopoPollution():
         #shape資訊不完整
         if not "shape" in param:
             return {
-                "info":"請點擊要查詢的位置",
+                "info":"請點選要查詢的位置",
                 "nodeID":nodeID,
                 "nodeName":nodeName,
                 "setting":{
                     "shapeConfig":{
                         "type":"circle",
                         "variable": "shape",
+                        "fixedRadius": 1000,
                         "layer":{
                             "type": "line",
                             "paint": {
@@ -111,7 +116,7 @@ class LogicTopoPollution():
         pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
         geom = "ST_SetSRID(geom,3826)"
         sql = """
-            select \"EmsNo\",\"FacilityName\",\"County\",\"Township\",
+            select \"EmsNo\" as id,\"FacilityName\" as name,\"County\",\"Township\",
             \"FacilityAddress\",\"IndustryAreaName\",\"IndustryName\",
             ST_AsGeoJson(ST_Transform(%s,4326))::json as geom
             from hackathon.e_factory_base
@@ -126,7 +131,7 @@ class LogicTopoPollution():
             d = dict(row)
             d["geom"] = d["geom"]
             arr.append(d)
-        geom = MergeRowsToGeoJson(arr,idKey="EmsNo",skipArr=["geom"])
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
 
         #generate json_def
         data = {
@@ -136,7 +141,7 @@ class LogicTopoPollution():
                     "type": "symbol",
                     "layout":{
                         "icon-image": "marker-red",
-                        "text-field": ["get", "FactoryName"],
+                        "text-field": ["get", "name"],
                         "text-size": 12,
                         "text-offset": [0, 1.25],
                         "text-anchor": "top",
@@ -151,8 +156,8 @@ class LogicTopoPollution():
             ],
         }
         return {
-            "nodeID":rows[0]["EmsNo"],
-            "nodeName":rows[0]["FacilityName"],
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
             "data":[data]
         }
 
@@ -167,13 +172,14 @@ class LogicTopoPollution():
         #shape資訊不完整
         if not "shape" in param:
             return {
-                "info":"請點擊要查詢的位置",
+                "info":"請點選要查詢的位置",
                 "nodeID":nodeID,
                 "nodeName":nodeName,
                 "setting":{
                     "shapeConfig":{
                         "type":"circle",
                         "variable": "shape",
+                        "fixedRadius": 1000,
                         "layer":{
                             "type": "line",
                             "paint": {
@@ -192,7 +198,7 @@ class LogicTopoPollution():
         pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
         geom = "ST_SetSRID(geom,3826)"
         sql = """
-            select fd,fname as title,type,catagory,
+            select fd as id,fname as name,type,catagory,
             ST_AsGeoJson(ST_Transform(%s,4326))::json as geom,
             ST_Distance(%s,%s) as dist
             from \"25598-台灣各工業區範圍圖資料集\" where
@@ -209,7 +215,7 @@ class LogicTopoPollution():
             d["geom"] = d["geom"]
             arr.append(d)
 
-        geom = MergeRowsToGeoJson(arr,idKey="fd",skipArr=["geom"])
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
 
         data = {}
         data["geom"] = geom
@@ -223,8 +229,8 @@ class LogicTopoPollution():
             }
         ]
         return {
-            "nodeID":rows[0]["title"],
-            "nodeName":rows[0]["title"],
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
             "data":[data]
         }
 
@@ -246,6 +252,7 @@ class LogicTopoPollution():
                     "shapeConfig":{
                         "type":"circle",
                         "variable": "shape",
+                        "fixedRadius": 1000,
                         "layer":{
                             "type": "line",
                             "paint": {
@@ -264,7 +271,7 @@ class LogicTopoPollution():
         pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
         geom = "ST_SetSRID(geom,3826)"
         sql = """
-            select \"序號\",\"工業區代碼\",\"工業區名稱\",\"所在工業區\",\"地址\",
+            select \"序號\" as id,\"工業區代碼\",\"工業區名稱\" as name,\"所在工業區\",\"地址\",
             ST_AsGeoJson(ST_Transform(%s,4326))::json as geom,
             ST_Distance(%s,%s) as dist
             from \"8818-工業區污水處理廠分布位置圖\" where
@@ -281,7 +288,7 @@ class LogicTopoPollution():
             d["geom"] = d["geom"]
             arr.append(d)
 
-        geom = MergeRowsToGeoJson(arr,idKey="序號",skipArr=["geom"])
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
 
         data = {}
         data["geom"] = geom
@@ -290,7 +297,7 @@ class LogicTopoPollution():
                 "type": "symbol",
                 "layout":{
                     "icon-image": "waterin",
-                    "text-field": ["get", "title"],
+                    "text-field": ["get", "name"],
                     "text-size": 12,
                     "text-offset": [0, 1.25],
                     "text-anchor": "top"
@@ -301,7 +308,7 @@ class LogicTopoPollution():
             }
         ]
         return {
-            "nodeID":rows[0]["序號"],
-            "nodeName":rows[0]["工業區名稱"],
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
             "data":[data]
         }

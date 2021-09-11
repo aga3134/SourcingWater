@@ -124,17 +124,52 @@ class DrawShapeQuest extends BaseQuest{
         }
     }
 
+    GetCircleRadius(pt1,pt2){
+        let config = this.setting.shapeConfig;
+        let radius = turf.distance(
+            turf.point(pt1),
+            turf.point(pt2)
+        )*1000;
+        if(config.minR && radius < config.minR) radius = config.minR;
+        if(config.maxR && radius > config.maxR) radius = config.maxR;
+        return radius;
+    }
+
     DrawCircle(lat,lng){
         let config = this.setting.shapeConfig;
-        this.shapeData.center = [lng,lat];
-        this.shapeData.radius = 1000;
-        this.ConfirmShape();
+        if(config.fixedRadius){
+            this.shapeData.center = [lng,lat];
+            this.shapeData.radius = config.fixedRadius;
+            this.ConfirmShape();
+        }
+        else{
+            if(!this.shapeData.center){
+                this.shapeData.center = [lng,lat];
+                this.shapeData.radius = config.minR||0;
+            }
+            else{
+                this.shapeData.radius = this.GetCircleRadius(this.shapeData.center,[lng,lat]);
+                this.ConfirmShape();
+            }
+        }
     }
     DrawCircleMove(lat,lng){
         let config = this.setting.shapeConfig;
+        let center = null;
+        let radius = 0;
+        if(config.fixedRadius){
+            center = [lng,lat];
+            radius = config.fixedRadius;
+        }
+        else{
+            if(!this.shapeData.center) return;
+            else{
+                center = this.shapeData.center;
+                radius = this.GetCircleRadius(this.shapeData.center,[lng,lat]);
+            }
+        }
         let options = {steps:64, units:"meters"};
-        let center = [lng,lat]; 
-        var circleGeom = turf.circle(center, 1000, options);
+        var circleGeom = turf.circle(center, radius, options);
 
         let key = this.GetShapeKey();
         let source = this.map.getSource(key);
@@ -167,6 +202,15 @@ class DrawShapeQuest extends BaseQuest{
         this.Init(this.confirmCallback);
         this.ClearShape();
         this.ClearEventFn();
+    }
+
+    ClearAll(){
+        this.ClearShape();
+        super.ClearAll();
+    }
+
+    Stop(){
+        this.ClearAll();
     }
 }
 

@@ -26,7 +26,7 @@ class LogicTopoFactory():
         pt = "ST_SetSRID(ST_POINT(%s,%s),4326)" % (lng,lat)
         geom = "ST_Transform(ST_SetSRID(geom,3826),4326)"
         sql = """
-            select fd,fname as title,type,catagory,
+            select fd as id,fname as name,type,catagory,
             %s as geom
             from \"25598-台灣各工業區範圍圖資料集\" where
             ST_Contains(%s,%s);
@@ -41,7 +41,7 @@ class LogicTopoFactory():
         #工業區名稱、代碼對不起來，用位置找污水廠
         pt = "ST_Transform(ST_SetSRID(geom,3826),4326)"
         sql = """
-            select \"序號\",\"工業區代碼\",\"工業區名稱\",\"所在工業區\",\"地址\",
+            select \"序號\" as id,\"工業區代碼\",\"工業區名稱\" as name,\"所在工業區\",\"地址\",
             ST_AsGeoJson(%s)::json as geom
             from \"8818-工業區污水處理廠分布位置圖\" where
             ST_Contains('%s',%s);
@@ -56,7 +56,7 @@ class LogicTopoFactory():
             d = dict(row)
             d["geom"] = d["geom"]
             arr.append(d)
-        geom = MergeRowsToGeoJson(arr,idKey="序號",skipArr=["geom"])
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
 
         data = {}
         data["geom"] = geom
@@ -65,7 +65,7 @@ class LogicTopoFactory():
                 "type": "symbol",
                 "layout":{
                     "icon-image": "waterin",
-                    "text-field": ["get", "title"],
+                    "text-field": ["get", "name"],
                     "text-size": 12,
                     "text-offset": [0, 1.25],
                     "text-anchor": "top"
@@ -76,8 +76,8 @@ class LogicTopoFactory():
             }
         ]
         return {
-            "nodeID":rows[0]["序號"],
-            "nodeName":rows[0]["工業區名稱"],
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
             "data":[data]
         }
 
@@ -102,7 +102,7 @@ class LogicTopoFactory():
         pt = "ST_SetSRID(ST_POINT(%s,%s),4326)" % (lng,lat)
         geom = "ST_Transform(ST_SetSRID(geom,3826),4326)"
         sql = """
-            select fd,fname as title,type,catagory,
+            select fd as id,fname as name,type,catagory,
             ST_AsGeoJson(%s)::json as geom
             from \"25598-台灣各工業區範圍圖資料集\" where
             ST_Contains(%s,%s);
@@ -125,7 +125,7 @@ class LogicTopoFactory():
             }
         ]
         return {
-            "nodeID":row["fd"],
-            "nodeName":row["title"],
+            "nodeID":row["id"],
+            "nodeName":row["name"],
             "data":[data]
         }

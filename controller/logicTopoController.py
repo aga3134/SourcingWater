@@ -105,6 +105,8 @@ class LogicTopoController():
             ltwi = LogicTopoWaterin()
             if transfer == "集水區為何":
                 return ltwi.FindCatchmentByID(param)
+            elif transfer == "取水量":
+                return ltwi.FindWaterinQuantity(param)
             else:
                 return {"error":"not implemented"}
         elif kind == "集水區":

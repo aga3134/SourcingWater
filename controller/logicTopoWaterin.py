@@ -1,7 +1,7 @@
 from sqlalchemy.sql.functions import func
 from model.db import db
 import json
-from controller.util import DictToGeoJsonProp,ToFloat,InitFlow
+from controller.util import DictToGeoJsonProp,ToFloat,InitFlow,MergeRowsToGeoJson
 import datetime
 from dateutil.relativedelta import *
 import math
@@ -133,3 +133,56 @@ class LogicTopoWaterin():
             "nodeName":nodeID,
             "chartArr": chartArr
         }
+
+    def FindSupplyLivingArea(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+
+        sql = "select \"VILLCODE\" from s_village_waterin where \"WATERIN\" = '%s';" % nodeID
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) is None:
+            return {"error": "查無供水區域"}
+
+        vArr = []
+        for r in rows:
+            r = dict(r)
+            vArr.append("'"+r["VILLCODE"]+"'")
+        print(vArr)
+        
+        sql = "select countyname,townname,villname as id,villname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where villcode in (%s)" % ",".join(vArr)
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "查無村里資料"}
+
+        arr = []
+        for row in rows:
+            d = dict(row)
+            d["geom"] = d["geom"]
+            arr.append(d)
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
+
+        data = {}
+        data["geom"] = geom
+        data["layer"] = [
+            {
+                "type": "fill",
+                "paint": {
+                    "fill-color": "#33f",
+                    "fill-opacity": 0.5
+                }
+            },
+            {
+                "type": "line",
+                "paint": {
+                    "line-color": "#fff",
+                    "line-width": 2
+                }
+            }
+        ]
+        return {
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
+            "data":[data]
+        }
+        

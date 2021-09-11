@@ -11,6 +11,7 @@ from controller.logicTopoCatchment import LogicTopoCatchment
 from controller.logicTopoPollution import LogicTopoPollution
 from controller.logicTopoIndustryArea import LogicTopoIndustryArea
 from controller.logicTopoFactory import LogicTopoFactory
+from controller.logicTopoSewageTreatmentPlant import LogicTopoSewageTreatmentPlant
 
 class LogicTopoController():
     def ListKind(self):
@@ -65,8 +66,6 @@ class LogicTopoController():
                 return ltb.FindIndustryArea(param)
             elif transfer in ["雨水下水道","污水下水道","圳路"]:
                 return {"error":"無開放資料"}
-            else:
-                return {"error":"not implemented"}
         elif kind == "流路":
             ltfp = LogicTopoFlowPath()
             if transfer == "上游集水區":
@@ -83,14 +82,10 @@ class LogicTopoController():
                 return ltla.FindVillageWaterin(param)
             elif transfer == "有哪些污染源":
                 return ltla.FindVillagePollution(param)
-            else:
-                return {"error":"not implemented"}
         elif kind == "農業區域":
             ltaa = LogicTopoAgricultureArea()
             if transfer == "有哪些污染源":
                 return ltaa.FindAgriculturePollution(param)
-            else:
-                return {"error":"not implemented"}
         elif kind == "淨水場":
             ltww = LogicTopoWaterwork()
             if transfer == "取水口為何":
@@ -99,22 +94,20 @@ class LogicTopoController():
                 return ltww.FindWaterworkQuality(param)
             elif transfer == "淨水場供水量":
                 return ltww.FindWaterworkQuantity(param)
-            else:
-                return {"error":"not implemented"}
+            elif transfer == "供給哪些區域":
+                return ltww.FindSupplyLivingArea(param)
         elif kind == "取水口":
             ltwi = LogicTopoWaterin()
             if transfer == "集水區為何":
                 return ltwi.FindCatchmentByID(param)
             elif transfer == "取水量":
                 return ltwi.FindWaterinQuantity(param)
-            else:
-                return {"error":"not implemented"}
+            elif transfer == "生活供給範圍":
+                return ltwi.FindSupplyLivingArea(param)
         elif kind == "集水區":
             ltc = LogicTopoCatchment()
             if transfer == "有哪些污染源":
                 return ltc.FindCatchmentPollution(param)
-            else:
-                return {"error":"not implemented"}
         elif kind == "鄰近污染源":
             ltp = LogicTopoPollution()
             if transfer == "工廠":
@@ -125,8 +118,6 @@ class LogicTopoController():
                 return ltp.FindIndustryArea(param)
             elif transfer == "工業污水處理廠":
                 return ltp.FindSewageTreatmentPlant(param)
-            else:
-                return {"error":"not implemented"}
         elif kind == "工業區域":
             ltia = LogicTopoIndustryArea()
             if transfer == "哪個污水廠":
@@ -139,8 +130,12 @@ class LogicTopoController():
                 return ltf.FindSewageTreatmentPlant(param)
             elif transfer == "屬於哪個工業區":
                 return ltf.FindIndustryArea(param)
-        else:
-            return {"error":"not implemented"}
+        elif kind == "工業污水處理廠":
+            ltstp = LogicTopoSewageTreatmentPlant()
+            if transfer == "處理範圍":
+                return ltstp.FindProcessingArea(param)
+
+        return {"error":"not implemented"}
 
     def GetNodeInfo(self,param):
         if not "kind" in param:

@@ -221,3 +221,6 @@ class LogicTopoWaterwork():
             "nodeName":nodeID,
             "chartArr": chartArr
         }
+
+    def FindSupplyLivingArea(self,param):
+        pass

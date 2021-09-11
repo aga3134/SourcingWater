@@ -8,7 +8,7 @@ class BaseQuest extends BaseLayer{
             this.onClick = (e) => {
                 let f = e.features[0];
                 if(!f) return;
-                console.log(f);
+                //console.log(f);
                 g_APP.GetNodeInfo(this.quest.targetKind,f.properties.id,f.properties.name);
             };
         }

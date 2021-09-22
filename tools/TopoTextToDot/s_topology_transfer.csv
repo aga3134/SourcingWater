@@ -15,6 +15,7 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 生活污染源,哪裡有垃圾,生活污染源,4,NULL,,
 生活污染源,哪裡有垃圾場,生活污染源,4,NULL,,
 生活區域,有哪些污染源,鄰近污染源,0,NULL,,
+生活區域,用水統計(三級經濟區),生活區域,0,NULL,DrawShapeQuest,點一個點
 生活區域,水源在哪,取水口,1,NULL,,
 生活區域,淨水廠為何,淨水場,1,NULL,,
 生活區域,接管率統計,生活區域,4,NULL,,
@@ -59,11 +60,14 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 集水區,有哪些污染源,鄰近污染源,0,NULL,,
 集水區,雨量資訊,集水區,4,NULL,,
 農業區域,有哪些污染源,鄰近污染源,0,NULL,,
+農業區域,有哪些農作物,農業區域,0,NULL,,
 農業區域,水源在哪,取水口,4,NULL,,
 鄰近污染源,工廠,工廠,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,環境保護列管對象,污染點,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,工業區域,工業區域,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,工業污水處理廠,工業污水處理廠,0,NULL,DrawShapeQuest,畫一個圓
+鄰近污染源,農地工廠,工廠,3,NULL,DrawShapeQuest,畫一個圓
+鄰近污染源,水污染源放流口,污染點,3,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,生活污染源,生活污染源,4,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,生活污水處理廠,生活污水處理廠,4,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,廢水排放,污染點,4,NULL,DrawShapeQuest,畫一個圓

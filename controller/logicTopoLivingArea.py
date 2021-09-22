@@ -2,6 +2,9 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp
+import requests
+import math
+import datetime
 
 class LogicTopoLivingArea():
     def FindVillageByLatLng(self,param):
@@ -125,4 +128,116 @@ class LogicTopoLivingArea():
             "nodeID":nodeID,
             "nodeName":nodeName,
             "info":"請選擇要觀察哪種類型的污染源"
+        }
+
+    def FindWaterUse(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        nodeName = ""
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+
+        #shape資訊不完整
+        if not "shape" in param:
+            return {
+                "info":"請點選一個位置",
+                "nodeID":nodeID,
+                "nodeName":nodeName,
+                "setting":{
+                    "shapeConfig":{
+                        "type":"point",
+                        "variable": "shape",
+                        "num": 1,
+                        "layer":{
+                            "type": "symbol",
+                            "layout":{
+                                "icon-image": "marker-red",
+                                "icon-allow-overlap": True,
+                                "text-allow-overlap": True
+                            }
+                        }
+                    }
+                }
+            }
+        shape = json.loads(param["shape"])
+
+        lat = shape["ptArr"][0][1]
+        lng = shape["ptArr"][0][0]
+
+        url = "https://egis.moea.gov.tw/MoeaEGFxData_WebAPI_Inside/InnoServe/Water/GetPoint?resptype=GeoJson&x=%f&y=%f" % (lng,lat)
+        #print(url)
+        geom = requests.get(url).json()
+        #print(geom)
+        if len(geom["features"]) == 0:
+            return {"error":"點選位置查無用水統計"}
+
+        row = {}
+        row["geom"] = geom
+        row["layer"] = [
+            {
+                "type": "line",
+                "paint": {
+                    "line-color": "#33f",
+                    "line-width": 2
+                }
+            }
+        ]
+
+        chartData = {"用水統計":[]}
+        for d in geom["features"][0]["properties"]:
+            print(d)
+            d["date"] = str(d["Year"])+"-"+str(d["Month"])
+            value = d["PowerSum"]
+            #nan轉成json時會錯誤，設為None
+            if math.isnan(value):
+                value = None
+            chartData["用水統計"].append({
+                "x": d["date"],
+                "y": value
+            })
+
+        chartArr = []
+        for key in chartData:
+            d = chartData[key]
+            chartArr.append({
+                "option":{
+                    "series": [{
+                        "name": key,
+                        "data": d
+                    }],
+                    "chart": {
+                        "width": "100%",
+                        "type": 'line',
+                        "zoom": {
+                            "enabled": False
+                        }
+                    },
+                    "dataLabels": {
+                        "enabled": False
+                    },
+                    "stroke": {
+                        "curve": 'straight'
+                    },
+                    "title": {
+                        "text": key,
+                        "align": 'left'
+                    },
+                    "grid": {
+                        "row": {
+                            "colors": ['#f3f3f3', 'transparent'],
+                            "opacity": 0.5
+                        },
+                    },
+                    "xaxis": {
+                        "type": "datetime",
+                    }
+                }
+            })
+
+        return {
+            "nodeID":nodeID,
+            "nodeName":nodeName,
+            "data":[row],
+            "chartArr": chartArr
         }

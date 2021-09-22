@@ -335,7 +335,7 @@ $vue-transition: 0.5s;
         }
         .chart-container{
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-around;
             align-items: flex-start;
             flex-wrap: wrap;
             padding: 10px;

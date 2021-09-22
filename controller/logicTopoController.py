@@ -82,10 +82,14 @@ class LogicTopoController():
                 return ltla.FindVillageWaterin(param)
             elif transfer == "有哪些污染源":
                 return ltla.FindVillagePollution(param)
+            elif transfer == "用水統計":
+                return ltla.FindWaterUse(param)
         elif kind == "農業區域":
             ltaa = LogicTopoAgricultureArea()
             if transfer == "有哪些污染源":
                 return ltaa.FindAgriculturePollution(param)
+            elif transfer == "有哪些農作物":
+                return ltaa.FindCrop(param)
         elif kind == "淨水場":
             ltww = LogicTopoWaterwork()
             if transfer == "取水口為何":

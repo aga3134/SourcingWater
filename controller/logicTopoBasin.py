@@ -214,10 +214,10 @@ class LogicTopoBasin():
         #check if lat,lng in basin
         lat = shape["ptArr"][0][1]
         lng = shape["ptArr"][0][0]
-        sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
+        """sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
         row = db.engine.execute(sql).first()
         if row is None:
-            return {"error": "位置需在流域內"}
+            return {"error": "位置需在流域內"}"""
 
         sql = "select countyname,townname,villname as id,villname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3826),4326))::json as geom from village_moi_121 where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
         row = db.engine.execute(sql).first()
@@ -277,10 +277,10 @@ class LogicTopoBasin():
         #check if lat,lng in basin
         lat = shape["ptArr"][0][1]
         lng = shape["ptArr"][0][0]
-        sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
+        """sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
         row = db.engine.execute(sql).first()
         if row is None:
-            return {"error": "位置需在流域內"}
+            return {"error": "位置需在流域內"}"""
 
         sql = "select countyname,townname as id,townname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(sim_geom,3824),4326))::json as geom from town_moi where ST_Contains(ST_Transform(ST_SetSRID(sim_geom,3824),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (lng,lat)
         row = db.engine.execute(sql).first()
@@ -340,10 +340,10 @@ class LogicTopoBasin():
         lat = shape["center"][1]
         lng = shape["center"][0]
         radius = shape["radius"]
-        sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
+        """sql = "select basin_no from basin where basin_no='%s' and ST_Contains(ST_Transform(ST_SetSRID(geom,3826),4326),ST_SetSRID(ST_POINT(%s,%s),4326));" % (nodeID,lng,lat)
         row = db.engine.execute(sql).first()
         if row is None:
-            return {"error": "位置需在流域內"}
+            return {"error": "位置需在流域內"}"""
 
         pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
         geom = "ST_SetSRID(geom,3826)"

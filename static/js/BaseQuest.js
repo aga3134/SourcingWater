@@ -15,6 +15,7 @@ class BaseQuest extends BaseLayer{
         this.nodeID = null;
         this.nodeName = "";
         this.setting = {};
+        this.chartInstance = {};
     }
 
     Init(succFn,failFn){
@@ -34,8 +35,12 @@ class BaseQuest extends BaseLayer{
     }
 
     ClearChart(){
-        
-    }
+       for(let key in this.chartInstance){
+        let chart = this.chartInstance[key];
+        chart.Destroy();
+       }
+       this.chartInstance = {};
+    }  
 
     ShowChart(chartArr){
         this.ClearChart();
@@ -50,6 +55,7 @@ class BaseQuest extends BaseLayer{
                 }
                 let chart = new BaseChart(param);
                 chart.Init();
+                this.chartInstance[id] = chart;
             }
             g_APP.OpenChartPanel();
         });
@@ -65,7 +71,7 @@ class BaseQuest extends BaseLayer{
     }
 
     Stop(){
-        
+        this.ClearChart();
     }
 }
 

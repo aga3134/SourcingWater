@@ -147,3 +147,37 @@ class LogicTopoFlowPath():
             "nodeName":row["name"],
             "data":[row]
         }
+
+    def BirdView(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        nodeName = ""
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+
+        row = {}
+        row["id"] = nodeID
+        row["name"] = nodeName
+        #使用上個quest的流路當路徑，這邊geom先設空座標
+        row["geom"] = {
+            "type":"FeatureCollection",
+            "features":[]
+        }
+        row["layer"] = [
+            {
+                "type": "line",
+                "paint":{
+                    "line-color": "#33f",
+                    "line-width": 2
+                }
+            }
+        ]
+        return {
+            "nodeID":row["id"],
+            "nodeName":row["name"],
+            "setting":{
+                "pathIndex":0
+            },
+            "data":[row]
+        }

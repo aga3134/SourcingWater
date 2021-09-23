@@ -427,6 +427,7 @@ html, body {
 .sourcing-water .left-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
+  max-width: 100px;
 }
 
 .sourcing-water .left-panel .container .quest-history {
@@ -544,6 +545,64 @@ html, body {
 .sourcing-water .left-panel .chart-container .chart {
   margin: 10px;
   width: 400px;
+}
+
+.sourcing-water .left-panel .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+}
+
+.sourcing-water .left-panel .input-container .input-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+}
+
+.sourcing-water .left-panel .input-container .input-item .title {
+  padding: 5px;
+}
+
+.sourcing-water .left-panel .input-container .input-item input[type="number"] {
+  width: 50px;
+}
+
+.sourcing-water .left-panel .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .left-panel .icon-container .icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .sourcing-water .left-panel.open {
@@ -716,6 +775,7 @@ html, body {
 .sourcing-water .right-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
+  max-width: 100px;
 }
 
 .sourcing-water .right-panel .container .quest-history {
@@ -833,6 +893,64 @@ html, body {
 .sourcing-water .right-panel .chart-container .chart {
   margin: 10px;
   width: 400px;
+}
+
+.sourcing-water .right-panel .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+}
+
+.sourcing-water .right-panel .input-container .input-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+}
+
+.sourcing-water .right-panel .input-container .input-item .title {
+  padding: 5px;
+}
+
+.sourcing-water .right-panel .input-container .input-item input[type="number"] {
+  width: 50px;
+}
+
+.sourcing-water .right-panel .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .right-panel .icon-container .icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .sourcing-water .right-panel.open {
@@ -1005,6 +1123,7 @@ html, body {
 .sourcing-water .bottom-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
+  max-width: 100px;
 }
 
 .sourcing-water .bottom-panel .container .quest-history {
@@ -1122,6 +1241,64 @@ html, body {
 .sourcing-water .bottom-panel .chart-container .chart {
   margin: 10px;
   width: 400px;
+}
+
+.sourcing-water .bottom-panel .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+}
+
+.sourcing-water .bottom-panel .input-container .input-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+}
+
+.sourcing-water .bottom-panel .input-container .input-item .title {
+  padding: 5px;
+}
+
+.sourcing-water .bottom-panel .input-container .input-item input[type="number"] {
+  width: 50px;
+}
+
+.sourcing-water .bottom-panel .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .bottom-panel .icon-container .icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .sourcing-water .bottom-panel.open {
@@ -1302,6 +1479,7 @@ html, body {
 .sourcing-water .center-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
+  max-width: 100px;
 }
 
 .sourcing-water .center-panel .container .quest-history {
@@ -1421,6 +1599,64 @@ html, body {
   width: 400px;
 }
 
+.sourcing-water .center-panel .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+}
+
+.sourcing-water .center-panel .input-container .input-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+}
+
+.sourcing-water .center-panel .input-container .input-item .title {
+  padding: 5px;
+}
+
+.sourcing-water .center-panel .input-container .input-item input[type="number"] {
+  width: 50px;
+}
+
+.sourcing-water .center-panel .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .center-panel .icon-container .icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
+}
+
 .sourcing-water .center-panel .container {
   background-color: #eeeeee;
 }
@@ -1445,7 +1681,7 @@ html, body {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   bottom: -50px;
-  width: 200px;
+  width: 250px;
   height: 50px;
 }
 
@@ -1593,6 +1829,7 @@ html, body {
 .sourcing-water .player-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
+  max-width: 100px;
 }
 
 .sourcing-water .player-panel .container .quest-history {
@@ -1712,8 +1949,42 @@ html, body {
   width: 400px;
 }
 
-.sourcing-water .player-panel.open {
-  bottom: 0px;
+.sourcing-water .player-panel .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+}
+
+.sourcing-water .player-panel .input-container .input-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+}
+
+.sourcing-water .player-panel .input-container .input-item .title {
+  padding: 5px;
+}
+
+.sourcing-water .player-panel .input-container .input-item input[type="number"] {
+  width: 50px;
 }
 
 .sourcing-water .player-panel .icon-container {
@@ -1734,6 +2005,10 @@ html, body {
   height: 30px;
   margin: 5px;
   cursor: pointer;
+}
+
+.sourcing-water .player-panel.open {
+  bottom: 0px;
 }
 
 .sourcing-water .quest-input-panel {
@@ -1904,6 +2179,7 @@ html, body {
 .sourcing-water .quest-input-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
+  max-width: 100px;
 }
 
 .sourcing-water .quest-input-panel .container .quest-history {
@@ -2023,10 +2299,6 @@ html, body {
   width: 400px;
 }
 
-.sourcing-water .quest-input-panel.open {
-  bottom: 0px;
-}
-
 .sourcing-water .quest-input-panel .input-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2063,6 +2335,30 @@ html, body {
 
 .sourcing-water .quest-input-panel .input-container .input-item input[type="number"] {
   width: 50px;
+}
+
+.sourcing-water .quest-input-panel .icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sourcing-water .quest-input-panel .icon-container .icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.sourcing-water .quest-input-panel.open {
+  bottom: 0px;
 }
 
 .sourcing-water .commutag {

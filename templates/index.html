@@ -51,7 +51,7 @@
                             <div class="option-item" v-if="layer.LUIMap">
                                 <input type="checkbox" v-model="layer.LUIMap.show" @change="layer.LUIMap.Update();">
                                 <div class="item-label">國土利用</div>
-                                <select v-model="layer.LUIMap.mapName" @change="layer.LUIMap.Update();">
+                                <select v-model="layer.LUIMap.urlVariable.mapName" @change="layer.LUIMap.Update();">
                                     <option value="LUIMAP01">農業</option>
                                     <option value="LUIMAP02">森林</option>
                                     <option value="LUIMAP03">交通</option>
@@ -61,6 +61,14 @@
                                     <option value="LUIMAP07">遊憩</option>
                                     <option value="LUIMAP08">礦鹽</option>
                                     <option value="LUIMAP09">其他</option>
+                                </select> 
+                            </div>
+                            <div class="option-item" v-if="layer.swcbMap">
+                                <input type="checkbox" v-model="layer.swcbMap.show" @change="layer.swcbMap.Update();">
+                                <div class="item-label">水保地圖</div>
+                                <select v-model="layer.swcbMap.urlVariable.mapName" @change="layer.swcbMap.Update();">
+                                    <option value="SWCBProject/Taiwan_Rmap_20m">H.O.S.T地圖</option>
+                                    <option value="Map/CSMap/20M/00000000_121000000_023000000_14_000_Map_CSMap_20M">CS地圖</option>
                                 </select> 
                             </div>
                             <!--<div class="option-item" v-if="layer.irrigationMap">
@@ -152,6 +160,12 @@
 
             <div class="player-panel" :class="{open: openPlayerPanel}">
                 <div class="icon-container">
+                    <div class="input-container">
+                        <div class="input-item">
+                            <div class="title">河道序號</div>
+                            <input type="number" v-if="curQuest.quest && curQuest.quest.setting" v-model="curQuest.quest.setting.pathIndex" :min="curQuest.quest.minIndex" :max="curQuest.quest.maxIndex" @change="curQuest.quest.Play()">
+                        </div>
+                    </div>
                     <img class="icon" v-show="!player.isPlay" src="static/image/icon-play.png" @click="player.playFn">
                     <img class="icon" v-show="player.isPlay" src="static/image/icon-pause.png" @click="player.pauseFn">
                     <img class="icon" src="static/image/icon-close.png" @click="player.stopFn">
@@ -216,7 +230,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="static/js/BaseLayer.js?v={{config.version}}"></script>
         <script src="static/js/WMTSLayer.js?v={{config.version}}"></script>
-        <script src="static/js/LUIMapLayer.js?v={{config.version}}"></script>
         <script src="static/js/BaseChart.js?v={{config.version}}"></script>
         <script src="static/js/BaseQuest.js?v={{config.version}}"></script>
         <script src="static/js/TracePathQuest.js?v={{config.version}}"></script>

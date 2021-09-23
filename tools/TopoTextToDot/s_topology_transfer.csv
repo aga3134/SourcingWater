@@ -33,7 +33,6 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 流域,農業區域,農業區域,0,NULL,DrawShapeQuest,點一個點
 流域,工業區域,工業區域,0,NULL,DrawShapeQuest,點一個點
 流域,主要河道,流路,1,NULL,,
-流域,源頭到海洋路徑,流路,1,NULL,TracePathQuest,
 流域,所有河道,流路,1,NULL,DataInputQuest,輸入河道細緻度
 流域,流域分區,流域,1,NULL,DataInputQuest,輸入流域細緻度
 流域,雨水下水道,流路,2,NULL,,
@@ -43,6 +42,7 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 流域,排水系統,流路,4,NULL,,
 流域,兩點河道,流路,4,NULL,DrawShapeQuest,點兩個點
 流域,兩點間集水區為何,集水區,4,NULL,DrawShapeQuest,點兩個點
+流路,鳥覽流路,流路,0,NULL,TracePathQuest,
 流路,上游集水區,集水區,1,NULL,DrawShapeQuest,點一個點
 流路,下游入海線,流路,1,NULL,DrawShapeQuest,點一個點
 流路,自設污染源污染範圍,流路,4,NULL,DrawShapeQuest,點一個點
@@ -66,7 +66,7 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 鄰近污染源,環境保護列管對象,污染點,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,工業區域,工業區域,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,工業污水處理廠,工業污水處理廠,0,NULL,DrawShapeQuest,畫一個圓
-鄰近污染源,農地工廠,工廠,3,NULL,DrawShapeQuest,畫一個圓
+鄰近污染源,農地工廠,工廠,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,水污染源放流口,污染點,3,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,生活污染源,生活污染源,4,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,生活污水處理廠,生活污水處理廠,4,NULL,DrawShapeQuest,畫一個圓

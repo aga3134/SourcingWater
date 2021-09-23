@@ -42,6 +42,8 @@ let g_APP = new Vue({
             rainStation: null,
             floodStation: null,
             LUIMap: null,
+            swcbMap: null,
+            uavMap: null,
             //irrigationMap: null,
             commutag: null
         },
@@ -236,7 +238,24 @@ let g_APP = new Vue({
                 document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map));
 
                 //國土利用圖層
-                this.layer.LUIMap = new LUIMapLayer({map:this.map,show:false});
+                this.layer.LUIMap = new WMTSLayer({
+                    map:this.map,
+                    show:false,
+                    urlTemplate:"https://wmts.nlsc.gov.tw/wmts/{mapName}/default/GoogleMapsCompatible/{z}/{y}/{x}",
+                    urlVariable:{
+                        mapName: "LUIMAP01"
+                    }
+                });
+
+                //水保地圖
+                this.layer.swcbMap = new WMTSLayer({
+                    map:this.map,
+                    show:false,
+                    urlTemplate:"https://storage.geodac.tw/Tile/v2/{mapName}/{z}/{y}/{x}.jpg ",
+                    urlVariable:{
+                        mapName: "SWCBProject/Taiwan_Rmap_20m"
+                    }
+                });
 
                 //圳路圖層(太糊不使用)
                 /*this.layer.irrigationMap = new WMTSLayer({
@@ -322,6 +341,7 @@ let g_APP = new Vue({
         },
         UpdateLayer: function(){
             for(let key in this.layer){
+                if(!this.layer[key]) continue;
                 this.layer[key].Update();
             }
         },

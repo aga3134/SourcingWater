@@ -105,7 +105,7 @@ class LogicTopoBasin():
             "setting":{
                 "inputConfig":[
                     {
-                        "name":"河川細緻度",
+                        "name":"河川級序",
                         "variable": "sto",
                         "value": sto,
                         "type": "number",
@@ -165,7 +165,7 @@ class LogicTopoBasin():
             "setting":{
                 "inputConfig":[
                     {
-                        "name":"流域細緻度",
+                        "name":"河川級序",
                         "variable": "sto",
                         "value": sto,
                         "type": "number",

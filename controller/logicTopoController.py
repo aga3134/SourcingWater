@@ -74,6 +74,8 @@ class LogicTopoController():
                 return ltfp.FindDownstreamPath(param)
             elif transfer == "所屬流域":
                 return ltfp.FindBasin(param)
+            elif transfer == "鳥覽流路":
+                return ltfp.BirdView(param)
         elif kind == "生活區域":
             ltla = LogicTopoLivingArea()
             if transfer == "淨水廠為何":
@@ -122,6 +124,8 @@ class LogicTopoController():
                 return ltp.FindIndustryArea(param)
             elif transfer == "工業污水處理廠":
                 return ltp.FindSewageTreatmentPlant(param)
+            elif transfer == "農地工廠":
+                return ltp.FindFactoryInFarm(param)
         elif kind == "工業區域":
             ltia = LogicTopoIndustryArea()
             if transfer == "哪個污水廠":

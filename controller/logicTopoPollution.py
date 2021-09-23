@@ -252,7 +252,7 @@ class LogicTopoPollution():
         #shape資訊不完整
         if not "shape" in param:
             return {
-                "info":"請點擊要查詢的位置",
+                "info":"請點選要查詢的位置",
                 "nodeID":nodeID,
                 "nodeName":nodeName,
                 "setting":{
@@ -317,5 +317,81 @@ class LogicTopoPollution():
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
+            "data":[data]
+        }
+
+    def FindFactoryInFarm(self,param):
+        if not "nodeID" in param:
+            return {"error":"no nodeID parameter"}
+        nodeID = param["nodeID"]
+        nodeName = ""
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+
+        #shape資訊不完整
+        if not "shape" in param:
+            return {
+                "info":"請點選要查詢的位置",
+                "nodeID":nodeID,
+                "nodeName":nodeName,
+                "setting":{
+                    "shapeConfig":{
+                        "type":"circle",
+                        "variable": "shape",
+                        "fixedRadius": 1000,
+                        "layer":{
+                            "type": "line",
+                            "paint": {
+                                "line-color": "#f33",
+                                "line-width": 2
+                            }
+                        }
+                    }
+                }
+            }
+        shape = json.loads(param["shape"])
+
+        lat = shape["center"][1]
+        lng = shape["center"][0]
+        radius = shape["radius"]
+
+        url = "http://api.disfactory.tw/api/factories?lng=%f&lat=%f&range=%f" % (lng,lat,radius*0.001)
+        #print(url)
+        factory = requests.get(url).json()
+        #print(factory)
+        if len(factory) == 0:
+            return {"error":"鄰近範圍查無農地工廠"}
+
+        arr = []
+        for d in factory:
+            d["geom"] = {
+                "type": "Point",
+                "coordinates": [float(d["lng"]),float(d["lat"])]
+            }
+            arr.append(d)
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom","lat","lng"])
+
+        #generate json_def
+        data = {
+            "geom": geom,
+            "layer": [
+                {
+                    "type": "symbol",
+                    "layout":{
+                        "icon-image": "marker-red",
+                        "text-field": ["get", "name"],
+                        "text-size": 12,
+                        "text-offset": [0, 1.25],
+                        "text-anchor": "top",
+                    },
+                    "paint":{
+                        "text-color": "#ff3"
+                    }
+                }
+            ],
+        }
+        return {
+            "nodeID":factory[0]["id"],
+            "nodeName":factory[0]["name"],
             "data":[data]
         }

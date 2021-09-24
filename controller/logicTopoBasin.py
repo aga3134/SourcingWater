@@ -380,7 +380,12 @@ class LogicTopoBasin():
             {
                 "type": "line",
                 "paint": {
-                    "line-color": "#fff",
+                    "line-color": [
+                        'case',
+                        ['boolean', ['feature-state', 'selected'], False], "#ff3",
+                        ['boolean', ['feature-state', 'hover'], False], "#f93",
+                        "#fff"
+                    ],
                     "line-width": 2
                 }
             }

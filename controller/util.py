@@ -17,7 +17,7 @@ def MergeRowsToGeoJson(rows,idKey="",geomKey="geom",skipArr=[]):
     geom = {}
     geom["type"] = "FeatureCollection"
     geom["features"] = []
-    for row in rows:
+    for (i,row) in enumerate(rows):
         d = dict(row)
         f = {}
         f["type"] = "Feature"
@@ -28,7 +28,8 @@ def MergeRowsToGeoJson(rows,idKey="",geomKey="geom",skipArr=[]):
                 continue
             p[key] = d[key]
         if idKey != "":
-            f["id"] = hash(p[idKey])
+            #f["id"] = hash(p[idKey])
+            f["id"] = i
         f["properties"] = p
         geom["features"].append(f)
     return geom

@@ -3,11 +3,31 @@ class BaseQuest extends BaseLayer{
     constructor(param){
         param.show = true;
         super(param);
+        this.updateHistory = true;
         this.quest = param.quest;
+        this.selectSource = null;
+        this.selectFeature = null;
         if(!param.onClick){
             this.onClick = (e) => {
                 let f = e.features[0];
                 if(!f) return;
+                //update feature state
+                if(this.selectSource != null && this.selectFeature != null){
+                    this.map.setFeatureState(
+                        {source: this.selectSource, id: this.selectFeature},
+                        {selected: false}
+                    );
+                    this.selectSource = null;
+                    this.selectFeature = null;
+                }
+                this.selectSource = f.source;
+                this.selectFeature = f.id;
+                if(this.selectSource != null && this.selectFeature != null){
+                    this.map.setFeatureState(
+                        {source: f.source, id: f.id},
+                        {selected: true}
+                    );
+                }
                 //console.log(f);
                 g_APP.SelectNode(this.quest.targetKind,f.properties.id,f.properties.name);
             };

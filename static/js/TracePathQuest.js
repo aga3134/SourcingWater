@@ -14,22 +14,33 @@ class TracePathQuest extends BaseQuest{
 
     Init(succFn,failFn){
         super.Init((result) => {
-            if(!this.targetQuest) this.targetQuest = g_APP.history.questArr[g_APP.history.index].quest;
-            this.Play();
+            //用上個quest流路當路徑，若上個quest已有targetQuest表是它是鳥覽流路，就不更新history
+            let q = g_APP.history.questArr[g_APP.history.index].quest;
+            if(q.targetQuest){
+                this.targetQuest = q.targetQuest;
+                this.updateHistory = false;
+            }
+            else this.targetQuest = q;
+            
+            //等待後續動作都結束再開使播放，如UpdateQuestHistory，避免一開始播放player就被stop
+            setTimeout(() => {
+                g_APP.OpenPlayerPanel();
+                g_APP.player.playFn = (event) => {
+                    this.Resume();
+                };
+                g_APP.player.pauseFn = (event) => {
+                    this.Pause();
+                };
+                g_APP.player.stopFn = (event) => {
+                    this.Stop();
+                };
+                this.Play();
+            },100);
+
             if(succFn) succFn(result);
         }, (reason) => {
             if(failFn) failFn(reason);
         });
-        g_APP.OpenPlayerPanel();
-        g_APP.player.playFn = (event) => {
-            this.Resume();
-        };
-        g_APP.player.pauseFn = (event) => {
-            this.Pause();
-        };
-        g_APP.player.stopFn = (event) => {
-            this.Stop();
-        };
     }
 
     ClearAll(){
@@ -59,9 +70,7 @@ class TracePathQuest extends BaseQuest{
         if(!source){
             return toastr.error("鳥覽流路已被刪除");
         }
-
         let coord = null;
-        
         this.minIndex = 0;
         this.maxIndex = 0;
         switch(source.data.type){
@@ -79,6 +88,8 @@ class TracePathQuest extends BaseQuest{
                 if(this.originPath.type != "MultiLineString") return toastr.error("流路格式不符");
                 coord = this.originPath.coordinates[0][0];
                 break;
+            default:
+                return toastr.error("流路格式不符");
         }
         this.displayPath = {"type":"LineString","coordinates":[]};
         this.displayPath.coordinates = [coord];

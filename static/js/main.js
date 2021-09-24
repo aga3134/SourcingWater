@@ -429,6 +429,8 @@ let g_APP = new Vue({
             
         },
         UpdateQuestHistory: function(){
+            if(!this.curQuest.quest.updateHistory) return;
+            
             let quest = $.extend({}, this.curQuest);
             //刪除所選歷史探索之後的所有歷史探索再加上新的探索
             if(this.history.index < this.history.questArr.length-1){

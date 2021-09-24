@@ -8,6 +8,7 @@ class BaseLayer{
         this.layerHash = {};
         this.bbox = null;
         this.zoomToBBox = true;
+        this.updateHistory = false;
         this.uuid = uuidv4();
         this.data = null;
         this.layerName = "";
@@ -45,13 +46,13 @@ class BaseLayer{
         }
         if(!this.onMouseLeave){
             this.onMouseLeave = (e) => {
-                let f = this.map.queryRenderedFeatures(e.point)[0];
-                if(!f) return;
-                if(f.source != null && f.id != null){
+                if(this.hoverSource != null && this.hoverFeature != null){
                     this.map.setFeatureState(
-                        {source: f.source, id: f.id},
+                        {source: this.hoverSource, id: this.hoverFeature},
                         {hover: false}
                     );
+                    this.hoverSource = null;
+                    this.hoverFeature = null;
                 }
             };
         }

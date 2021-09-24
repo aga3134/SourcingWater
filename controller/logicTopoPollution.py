@@ -395,3 +395,10 @@ class LogicTopoPollution():
             "nodeName":factory[0]["name"],
             "data":[data]
         }
+
+    def GetNodeInfo(self,param):
+        if not "nodeID" in param:
+            return {"error":"no nodeID parameter"}
+        nodeID = param["nodeID"]
+
+        return {"error":" 查無基本資料"}

@@ -114,4 +114,11 @@ class LogicTopoAgricultureArea():
             "chartArr": chartArr
         }
 
+    def GetNodeInfo(self,param):
+        if not "nodeID" in param:
+            return {"error":"no nodeID parameter"}
+        nodeID = param["nodeID"]
+
+        return {"error":" 查無基本資料"}
+
         

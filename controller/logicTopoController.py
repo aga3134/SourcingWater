@@ -84,7 +84,7 @@ class LogicTopoController():
                 return ltla.FindVillageWaterin(param)
             elif transfer == "有哪些污染源":
                 return ltla.FindVillagePollution(param)
-            elif transfer == "用水統計":
+            elif transfer == "用水統計(三級經濟區)":
                 return ltla.FindWaterUse(param)
         elif kind == "農業區域":
             ltaa = LogicTopoAgricultureArea()
@@ -149,4 +149,30 @@ class LogicTopoController():
         if not "kind" in param:
             return {"error":"no kind parameter"}
         kind = param["kind"]
+        if not "nodeID" in param:
+            return {"error":"no nodeID parameter"}
+        nodeID = param["nodeID"]
+
+        if kind == "流域":
+            return LogicTopoBasin().GetNodeInfo(param)
+        elif kind == "流路":
+            return LogicTopoFlowPath().GetNodeInfo(param)
+        elif kind == "生活區域":
+            return LogicTopoLivingArea().GetNodeInfo(param)
+        elif kind == "農業區域":
+            return LogicTopoAgricultureArea().GetNodeInfo(param)
+        elif kind == "淨水場":
+            return LogicTopoWaterwork().GetNodeInfo(param)
+        elif kind == "取水口":
+            return LogicTopoWaterin().GetNodeInfo(param)
+        elif kind == "集水區":
+            return LogicTopoCatchment().GetNodeInfo(param)
+        elif kind == "鄰近污染源":
+            return LogicTopoPollution().GetNodeInfo(param)
+        elif kind == "工業區域":
+            return LogicTopoIndustryArea().GetNodeInfo(param)
+        elif kind == "工廠":
+            return LogicTopoFactory().GetNodeInfo(param)
+        elif kind == "工業污水處理廠":
+            return LogicTopoSewageTreatmentPlant().GetNodeInfo(param)
         return {"error":" 查無基本資料"}

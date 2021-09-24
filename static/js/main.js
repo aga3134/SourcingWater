@@ -10,6 +10,7 @@ let g_APP = new Vue({
         openAboutPanel: false,
         openPlayerPanel: false,
         openQuestInputPanel: false,
+        openInfoPanel: false,
         logicTopo:{
             kind:{},
             transfer:{},
@@ -390,6 +391,12 @@ let g_APP = new Vue({
         CloseQuestInputPanel: function(){
             this.openQuestInputPanel = false;
         },
+        OpenInfoPanel: function(){
+            this.openInfoPanel = true;
+        },
+        CloseInfoPanel: function(){
+            this.openInfoPanel = false;
+        },
         ClearQuest: function(item){
             if(item.quest){
                 item.quest.ClearAll();
@@ -471,21 +478,22 @@ let g_APP = new Vue({
                 this.history.questArr.splice(i,1);
             }
         },
-        GetNodeInfo: function(kind,nodeID,nodeName){
+        SelectNode: function(kind,nodeID,nodeName){
             this.logicTopo.nodeID = this.curQuest.quest.nodeID = nodeID;
             this.logicTopo.nodeName = this.curQuest.quest.nodeName = nodeName;
             this.logicTopo.curKind = kind;
             this.LoadQuest();
-            
-            /*let url = "logicTopo/getNodeInfo?";
-            url += "kind="+kind;
-            url += "&nodeID="+nodeID;
+        },
+        GetNodeInfo: function(){
+            let url = "logicTopo/getNodeInfo?";
+            url += "kind="+this.logicTopo.curKind;
+            url += "&nodeID="+this.logicTopo.nodeID;
             $.get(url,(result) => {
                 if(result.error){
                     return toastr.error(result.error);
                 }
-                
-            });*/
+                this.OpenInfoPanel();
+            });
         }
     }
 });

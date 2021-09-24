@@ -179,9 +179,27 @@ $vue-transition: 0.5s;
                 padding: 5px 10px;
                 border-bottom: 1px solid #333333;
             }
-            .sub-title{
-                font-size: 1.2em;
+            .info-container{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
                 padding: 5px 10px;
+                .info-title{
+                    font-size: 1.2em;
+                }
+                .info-bt{
+                    flex-shrink: 0;
+                    font-size: 0.7em;
+                    border-radius: 3px;
+                    padding: 3px 5px;
+                    margin: 5px;
+                    cursor: pointer;
+                    background-color: #333333;
+                    color: #ffffff;
+                    &:hover{
+                        background-color: #555555;
+                    }
+                }
             }
             .content-block{
                 margin: 10px 0px;
@@ -415,8 +433,6 @@ $vue-transition: 0.5s;
         @include panel;
         border-radius: 5px;
         padding: 20px 10px;
-        left: 0px;
-        top: 0px;
         margin: 10px;
         width: 600px;
         height: 400px;
@@ -426,6 +442,21 @@ $vue-transition: 0.5s;
         max-width: calc(100% - 20px);
         max-height: calc(100% - 20px);
         .container{
+            background-color: #eeeeee;
+        }
+    }
+    .full-panel{
+        @include panel;
+        border-radius: 5px;
+        padding: 20px 10px;
+        left: 50%;
+        top: 50%;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        transform: translateX(-50%) translateY(-50%);
+        .container{
+            width: 100%;
+            height: 100%;
             background-color: #eeeeee;
         }
     }

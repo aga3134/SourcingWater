@@ -116,7 +116,11 @@
                 <div class="content-scroll">
                     <div class="container">
                         <div class="title">追本溯源</div>
-                        <div class="sub-title" v-if="logicTopo">[[logicTopo.curKind]]:[[logicTopo.nodeName]]</div>
+                        <div class="info-container">
+                            <div class="info-title" v-if="logicTopo">[[logicTopo.curKind]]:[[logicTopo.nodeName]]</div>
+                            <div class="info-bt" @click="GetNodeInfo();">基本資料</div>
+                        </div>
+                        
                         <div class="quest-item" :class="{selected: i==curQuest.index}" v-for="(q,i) in questArr" @click="SelectQuest(i);">
                             <div class="quest-content" :class="{
                                 'status-ok': q.status==0,
@@ -201,6 +205,17 @@
                                     <li><a href="https://agawork.tw/" target="_blank">阿嘉的其他專案</a></li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <transition name="fade">
+                <div class="full-panel" v-if="openInfoPanel">
+                    <img src="static/image/icon-close.png" class="close-bt" @click="CloseInfoPanel();">
+                    <div class="content-scroll">
+                        <div class="container">
+                            
                         </div>
                     </div>
                 </div>

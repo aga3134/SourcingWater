@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp
+from controller.style import *
 
 class LogicTopoSewageTreatmentPlant():
     def FindProcessingArea(self,param):
@@ -39,23 +40,8 @@ class LogicTopoSewageTreatmentPlant():
         row = dict(row)
 
         data = {}
-        data["geom"] = row["geom"]
-        data["layer"] = [
-            {
-                "type": "fill",
-                "paint": {
-                    "fill-color": "#33f",
-                    "fill-opacity": 0.5
-                }
-            },
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#fff",
-                    "line-width": 2
-                }
-            }
-        ]
+        data["geom"] = DictToGeoJsonProp(row)
+        data["layer"] = IndustryAreaStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],

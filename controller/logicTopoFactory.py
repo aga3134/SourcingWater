@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp,MergeRowsToGeoJson
+from controller.style import *
 import requests
 
 class LogicTopoFactory():
@@ -60,21 +61,7 @@ class LogicTopoFactory():
 
         data = {}
         data["geom"] = geom
-        data["layer"] = [
-            {
-                "type": "symbol",
-                "layout":{
-                    "icon-image": "waterin",
-                    "text-field": ["get", "name"],
-                    "text-size": 12,
-                    "text-offset": [0, 1.25],
-                    "text-anchor": "top"
-                },
-                "paint":{
-                    "text-color": "#ff3"
-                }
-            }
-        ]
+        data["layer"] = SymbolStyle("waterin",allowOverlap=True)
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -112,18 +99,11 @@ class LogicTopoFactory():
         if row is None:
             return {"error": "查無工業區資料"}
         row = dict(row)
+        row["geom"] = DictToGeoJsonProp(row)
 
         data = {}
         data["geom"] = row["geom"]
-        data["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#3f3",
-                    "line-width": 4
-                }
-            }
-        ]
+        data["layer"] = IndustryAreaStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],

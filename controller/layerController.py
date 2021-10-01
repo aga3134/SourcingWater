@@ -3,6 +3,7 @@ from model.db import db
 import json
 from controller.util import MergeRowsToGeoJson
 import requests
+from controller.style import *
 
 class LayerController():
     def GetBasin(self):
@@ -13,26 +14,7 @@ class LayerController():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": [
-                {
-                    "type":"line",
-                    "paint": {
-                        "line-color":"#fff",
-                        "line-width":1
-                    },
-                },
-                {
-                    "type":"fill",
-                    "paint":{
-                        "fill-color":"#f33",
-                        "fill-opacity":[
-                            "case",
-                            ["boolean", ["feature-state", "hover"], False],
-                            0.5, 0
-                        ]
-                    }
-                }
-            ]
+            "layer": BasinStyle(fill=True)
         }
         return {
             "layerName": "流域",
@@ -55,21 +37,7 @@ class LayerController():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": [
-                {
-                    "type": "symbol",
-                    "layout":{
-                        "icon-image": "rain-station",
-                        "text-field": ["get", "name"],
-                        "text-size": 12,
-                        "text-offset": [0, 1.25],
-                        "text-anchor": "top",
-                    },
-                    "paint":{
-                        "text-color": "#ff3"
-                    }
-                }
-            ],
+            "layer": SymbolStyle("rain-station"),
         }
         #print(data)
         return {
@@ -93,21 +61,7 @@ class LayerController():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": [
-                {
-                    "type": "symbol",
-                    "layout":{
-                        "icon-image": "flood-station",
-                        "text-field": ["get", "stationName"],
-                        "text-size": 12,
-                        "text-offset": [0, 1.25],
-                        "text-anchor": "top",
-                    },
-                    "paint":{
-                        "text-color": "#ff3"
-                    }
-                }
-            ],
+            "layer": SymbolStyle("flood-station"),
         }
         #print(data)
         return {
@@ -170,23 +124,7 @@ class LayerController():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": [
-                {
-                    "type": "symbol",
-                    "layout":{
-                        "icon-image": "camera",
-                        "text-field": ["get", "思源地圖名稱"],
-                        "text-size": 12,
-                        "text-offset": [0, 1.25],
-                        "text-anchor": "top",
-                        "icon-allow-overlap": True,
-                        "text-allow-overlap": True
-                    },
-                    "paint":{
-                        "text-color": "#ff3",
-                    }
-                }
-            ],
+            "layer": SymbolStyle("camera",textKey="思源地圖名稱",allowOverlap=True),
         }
         return {
             "layerName": "群眾標註",

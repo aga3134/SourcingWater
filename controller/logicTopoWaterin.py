@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp,ToFloat,InitFlow,MergeRowsToGeoJson
+from controller.style import *
 import datetime
 from dateutil.relativedelta import *
 import math
@@ -49,15 +50,7 @@ class LogicTopoWaterin():
         row["id"] = nodeID
         row["name"] = nodeName+"集水區"
         row["geom"] = json.loads(fd.basins(ptArr,filename=None))
-        row["layer"] = [
-            {
-                "type": "fill",
-                "paint":{
-                    "fill-color": "#3333ff",
-                    "fill-opacity": 0.5
-                }
-            }
-        ]
+        row["layer"] = SubbasinStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -164,22 +157,7 @@ class LogicTopoWaterin():
 
         data = {}
         data["geom"] = geom
-        data["layer"] = [
-            {
-                "type": "fill",
-                "paint": {
-                    "fill-color": "#33f",
-                    "fill-opacity": 0.5
-                }
-            },
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#fff",
-                    "line-width": 2
-                }
-            }
-        ]
+        data["layer"] = LivingAreaStyle(lineWidth=2,lineColor="#fff",fill=True)
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],

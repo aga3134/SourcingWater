@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp
+from controller.style import *
 import requests
 import math
 import datetime
@@ -21,15 +22,7 @@ class LogicTopoLivingArea():
         row = dict(row)
 
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#3f3",
-                    "line-width": 4
-                }
-            }
-        ]
+        row["layer"] = LivingAreaStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -55,21 +48,7 @@ class LogicTopoLivingArea():
         row = dict(row)
         
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [{
-                "type": "symbol",
-                "layout":{
-                    "icon-image": "waterwork",
-                    "text-field": ["get", "name"],
-                    "text-size": 12,
-                    "text-offset": [0, 1.25],
-                    "text-anchor": "top",
-                    "icon-allow-overlap": True,
-                    "text-allow-overlap": True
-                },
-                "paint":{
-                    "text-color": "#ff3"
-                }
-            }]
+        row["layer"] = SymbolStyle("waterwork",allowOverlap=True)
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -95,21 +74,7 @@ class LogicTopoLivingArea():
         row = dict(row)
         
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [{
-                "type": "symbol",
-                "layout":{
-                    "icon-image": "waterin",
-                    "text-field": ["get", "name"],
-                    "text-size": 12,
-                    "text-offset": [0, 1.25],
-                    "text-anchor": "top",
-                    "icon-allow-overlap": True,
-                    "text-allow-overlap": True
-                },
-                "paint":{
-                    "text-color": "#ff3"
-                }
-            }]
+        row["layer"] = SymbolStyle("waterin",allowOverlap=True)
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -149,14 +114,7 @@ class LogicTopoLivingArea():
                         "type":"point",
                         "variable": "shape",
                         "num": 1,
-                        "layer":{
-                            "type": "symbol",
-                            "layout":{
-                                "icon-image": "marker-red",
-                                "icon-allow-overlap": True,
-                                "text-allow-overlap": True
-                            }
-                        }
+                        "layer":SymbolStyle("marker-red",allowOverlap=True)
                     }
                 }
             }
@@ -174,15 +132,7 @@ class LogicTopoLivingArea():
 
         row = {}
         row["geom"] = geom
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#33f",
-                    "line-width": 2
-                }
-            }
-        ]
+        row["layer"] = StatisticAreaStyle()
 
         chartData = {"用水統計":[]}
         for d in geom["features"][0]["properties"]:

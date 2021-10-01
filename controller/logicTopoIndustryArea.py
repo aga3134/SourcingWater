@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp,MergeRowsToGeoJson
+from controller.style import *
 import requests
 
 class LogicTopoIndustryArea():
@@ -36,21 +37,7 @@ class LogicTopoIndustryArea():
 
         data = {}
         data["geom"] = geom
-        data["layer"] = [
-            {
-                "type": "symbol",
-                "layout":{
-                    "icon-image": "waterin",
-                    "text-field": ["get", "name"],
-                    "text-size": 12,
-                    "text-offset": [0, 1.25],
-                    "text-anchor": "top"
-                },
-                "paint":{
-                    "text-color": "#ff3"
-                }
-            }
-        ]
+        data["layer"] = SymbolStyle("waterin",allowOverlap=True)
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -90,24 +77,7 @@ class LogicTopoIndustryArea():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": [
-                {
-                    "type": "symbol",
-                    "layout":{
-                        "icon-image": "marker-red",
-                        "text-field": ["get", "FactoryName"],
-                        "text-size": 12,
-                        "text-offset": [0, 1.25],
-                        "text-anchor": "top",
-                    },
-                    "paint":{
-                        "text-color": "#ff3",
-                        "text-halo-color": "#000",
-                        "text-halo-width":1,
-                        "text-halo-blur": 3
-                    }
-                }
-            ],
+            "layer": SymbolStyle("marker-red",textKey="FactoryName"),
         }
         return {
             "nodeID":f["properties"]["id"],

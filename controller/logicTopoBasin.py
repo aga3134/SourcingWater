@@ -2,7 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp,InitFlow,MergeRowsToGeoJson
-
+from controller.style import *
 from colour import Color
 
 class LogicTopoBasin():
@@ -17,15 +17,7 @@ class LogicTopoBasin():
         row = dict(row)
 
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color":"#fff",
-                    "line-width":3
-                }
-            }
-        ]
+        row["layer"] = BasinStyle(lineWidth=3)
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -46,15 +38,7 @@ class LogicTopoBasin():
         row["id"] = nodeID
         row["name"] = "頭前溪"
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint":{
-                    "line-color": "#f33",
-                    "line-width": 4
-                }
-            }
-        ]
+        row["layer"] = FlowPathStyle(lineWidth=4,color="#f33")
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -90,15 +74,7 @@ class LogicTopoBasin():
         for (i,feat) in enumerate(row["geom"]["features"]):
             feat["properties"]["color"] = colorList[i].hex
 
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint":{
-                    "line-color": ["get","color"],
-                    "line-width": 1.5
-                }
-            }
-        ]
+        row["layer"] = FlowPathStyle(lineWidth=1.5,colorKey="color")
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -143,22 +119,7 @@ class LogicTopoBasin():
         for (i,feat) in enumerate(row["geom"]["features"]):
             feat["properties"]["color"] = colorList[i].hex
         
-        row["layer"] = [
-            {
-                "type": "fill",
-                "paint":{
-                    "fill-color": ["get","color"],
-                    "fill-opacity": 0.5
-                }
-            },
-            {
-                "type": "line",
-                "paint":{
-                    "line-color": "#fff",
-                    "line-width": 1
-                }
-            }
-        ]
+        row["layer"] = SubbasinStyle(fillKey="color")
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -198,14 +159,7 @@ class LogicTopoBasin():
                         "type":"point",
                         "variable": "shape",
                         "num": 1,
-                        "layer":{
-                            "type": "symbol",
-                            "layout":{
-                                "icon-image": "marker-red",
-                                "icon-allow-overlap": True,
-                                "text-allow-overlap": True
-                            }
-                        }
+                        "layer":SymbolStyle("marker-red",allowOverlap=True)
                     }
                 }
             }
@@ -226,15 +180,7 @@ class LogicTopoBasin():
         row = dict(row)
 
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#3f3",
-                    "line-width": 4
-                }
-            }
-        ]
+        row["layer"] = LivingAreaStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -261,14 +207,7 @@ class LogicTopoBasin():
                         "type":"point",
                         "variable": "shape",
                         "num": 1,
-                        "layer":{
-                            "type": "symbol",
-                            "layout":{
-                                "icon-image": "marker-red",
-                                "icon-allow-overlap": True,
-                                "text-allow-overlap": True
-                            }
-                        }
+                        "layer":SymbolStyle("marker-red",allowOverlap=True)
                     }
                 }
             }
@@ -289,15 +228,7 @@ class LogicTopoBasin():
         row = dict(row)
 
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#3f3",
-                    "line-width": 4
-                }
-            }
-        ]
+        row["layer"] = AgricultureAreaStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -324,13 +255,7 @@ class LogicTopoBasin():
                         "type":"circle",
                         "variable": "shape",
                         "fixedRadius": 10000,
-                        "layer":{
-                            "type": "line",
-                            "paint": {
-                                "line-color": "#f33",
-                                "line-width": 2
-                            }
-                        }
+                        "layer":CircleStyle()
                     }
                 }
             }
@@ -369,27 +294,7 @@ class LogicTopoBasin():
 
         data = {}
         data["geom"] = geom
-        data["layer"] = [
-            {
-                "type": "fill",
-                "paint": {
-                    "fill-color": "#33f",
-                    "fill-opacity": 0.5
-                }
-            },
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": [
-                        'case',
-                        ['boolean', ['feature-state', 'selected'], False], "#ff3",
-                        ['boolean', ['feature-state', 'hover'], False], "#f93",
-                        "#fff"
-                    ],
-                    "line-width": 2
-                }
-            }
-        ]
+        data["layer"] = IndustryAreaStyle()
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],

@@ -21,13 +21,14 @@ class DrawShapeQuest extends BaseQuest{
                     "type": "geojson",
                     "data": null
                 });
+                let layer = config.layer[0];
                 let option = {
                     "id": key,
-                    "type": config.layer.type,
+                    "type": layer.type,
                     "source": key,
                 }
-                if("paint" in config.layer) option.paint = config.layer.paint;
-                if("layout" in config.layer) option.layout = config.layer.layout;
+                if("paint" in layer) option.paint = layer.paint;
+                if("layout" in layer) option.layout = layer.layout;
                 this.shapeLayer = this.map.addLayer(option);
 
                 g_APP.eventFn.onClick = (e) => {
@@ -49,6 +50,7 @@ class DrawShapeQuest extends BaseQuest{
                 g_APP.eventFn.onMouseMove = (e) => {
                     switch(config.type){
                         case "point":
+                            this.DrawPointMove(e.lngLat.lat, e.lngLat.lng);
                             break;
                         case "circle":
                             this.DrawCircleMove(e.lngLat.lat, e.lngLat.lng);
@@ -120,7 +122,40 @@ class DrawShapeQuest extends BaseQuest{
             this.ConfirmShape();
         }
         else{
-            toastr.info("請再點選"+config.num-this.shapeData.ptArr.length+"點");
+            toastr.info("請再點選"+(config.num-this.shapeData.ptArr.length)+"點");
+        }
+    }
+
+    DrawPointMove(lat,lng){
+        let config = this.setting.shapeConfig;
+
+        let key = this.GetShapeKey();
+        let source = this.map.getSource(key);
+        if(source){
+            let featArr = [];
+            if(this.shapeData.ptArr){
+                for(let i=0;i<this.shapeData.ptArr.length;i++){
+                    let pt = this.shapeData.ptArr[i];
+                    featArr.push({
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [pt[0],pt[1]]
+                        }
+                    });
+                }
+            }
+            featArr.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [lng,lat]
+                }
+            });
+            source.setData({
+                "type": "FeatureCollection",
+                "features": featArr
+            });
         }
     }
 

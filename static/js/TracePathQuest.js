@@ -93,6 +93,9 @@ class TracePathQuest extends BaseQuest{
         super.Init((result) => {
             this.AddFrontendIcon();
             //用上個quest流路當路徑，若上個quest已有targetQuest表是它是鳥覽流路，就不更新history
+            if(g_APP.history.index < 0 || g_APP.history.index >= g_APP.history.questArr.length){
+                return toastr.error("找不到流路");
+            }
             let q = g_APP.history.questArr[g_APP.history.index].quest;
             if(q.targetQuest){
                 this.targetQuest = q.targetQuest;
@@ -152,7 +155,8 @@ class TracePathQuest extends BaseQuest{
         if(this.displayPath.coordinates){
             this.displayPath.coordinates = [];
             let key = this.GetGeomKey(0);
-            this.map.getSource(key).setData(this.displayPath);
+            source = this.map.getSource(key);
+            if(source) source.setData(this.displayPath);
         }
     }
 

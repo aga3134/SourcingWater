@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp,InitFlow
+from controller.style import *
 
 class LogicTopoFlowPath():
     def FindUpstreamCatchment(self,param):
@@ -27,14 +28,7 @@ class LogicTopoFlowPath():
                         "type":"point",
                         "variable": "shape",
                         "num": 1,
-                        "layer":{
-                            "type": "symbol",
-                            "layout":{
-                                "icon-image": "marker-red",
-                                "icon-allow-overlap": True,
-                                "text-allow-overlap": True
-                            }
-                        }
+                        "layer":SymbolStyle("marker-red",allowOverlap=True)
                     }
                 }
             }
@@ -48,15 +42,7 @@ class LogicTopoFlowPath():
         row["id"] = nodeID
         row["name"] = cx_dict["basin_name"]+"上游集水區"
         row["geom"] = json.loads(fd.basins(shape["ptArr"],filename=None))
-        row["layer"] = [
-            {
-                "type": "fill",
-                "paint":{
-                    "fill-color": "#3333ff",
-                    "fill-opacity": 0.5
-                }
-            }
-        ]
+        row["layer"] = SubbasinStyle()
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -86,14 +72,7 @@ class LogicTopoFlowPath():
                         "type":"point",
                         "variable": "shape",
                         "num": 1,
-                        "layer":{
-                            "type": "symbol",
-                            "layout":{
-                                "icon-image": "marker-red",
-                                "icon-allow-overlap": True,
-                                "text-allow-overlap": True
-                            }
-                        }
+                        "layer":SymbolStyle("marker-red",allowOverlap=True)
                     }
                 }
             }
@@ -107,15 +86,7 @@ class LogicTopoFlowPath():
         row["id"] = nodeID
         row["name"] = cx_dict["basin_name"]+"下游入海線"
         row["geom"] = json.loads(fd.path(shape["ptArr"],filename=None))
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint":{
-                    "line-color": "#3f3",
-                    "line-width": 2
-                }
-            }
-        ]
+        row["layer"] = FlowPathStyle(lineWidth=2,color="#3f3")
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -133,15 +104,7 @@ class LogicTopoFlowPath():
         row = dict(row)
 
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint": {
-                    "line-color":"#fff",
-                    "line-width":3
-                }
-            }
-        ]
+        row["layer"] = BasinStyle(lineWidth=3)
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -164,15 +127,7 @@ class LogicTopoFlowPath():
             "type":"FeatureCollection",
             "features":[]
         }
-        row["layer"] = [
-            {
-                "type": "line",
-                "paint":{
-                    "line-color": "#33f",
-                    "line-width": 2
-                }
-            }
-        ]
+        row["layer"] = FlowPathStyle(lineWidth=2,color="#33f")
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],

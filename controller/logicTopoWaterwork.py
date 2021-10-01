@@ -2,6 +2,7 @@ from sqlalchemy.sql.functions import func
 from model.db import db
 import json
 from controller.util import DictToGeoJsonProp,ToFloat,MergeRowsToGeoJson
+from controller.style import *
 import datetime
 from dateutil.relativedelta import *
 import math
@@ -19,21 +20,7 @@ class LogicTopoWaterwork():
         row = dict(row)
         
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [{
-                "type": "symbol",
-                "layout":{
-                    "icon-image": "waterwork",
-                    "text-field": ["get", "name"],
-                    "text-size": 12,
-                    "text-offset": [0, 1.25],
-                    "text-anchor": "top",
-                    "icon-allow-overlap": True,
-                    "text-allow-overlap": True
-                },
-                "paint":{
-                    "text-color": "#ff3"
-                }
-            }]
+        row["layer"] = SymbolStyle("waterwork",allowOverlap=True)
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -58,21 +45,7 @@ class LogicTopoWaterwork():
         row = dict(row)
         
         row["geom"] = DictToGeoJsonProp(row)
-        row["layer"] = [{
-                "type": "symbol",
-                "layout":{
-                    "icon-image": "waterin",
-                    "text-field": ["get", "name"],
-                    "text-size": 12,
-                    "text-offset": [0, 1.25],
-                    "text-anchor": "top",
-                    "icon-allow-overlap": True,
-                    "text-allow-overlap": True
-                },
-                "paint":{
-                    "text-color": "#ff3"
-                }
-            }]
+        row["layer"] = SymbolStyle("waterin",allowOverlap=True)
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -252,22 +225,7 @@ class LogicTopoWaterwork():
 
         data = {}
         data["geom"] = geom
-        data["layer"] = [
-            {
-                "type": "fill",
-                "paint": {
-                    "fill-color": "#33f",
-                    "fill-opacity": 0.5
-                }
-            },
-            {
-                "type": "line",
-                "paint": {
-                    "line-color": "#fff",
-                    "line-width": 2
-                }
-            }
-        ]
+        data["layer"] = LivingAreaStyle(lineWidth=2,lineColor="#fff",fill=True)
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],

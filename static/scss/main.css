@@ -278,8 +278,8 @@ html, body {
           flex-direction: column;
   border-radius: 0px 5px 5px 0px;
   top: 0px;
-  left: -250px;
-  width: 250px;
+  left: -280px;
+  width: 280px;
   height: 100%;
 }
 
@@ -309,6 +309,11 @@ html, body {
   font-size: 1.3em;
   padding: 5px 10px;
   border-bottom: 1px solid #333333;
+}
+
+.sourcing-water .left-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
 }
 
 .sourcing-water .left-panel .container .info-container {
@@ -370,6 +375,26 @@ html, body {
 
 .sourcing-water .left-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .left-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .left-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .left-panel .container .quest-item {
@@ -654,8 +679,8 @@ html, body {
           flex-direction: column;
   border-radius: 5px 0px 0px 5px;
   top: 0px;
-  right: -250px;
-  width: 250px;
+  right: -280px;
+  width: 280px;
   height: 100%;
 }
 
@@ -685,6 +710,11 @@ html, body {
   font-size: 1.3em;
   padding: 5px 10px;
   border-bottom: 1px solid #333333;
+}
+
+.sourcing-water .right-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
 }
 
 .sourcing-water .right-panel .container .info-container {
@@ -746,6 +776,26 @@ html, body {
 
 .sourcing-water .right-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .right-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .right-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .right-panel .container .quest-item {
@@ -1063,6 +1113,11 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
+.sourcing-water .bottom-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
 .sourcing-water .bottom-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1122,6 +1177,26 @@ html, body {
 
 .sourcing-water .bottom-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .bottom-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .bottom-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .bottom-panel .container .quest-item {
@@ -1445,6 +1520,11 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
+.sourcing-water .center-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
 .sourcing-water .center-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1504,6 +1584,26 @@ html, body {
 
 .sourcing-water .center-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .center-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .center-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .center-panel .container .quest-item {
@@ -1824,6 +1924,11 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
+.sourcing-water .full-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
 .sourcing-water .full-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1883,6 +1988,26 @@ html, body {
 
 .sourcing-water .full-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .full-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .full-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .full-panel .container .quest-item {
@@ -2204,6 +2329,11 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
+.sourcing-water .player-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
 .sourcing-water .player-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2263,6 +2393,26 @@ html, body {
 
 .sourcing-water .player-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .player-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .player-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .player-panel .container .quest-item {
@@ -2582,6 +2732,11 @@ html, body {
   border-bottom: 1px solid #333333;
 }
 
+.sourcing-water .quest-input-panel .container .sub-title {
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
 .sourcing-water .quest-input-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2641,6 +2796,26 @@ html, body {
 
 .sourcing-water .quest-input-panel .container .content-block ul li {
   line-height: 1.5em;
+}
+
+.sourcing-water .quest-input-panel .container .content-block .partner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.sourcing-water .quest-input-panel .container .content-block .partner-container .logo {
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
 }
 
 .sourcing-water .quest-input-panel .container .quest-item {

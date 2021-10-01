@@ -10,10 +10,88 @@ class TracePathQuest extends BaseQuest{
         this.targetQuest = null;
         this.minIndex = 0;
         this.maxIndex = 0;
+        this.icon = {
+            size: 100,
+            outerColor: [255,200,200],
+            innerColor: [255,100,100],
+            duration: 1000
+        }
+        this.speed = 0.0003;
+        this.step = 0;
+    }
+
+    AddFrontendIcon(){
+        let map = this.map;
+        let icon = this.icon;
+        
+        if(!this.map.hasImage("pulsing-dot")){
+            //using StyleImageIterface to generate icon dynamically
+            const pulsingDot = {
+                width: icon.size,
+                height: icon.size,
+                data: new Uint8Array(icon.size*icon.size*4),
+    
+                onAdd: function () {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = this.width;
+                    canvas.height = this.height;
+                    this.context = canvas.getContext('2d');
+                },
+                    
+                render: function () {
+                    const t = (performance.now() % icon.duration) / icon.duration;                
+                    const radius = (icon.size*0.5)*0.3;
+                    const outerRadius = (icon.size*0.5)*0.7*t+radius;
+                    const context = this.context;
+                    
+                    // Draw the outer circle.
+                    context.clearRect(0, 0, this.width, this.height);
+                    context.beginPath();
+                    context.arc(this.width*0.5,this.height*0.5,outerRadius,0,Math.PI*2);
+                    context.fillStyle = `rgba(${icon.outerColor[0]},${icon.outerColor[1]},${icon.outerColor[2]},${1-t})`;
+                    context.fill();
+                    
+                    // Draw the inner circle.
+                    context.beginPath();
+                    context.arc(this.width*0.5,this.height*0.5,radius,0,Math.PI*2);
+                    context.fillStyle = `rgba(${icon.innerColor[0]},${icon.innerColor[1]},${icon.innerColor[2]},1)`;
+                    context.strokeStyle = 'white';
+                    context.lineWidth = 2+4*(1-t);
+                    context.fill();
+                    context.stroke();
+                    
+                    this.data = context.getImageData(0,0,this.width,this.height).data;
+                    map.triggerRepaint();
+                    return true;
+                }
+            };
+            this.map.addImage('pulsing-dot', pulsingDot, {pixelRatio: 2});
+        }
+        
+        let dotKey = this.GetGeomKey(0)+"_dot";
+        let source = this.map.getSource(dotKey);
+        if(!source){
+            this.map.addSource(dotKey, {
+                'type': 'geojson',
+                'data': null
+            });
+        }
+        let layer = this.map.getLayer(dotKey);
+        if(!layer){
+            this.map.addLayer({
+                'id': dotKey,
+                'type': 'symbol',
+                'source': dotKey,
+                'layout': {
+                    'icon-image': 'pulsing-dot'
+                }
+            });
+        }
     }
 
     Init(succFn,failFn){
         super.Init((result) => {
+            this.AddFrontendIcon();
             //用上個quest流路當路徑，若上個quest已有targetQuest表是它是鳥覽流路，就不更新history
             let q = g_APP.history.questArr[g_APP.history.index].quest;
             if(q.targetQuest){
@@ -54,6 +132,22 @@ class TracePathQuest extends BaseQuest{
             this.timer = null;
         }
         this.displayIndex = 0;
+
+        //remove frontend icon
+        let dotKey = this.GetGeomKey(0)+"_dot";
+        let source = this.map.getSource(dotKey);
+        if(source){
+            let pt = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': []
+                }
+            };
+            source.setData(pt);
+        }
+
+        //remove path
         if(!this.setting) return;
         if(this.displayPath.coordinates){
             this.displayPath.coordinates = [];
@@ -130,12 +224,43 @@ class TracePathQuest extends BaseQuest{
         
         this.timer = window.setInterval(function(){
             if(this.displayIndex < coordArr.length){
-                let coord = coordArr[this.displayIndex];
+                let curPt = coordArr[this.displayIndex];
+                let nextPt = coordArr[this.displayIndex+1];
+                let coord = [];
+                if(!nextPt){    //已走到底
+                    coord = curPt;
+                }
+                else{
+                    let diff = [nextPt[0]-curPt[0],nextPt[1]-curPt[1]];
+                    let norm = Math.sqrt(diff[0]*diff[0]+diff[1]*diff[1]);
+                    let progress = this.speed*this.step;
+                    //console.log([norm,progress,this.step]);
+                    if(norm > progress){   //依speed沿兩端點內插
+                        coord[0] = curPt[0]+diff[0]*progress/norm;
+                        coord[1] = curPt[1]+diff[1]*progress/norm;
+                        this.step++;
+                    }
+                    else{   //已走到下個端點
+                        coord = nextPt;
+                        this.displayIndex++;
+                        this.step = 0;
+                    }
+                }
+
                 this.displayPath.coordinates.push(coord);
                 let source = this.map.getSource(key);
                 if(source) source.setData(this.displayPath);
                 this.map.panTo(coord);
-                this.displayIndex++;
+                let dotKey = this.GetGeomKey(0)+"_dot";
+                let frontendIcon = this.map.getSource(dotKey);
+                let pt = {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': coord
+                    }
+                };
+                if(frontendIcon) frontendIcon.setData(pt);
             }
             else this.Pause();
         }.bind(this), 100);

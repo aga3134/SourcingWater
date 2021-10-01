@@ -179,6 +179,10 @@ $vue-transition: 0.5s;
                 padding: 5px 10px;
                 border-bottom: 1px solid #333333;
             }
+            .sub-title{
+                font-size: 1.1em;
+                padding: 5px 10px;
+            }
             .info-container{
                 display: flex;
                 justify-content: flex-start;
@@ -224,6 +228,17 @@ $vue-transition: 0.5s;
                 ul{
                     li{
                         line-height: 1.5em;
+                    }
+                }
+                .partner-container{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    .logo{
+                        margin: 10px;
+                        max-width: 200px;
+                        max-height: 100px;
                     }
                 }
             }
@@ -400,8 +415,8 @@ $vue-transition: 0.5s;
         @include panel;
         border-radius: 0px 5px 5px 0px;
         top: 0px;
-        left: -250px;
-        width: 250px;
+        left: -280px;
+        width: 280px;
         height: 100%;
         &.open{
             left: 0px;
@@ -411,8 +426,8 @@ $vue-transition: 0.5s;
         @include panel;
         border-radius: 5px 0px 0px 5px;
         top: 0px;
-        right: -250px;
-        width: 250px;
+        right: -280px;
+        width: 280px;
         height: 100%;
         &.open{
             right: 0px;

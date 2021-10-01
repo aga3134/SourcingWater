@@ -209,7 +209,8 @@ let g_APP = new Vue({
                 style: 'mapbox://styles/aga3134/ckpqd8kxb0pph17px4usqsea5',
                 //style: 'mapbox://styles/aga3134/cktf22irw2v2d19pjwuxxjb9v',
                 center: [121, 23.7],
-                zoom: 6.5
+                zoom: 6.5,
+                fadeDuration: 0,    //避免鳥覽symbol更新時因為fade in看不到
             });
             
             this.map.on('load', function(){
@@ -475,10 +476,10 @@ let g_APP = new Vue({
         },
         RemoveQuestHistory: function(i){
             let q = this.history.questArr[i];
-            if(confirm("確定刪除回溯探索「"+q.quest.quest.name+" - "+q.quest.nodeName+"」?")){
+            //if(confirm("確定刪除回溯探索「"+q.quest.quest.name+" - "+q.quest.nodeName+"」?")){
                 this.ClearQuest(this.history.questArr[i]); 
                 this.history.questArr.splice(i,1);
-            }
+            //}
         },
         SelectNode: function(kind,nodeID,nodeName){
             this.logicTopo.nodeID = this.curQuest.quest.nodeID = nodeID;

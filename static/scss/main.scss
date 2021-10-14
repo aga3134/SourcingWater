@@ -300,6 +300,9 @@ $vue-transition: 0.5s;
                     width: 20px;
                     height: 20px;
                 }
+                input[type="text"]{
+                    width: 120px;
+                }
                 select{
                     padding: 3px;
                     border-radius: 3px;

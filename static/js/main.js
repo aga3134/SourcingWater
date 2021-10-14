@@ -49,6 +49,9 @@ let g_APP = new Vue({
             //irrigationMap: null,
             commutag: null
         },
+        commutag:{
+            dataset:"60c0307db652fe1483444844"
+        },
         eventFn:{
             onMouseMove: null,
             onClick:null
@@ -149,7 +152,7 @@ let g_APP = new Vue({
                     let param = {
                         show: false,
                         map: this.map,
-                        url: "layer/commutag?dataset=60c0307db652fe1483444844",
+                        url: "layer/commutag?dataset="+this.commutag.dataset,
                         onClick: (e) => {
                             let f = e.features[0];
                             if(!f) return;
@@ -526,6 +529,11 @@ let g_APP = new Vue({
                 //console.log(this.nodeInfo);
                 this.OpenInfoPanel();
             });
+        },
+        ReloadCommutag: function(){
+            if(!this.layer.commutag) return;
+            this.layer.commutag.url = "layer/commutag?dataset="+this.commutag.dataset;
+            this.layer.commutag.Init();
         }
     }
 });

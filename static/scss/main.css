@@ -482,6 +482,10 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .left-panel .container .option-item input[type="text"] {
+  width: 120px;
+}
+
 .sourcing-water .left-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
@@ -899,6 +903,10 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .right-panel .container .option-item input[type="text"] {
+  width: 120px;
+}
+
 .sourcing-water .right-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
@@ -1314,6 +1322,10 @@ html, body {
 .sourcing-water .bottom-panel .container .option-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
+}
+
+.sourcing-water .bottom-panel .container .option-item input[type="text"] {
+  width: 120px;
 }
 
 .sourcing-water .bottom-panel .container .option-item select {
@@ -1739,6 +1751,10 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .center-panel .container .option-item input[type="text"] {
+  width: 120px;
+}
+
 .sourcing-water .center-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
@@ -2157,6 +2173,10 @@ html, body {
 .sourcing-water .full-panel .container .option-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
+}
+
+.sourcing-water .full-panel .container .option-item input[type="text"] {
+  width: 120px;
 }
 
 .sourcing-water .full-panel .container .option-item select {
@@ -2580,6 +2600,10 @@ html, body {
   height: 20px;
 }
 
+.sourcing-water .player-panel .container .option-item input[type="text"] {
+  width: 120px;
+}
+
 .sourcing-water .player-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
@@ -2997,6 +3021,10 @@ html, body {
 .sourcing-water .quest-input-panel .container .option-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
+}
+
+.sourcing-water .quest-input-panel .container .option-item input[type="text"] {
+  width: 120px;
 }
 
 .sourcing-water .quest-input-panel .container .option-item select {

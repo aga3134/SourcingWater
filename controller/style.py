@@ -23,7 +23,7 @@ def BasinStyle(lineColor="#fff",lineWidth=1,fill=False,fillColor="#f33"):
         style.append(fillStyle)
     return style
 
-def SymbolStyle(iconName, textKey = "name", allowOverlap = False):
+def SymbolStyle(iconName, textKey = "name", allowOverlap = False, selectedTextColor="#f33"):
     return [
         {
             "type": "symbol",
@@ -37,7 +37,11 @@ def SymbolStyle(iconName, textKey = "name", allowOverlap = False):
                 "text-allow-overlap": allowOverlap
             },
             "paint":{
-                "text-color": "#ff3",
+                "text-color": [
+                    'case',
+                    ['boolean', ['feature-state', 'selected'], False], "#ff3",
+                    "#fff"
+                ],
                 "text-halo-color": "#000",
                 "text-halo-width":1,
                 "text-halo-blur": 3

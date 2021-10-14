@@ -20,10 +20,3 @@ class LogicTopoCatchment():
             "nodeName":nodeName,
             "info":"請選擇要觀察哪種類型的污染源"
         }
-
-    def GetNodeInfo(self,param):
-        if not "nodeID" in param:
-            return {"error":"no nodeID parameter"}
-        nodeID = param["nodeID"]
-
-        return {"error":" 查無基本資料"}

@@ -1,4 +1,5 @@
 from waterswak.flwdir import *
+from model.db import db
 
 def DictToGeoJsonProp(d,geomKey = "geom"):
     geom = {
@@ -43,6 +44,13 @@ def ToFloat(s):
     except ValueError:
         return float('NaN')
 
+def GetSInfoPoint(kind,nodeID,nodeName):
+    sql = "select * from s_info_point where category='%s' and name='%s' limit 1;" % (kind,nodeName)
+    row = db.engine.execute(sql).first()
+    if row is None:
+        return None
+    else:
+        return dict(row)
 
 #flow direction related
 def load_json_local(filename):

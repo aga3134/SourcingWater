@@ -316,6 +316,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .left-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .left-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -481,6 +486,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .left-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .left-panel .container .quest-history {
@@ -717,6 +733,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .right-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .right-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -882,6 +903,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .right-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .right-panel .container .quest-history {
@@ -1118,6 +1150,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .bottom-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .bottom-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1283,6 +1320,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .bottom-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .bottom-panel .container .quest-history {
@@ -1525,6 +1573,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .center-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .center-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1690,6 +1743,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .center-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .center-panel .container .quest-history {
@@ -1929,6 +1993,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .full-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .full-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2094,6 +2163,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .full-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .full-panel .container .quest-history {
@@ -2334,6 +2414,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .player-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .player-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2499,6 +2584,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .player-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .player-panel .container .quest-history {
@@ -2737,6 +2833,11 @@ html, body {
   padding: 5px 10px;
 }
 
+.sourcing-water .quest-input-panel .container iframe {
+  width: 100%;
+  height: 400px;
+}
+
 .sourcing-water .quest-input-panel .container .info-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2902,6 +3003,17 @@ html, body {
   padding: 3px;
   border-radius: 3px;
   max-width: 100px;
+}
+
+.sourcing-water .quest-input-panel .container .option-item .tiny-bt {
+  margin: 5px;
+  padding: 1px 3px;
+  font-size: 0.8em;
+  background-color: #555555;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sourcing-water .quest-input-panel .container .quest-history {

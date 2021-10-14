@@ -12,6 +12,7 @@ from controller.logicTopoPollution import LogicTopoPollution
 from controller.logicTopoIndustryArea import LogicTopoIndustryArea
 from controller.logicTopoFactory import LogicTopoFactory
 from controller.logicTopoSewageTreatmentPlant import LogicTopoSewageTreatmentPlant
+from controller.util import GetSInfoPoint
 
 class LogicTopoController():
     def ListKind(self):
@@ -149,30 +150,11 @@ class LogicTopoController():
         if not "kind" in param:
             return {"error":"no kind parameter"}
         kind = param["kind"]
-        if not "nodeID" in param:
-            return {"error":"no nodeID parameter"}
-        nodeID = param["nodeID"]
+        if not "nodeID" in param and not "nodeName" in param:
+            return {"error":"no nodeID & nodeName parameter"}
 
-        if kind == "流域":
-            return LogicTopoBasin().GetNodeInfo(param)
-        elif kind == "流路":
-            return LogicTopoFlowPath().GetNodeInfo(param)
-        elif kind == "生活區域":
-            return LogicTopoLivingArea().GetNodeInfo(param)
-        elif kind == "農業區域":
-            return LogicTopoAgricultureArea().GetNodeInfo(param)
-        elif kind == "淨水場":
-            return LogicTopoWaterwork().GetNodeInfo(param)
-        elif kind == "取水口":
-            return LogicTopoWaterin().GetNodeInfo(param)
-        elif kind == "集水區":
-            return LogicTopoCatchment().GetNodeInfo(param)
-        elif kind == "鄰近污染源":
-            return LogicTopoPollution().GetNodeInfo(param)
-        elif kind == "工業區域":
-            return LogicTopoIndustryArea().GetNodeInfo(param)
-        elif kind == "工廠":
-            return LogicTopoFactory().GetNodeInfo(param)
-        elif kind == "工業污水處理廠":
-            return LogicTopoSewageTreatmentPlant().GetNodeInfo(param)
-        return {"error":" 查無基本資料"}
+        info = GetSInfoPoint(param["kind"],param["nodeID"],param["nodeName"])
+        if info is None:
+            return {"error":" 查無基本資料"}
+        else:
+            return info

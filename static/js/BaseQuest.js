@@ -43,6 +43,17 @@ class BaseQuest extends BaseLayer{
         let p = new Promise((resolve,reject) => {
             this.LoadData(this.quest.geomUrl,resolve,reject);
         }).then((result) => {
+            //預設選擇第一個物件
+            let key = this.GetGeomKey(0)
+            let source = this.map.getSource(key);
+            if(source){
+                this.selectSource = key;
+                this.selectFeature = 0;
+                this.map.setFeatureState(
+                    {source: this.selectSource, id: this.selectFeature},
+                    {selected: true}
+                );
+            }
             this.nodeID = result.nodeID;        //用來取資料庫資料
             this.nodeName = result.nodeName;    //用來顯示
             this.setting = result.setting;      //不同display_class會有不同的setting

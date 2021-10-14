@@ -41,9 +41,11 @@ class LogicTopoPollution():
         if len(geom["features"]) == 0:
             return {"error":"鄰近範圍查無工廠"}
 
-        for f in geom["features"]:
+        for (i,f) in enumerate(geom["features"]):
+            f["id"] = i
             f["properties"]["id"] = f["properties"]["FactoryID"]
             f["properties"]["name"] = f["properties"]["FactoryName"]
+        
         f = geom["features"][0]
 
         #generate json_def
@@ -289,10 +291,3 @@ class LogicTopoPollution():
             "nodeName":factory[0]["name"],
             "data":[data]
         }
-
-    def GetNodeInfo(self,param):
-        if not "nodeID" in param:
-            return {"error":"no nodeID parameter"}
-        nodeID = param["nodeID"]
-
-        return {"error":" 查無基本資料"}

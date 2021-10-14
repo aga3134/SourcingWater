@@ -25,7 +25,7 @@ class WMTSLayer extends BaseLayer{
             "type": "raster",
             "source": sourceKey,
             "paint": {}
-        });
+        },g_APP.wmtsBarrier);
         var visible = this.show?"visible":"none";
         this.map.setLayoutProperty(sourceKey,"visibility",visible);
         this.sourceHash[sourceKey] = {"name":sourceKey};

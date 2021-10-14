@@ -2,6 +2,7 @@ let g_APP = new Vue({
     el: "#app",
     data: {
         map: null,
+        wmtsBarrier: null,
         isLoading: true,
         isProcessing: false,
         openOptionPanel: false,
@@ -52,6 +53,7 @@ let g_APP = new Vue({
             onMouseMove: null,
             onClick:null
         },
+        nodeInfo:{},
         curBasin:"",
         chartArr:[],
         infoWindow: null
@@ -95,6 +97,7 @@ let g_APP = new Vue({
                 {name:"marker-red",url:"static/image/marker-red-24.png"},
                 {name:"marker-blue",url:"static/image/marker-blue-24.png"},
                 {name:"marker-black",url:"static/image/marker-black-24.png"},
+                {name:"marker-orange",url:"static/image/marker-orange-24.png"},
                 {name:"waterin",url:"static/image/waterin-24.png"},
                 {name:"waterwork",url:"static/image/waterwork-24.png"},
                 {name:"camera",url:"static/image/camera-24.png"},
@@ -214,6 +217,17 @@ let g_APP = new Vue({
             });
             
             this.map.on('load', function(){
+                //取得衛星圖之後的第一個layer，之後的wmts layer都會加在它前面，避免蓋掉後面的地理資訊
+                const layers = this.map.getStyle().layers;
+                let lastLayer = null;
+                for(const layer of layers) {
+                    if(lastLayer == "satellite"){
+                        this.wmtsBarrier = layer.id;
+                        break;
+                    }
+                    lastLayer = layer.id;
+                }
+
                 this.map.addSource('mapbox-dem', {
                     'type': 'raster-dem',
                     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -481,6 +495,15 @@ let g_APP = new Vue({
                 this.history.questArr.splice(i,1);
             //}
         },
+        RemoveAllQuestHistory: function(){
+            if(confirm("確定刪除所有回溯探索?")){
+                for(let i=0;i<this.history.questArr.length;i++){
+                    let q = this.history.questArr[i];
+                    this.ClearQuest(this.history.questArr[i]); 
+                }
+                this.history.questArr = [];
+            }
+        },
         SelectNode: function(kind,nodeID,nodeName){
             this.logicTopo.nodeID = this.curQuest.quest.nodeID = nodeID;
             this.logicTopo.nodeName = this.curQuest.quest.nodeName = nodeName;
@@ -491,10 +514,16 @@ let g_APP = new Vue({
             let url = "logicTopo/getNodeInfo?";
             url += "kind="+this.logicTopo.curKind;
             url += "&nodeID="+this.logicTopo.nodeID;
+            url += "&nodeName="+this.logicTopo.nodeName;
             $.get(url,(result) => {
                 if(result.error){
                     return toastr.error(result.error);
                 }
+                if(result.urls){
+                    result.urls = result.urls.split("|");
+                }
+                this.nodeInfo = result;
+                //console.log(this.nodeInfo);
                 this.OpenInfoPanel();
             });
         }

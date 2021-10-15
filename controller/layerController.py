@@ -99,6 +99,8 @@ class LayerController():
         geom["type"] = "FeatureCollection"
         geom["features"] = []
         for image in imageArr:
+            if "lat" not in image or "lng" not in image:
+                continue
             f = {}
             f["type"] = "Feature"
             f["geometry"] = {

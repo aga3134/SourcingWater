@@ -26,4 +26,5 @@ dependencies:
   - fiona=1.8.18
   - libcurl=7.77.0
   - jupyter
+  - uwsgi
 prefix: 

@@ -78,12 +78,10 @@
                             <div class="option-item" v-if="layer.commutag">
                                 <input type="checkbox" v-model="layer.commutag.show" @change="UpdateLayer();">
                                 <div class="item-label">群眾標註</div>
+                                <select v-model="commutag.curID" @change="ReloadCommutag();">
+                                    <option v-for="d in commutag.datasetArr" :value="d._id">[[d.name]]</option>
+                                </select> 
                             </div>
-                            <!--<div class="option-item" v-if="layer.commutag && layer.commutag.show">
-                                <div class="item-label">資料集</div>
-                                <input type="text" v-model="commutag.dataset">
-                                <div class="tiny-bt" @click="ReloadCommutag();">更新</div>
-                            </div>-->
                         </div>
 
                         <div class="quest-history">

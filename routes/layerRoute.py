@@ -29,3 +29,9 @@ def commutag():
     lc = LayerController()
     data = lc.GetCommutag(current_app.config["app"]["commutag"],param)
     return jsonify(data)
+
+@layerRoute.route("/list-commutag-dataset", methods=["GET"])
+def listCommutagDataset():
+    lc = LayerController()
+    data = lc.ListCommutagDataset(current_app.config["app"]["commutag"])
+    return jsonify(data)

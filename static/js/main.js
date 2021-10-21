@@ -50,7 +50,8 @@ let g_APP = new Vue({
             commutag: null
         },
         commutag:{
-            dataset:"60c0307db652fe1483444844"
+            datasetArr:[],
+            curID:"60c0307db652fe1483444844"
         },
         eventFn:{
             onMouseMove: null,
@@ -149,10 +150,18 @@ let g_APP = new Vue({
                     resolve();
                 }));
                 promiseArr.push(new Promise((resolve,reject) => {
+                    let url = "layer/list-commutag-dataset";
+                    $.get(url, (result) => {
+                        this.commutag.datasetArr = result;
+                        //console.log(this.commutag.datasetArr);
+                        resolve();
+                    });
+                }));
+                promiseArr.push(new Promise((resolve,reject) => {
                     let param = {
                         show: false,
                         map: this.map,
-                        url: "layer/commutag?dataset="+this.commutag.dataset,
+                        url: "layer/commutag?dataset="+this.commutag.curID,
                         onClick: (e) => {
                             let f = e.features[0];
                             if(!f) return;
@@ -532,7 +541,8 @@ let g_APP = new Vue({
         },
         ReloadCommutag: function(){
             if(!this.layer.commutag) return;
-            this.layer.commutag.url = "layer/commutag?dataset="+this.commutag.dataset;
+            console.log(this.commutag);
+            this.layer.commutag.url = "layer/commutag?dataset="+this.commutag.curID;
             this.layer.commutag.Init();
         }
     }

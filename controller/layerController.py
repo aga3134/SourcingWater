@@ -132,3 +132,34 @@ class LayerController():
             "layerName": "群眾標註",
             "data": [data]
         }
+
+    def ListCommutagDataset(self,config):
+        hasMore = True
+        page = 0
+        dataset = []
+        while hasMore:
+            url = config["host"]+("/dataset/list-dataset?page=%d&sort=createdAt&orderType=desc") % (page)
+            r = requests.get(url).json()
+            if r["status"] != "ok":
+                return {"error":"讀取資料集列表失敗"}
+            result = r["data"]
+            hasMore = result["hasMore"]
+            #dataset = dataset + result["dataset"]
+            for d in result["dataset"]:
+                if not "form" in d:
+                    continue
+                if not isinstance(d["form"], dict):
+                    continue
+                if not "itemArr" in d["form"]:
+                    continue
+                hasKind = False
+                hasName = False
+                for item in d["form"]["itemArr"]:
+                    if item["quest"] == "思源地圖類別":
+                        hasKind = True
+                    if item["quest"] == "思源地圖名稱":
+                        hasName = True
+                if hasKind and hasName:
+                    dataset.append(d)
+            page += 1
+        return dataset

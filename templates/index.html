@@ -242,11 +242,16 @@
                             <div class="content-block">
                                 <p>[[nodeInfo.desc]]</p>
                             </div>
-                            <div v-if="nodeInfo.urls">
+                            <div v-if="nodeInfo.urls.length > 0">
                                 <div class="sub-title">外部連結</div>
-                                <div v-if="nodeInfo.urls.length==2">
-                                    <iframe :src="nodeInfo.urls[1]"></iframe>
-                                    <a :href="nodeInfo.urls[1]" target="_blank">網頁來源: [[ nodeInfo.urls[0] ]]</a>
+                                <div v-if="nodeInfo.urls.length==1">
+                                    <iframe :src="nodeInfo.urls[0].url"></iframe>
+                                    <a :href="nodeInfo.urls[0].url" target="_blank">網頁來源: [[ nodeInfo.urls[0].name ]]</a>
+                                </div>
+                                <div v-else class="content-block">
+                                    <ul>
+                                        <li v-for="link in nodeInfo.urls"><a :href="link.url" target="_blank">[[ link.name ]]</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

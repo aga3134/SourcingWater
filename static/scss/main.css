@@ -201,6 +201,21 @@ html, body {
   margin: 5px;
 }
 
+.sourcing-water .topbar .searchbox .mapboxgl-ctrl-geocoder {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.sourcing-water .topbar .searchbox .mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon-search {
+  top: 8px;
+}
+
+.sourcing-water .topbar .searchbox .mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--input {
+  width: 200px;
+  font-size: 16px;
+  height: 40px;
+}
+
 .sourcing-water .side-icon-panel {
   position: absolute;
   display: -webkit-box;
@@ -278,8 +293,8 @@ html, body {
           flex-direction: column;
   border-radius: 0px 5px 5px 0px;
   top: 0px;
-  left: -280px;
-  width: 280px;
+  left: -180px;
+  width: 180px;
   height: 100%;
 }
 
@@ -376,6 +391,10 @@ html, body {
 
 .sourcing-water .left-panel .container .content-block a:hover {
   color: #ff3333;
+}
+
+.sourcing-water .left-panel .container .content-block ul {
+  margin: 10px 0px;
 }
 
 .sourcing-water .left-panel .container .content-block ul li {
@@ -489,7 +508,13 @@ html, body {
 .sourcing-water .left-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .left-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .left-panel .container .option-item .tiny-bt {
@@ -678,6 +703,13 @@ html, body {
   cursor: pointer;
 }
 
+@media only screen and (min-width: 640px) {
+  .sourcing-water .left-panel {
+    left: -280px;
+    width: 280px;
+  }
+}
+
 .sourcing-water .left-panel.open {
   left: 0px;
 }
@@ -699,8 +731,8 @@ html, body {
           flex-direction: column;
   border-radius: 5px 0px 0px 5px;
   top: 0px;
-  right: -280px;
-  width: 280px;
+  right: -180px;
+  width: 180px;
   height: 100%;
 }
 
@@ -797,6 +829,10 @@ html, body {
 
 .sourcing-water .right-panel .container .content-block a:hover {
   color: #ff3333;
+}
+
+.sourcing-water .right-panel .container .content-block ul {
+  margin: 10px 0px;
 }
 
 .sourcing-water .right-panel .container .content-block ul li {
@@ -910,7 +946,13 @@ html, body {
 .sourcing-water .right-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .right-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .right-panel .container .option-item .tiny-bt {
@@ -1099,6 +1141,13 @@ html, body {
   cursor: pointer;
 }
 
+@media only screen and (min-width: 640px) {
+  .sourcing-water .right-panel {
+    right: -280px;
+    width: 280px;
+  }
+}
+
 .sourcing-water .right-panel.open {
   right: 0px;
 }
@@ -1220,6 +1269,10 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .bottom-panel .container .content-block ul {
+  margin: 10px 0px;
+}
+
 .sourcing-water .bottom-panel .container .content-block ul li {
   line-height: 1.5em;
 }
@@ -1331,7 +1384,13 @@ html, body {
 .sourcing-water .bottom-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .bottom-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .bottom-panel .container .option-item .tiny-bt {
@@ -1541,7 +1600,6 @@ html, body {
           flex-direction: column;
   border-radius: 5px;
   padding: 20px 10px;
-  margin: 10px;
   width: 600px;
   height: 400px;
   left: 50%;
@@ -1645,6 +1703,10 @@ html, body {
 
 .sourcing-water .center-panel .container .content-block a:hover {
   color: #ff3333;
+}
+
+.sourcing-water .center-panel .container .content-block ul {
+  margin: 10px 0px;
 }
 
 .sourcing-water .center-panel .container .content-block ul li {
@@ -1758,7 +1820,13 @@ html, body {
 .sourcing-water .center-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .center-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .center-panel .container .option-item .tiny-bt {
@@ -2071,6 +2139,10 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .full-panel .container .content-block ul {
+  margin: 10px 0px;
+}
+
 .sourcing-water .full-panel .container .content-block ul li {
   line-height: 1.5em;
 }
@@ -2182,7 +2254,13 @@ html, body {
 .sourcing-water .full-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .full-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .full-panel .container .option-item .tiny-bt {
@@ -2496,6 +2574,10 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .player-panel .container .content-block ul {
+  margin: 10px 0px;
+}
+
 .sourcing-water .player-panel .container .content-block ul li {
   line-height: 1.5em;
 }
@@ -2607,7 +2689,13 @@ html, body {
 .sourcing-water .player-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .player-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .player-panel .container .option-item .tiny-bt {
@@ -2919,6 +3007,10 @@ html, body {
   color: #ff3333;
 }
 
+.sourcing-water .quest-input-panel .container .content-block ul {
+  margin: 10px 0px;
+}
+
 .sourcing-water .quest-input-panel .container .content-block ul li {
   line-height: 1.5em;
 }
@@ -3030,7 +3122,13 @@ html, body {
 .sourcing-water .quest-input-panel .container .option-item select {
   padding: 3px;
   border-radius: 3px;
-  max-width: 100px;
+  max-width: 80px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .quest-input-panel .container .option-item select {
+    width: 100px;
+  }
 }
 
 .sourcing-water .quest-input-panel .container .option-item .tiny-bt {

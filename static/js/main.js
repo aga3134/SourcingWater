@@ -131,7 +131,7 @@ let g_APP = new Vue({
                     this.layer.basin = new BaseLayer(param);
                     this.layer.basin.Init(resolve);
                 }));
-                promiseArr.push(new Promise((resolve,reject) => {
+                /*promiseArr.push(new Promise((resolve,reject) => {
                     let param = {
                         show: false,
                         map: this.map,
@@ -148,7 +148,7 @@ let g_APP = new Vue({
                     };
                     this.layer.floodStation = new BaseLayer(param);
                     resolve();
-                }));
+                }));*/
                 promiseArr.push(new Promise((resolve,reject) => {
                     let url = "layer/list-commutag-dataset";
                     $.get(url, (result) => {
@@ -532,7 +532,14 @@ let g_APP = new Vue({
                     return toastr.error(result.error);
                 }
                 if(result.urls){
-                    result.urls = result.urls.split("|");
+                    let urlArr = result.urls.split("|");
+                    result.urls = [];
+                    for(let i=0;i<urlArr.length;i+=2){
+                        result.urls.push({
+                            name: urlArr[i],
+                            url: urlArr[i+1]
+                        });
+                    }
                 }
                 this.nodeInfo = result;
                 //console.log(this.nodeInfo);

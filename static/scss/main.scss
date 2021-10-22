@@ -125,6 +125,18 @@ $vue-transition: 0.5s;
         left: 10px;
         .searchbox{
             margin: 5px;
+            .mapboxgl-ctrl-geocoder {
+                min-width: 200px;
+                max-width: 200px;
+                .mapboxgl-ctrl-geocoder--icon-search{
+                    top: 8px;
+                }
+                .mapboxgl-ctrl-geocoder--input{
+                    width: 200px;
+                    font-size: 16px;
+                    height: 40px;
+                }
+            }
         }
     }
     .side-icon-panel{
@@ -230,6 +242,7 @@ $vue-transition: 0.5s;
                     }
                 }
                 ul{
+                    margin: 10px 0px;
                     li{
                         line-height: 1.5em;
                     }
@@ -306,7 +319,10 @@ $vue-transition: 0.5s;
                 select{
                     padding: 3px;
                     border-radius: 3px;
-                    max-width: 100px;
+                    max-width: 80px;
+                    @include pad-width(){
+                        width: 100px;
+                    }
                 }
                 .tiny-bt{
                     margin: 5px;
@@ -432,8 +448,12 @@ $vue-transition: 0.5s;
         @include panel;
         border-radius: 0px 5px 5px 0px;
         top: 0px;
-        left: -280px;
-        width: 280px;
+        left: -180px;
+        width: 180px;
+        @include pad-width(){
+            left: -280px;
+            width: 280px;
+        }
         height: 100%;
         &.open{
             left: 0px;
@@ -443,8 +463,12 @@ $vue-transition: 0.5s;
         @include panel;
         border-radius: 5px 0px 0px 5px;
         top: 0px;
-        right: -280px;
-        width: 280px;
+        right: -180px;
+        width: 180px;
+        @include pad-width(){
+            right: -280px;
+            width: 280px;
+        }
         height: 100%;
         &.open{
             right: 0px;
@@ -465,7 +489,6 @@ $vue-transition: 0.5s;
         @include panel;
         border-radius: 5px;
         padding: 20px 10px;
-        margin: 10px;
         width: 600px;
         height: 400px;
         left: 50%;

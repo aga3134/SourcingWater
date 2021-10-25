@@ -38,6 +38,8 @@ class LogicTopoIndustryArea():
         data = {}
         data["geom"] = geom
         data["layer"] = SymbolStyle("waterin",allowOverlap=True)
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -79,6 +81,8 @@ class LogicTopoIndustryArea():
             "geom": geom,
             "layer": SymbolStyle("marker-red",textKey="FactoryName"),
         }
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":f["properties"]["id"],
             "nodeName":f["properties"]["name"],

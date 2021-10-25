@@ -51,6 +51,8 @@ class LogicTopoWaterin():
         row["name"] = nodeName+"集水區"
         row["geom"] = json.loads(fd.basins(ptArr,filename=None))
         row["layer"] = SubbasinStyle()
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -158,6 +160,8 @@ class LogicTopoWaterin():
         data = {}
         data["geom"] = geom
         data["layer"] = LivingAreaStyle(lineWidth=2,lineColor="#fff",fill=True)
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],

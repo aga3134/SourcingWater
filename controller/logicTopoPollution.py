@@ -53,6 +53,8 @@ class LogicTopoPollution():
             "geom": geom,
             "layer": SymbolStyle("marker-red",textKey="FactoryName"),
         }
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":f["properties"]["FactoryID"],
             "nodeName":f["properties"]["FactoryName"],
@@ -112,6 +114,8 @@ class LogicTopoPollution():
             "geom": geom,
             "layer": SymbolStyle("marker-red"),
         }
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -171,6 +175,8 @@ class LogicTopoPollution():
         data = {}
         data["geom"] = geom
         data["layer"] = IndustryAreaStyle()
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -230,6 +236,8 @@ class LogicTopoPollution():
         data = {}
         data["geom"] = geom
         data["layer"] = SymbolStyle("waterin",allowOverlap=True)
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -286,6 +294,8 @@ class LogicTopoPollution():
             "geom": geom,
             "layer": SymbolStyle("marker-red"),
         }
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":factory[0]["id"],
             "nodeName":factory[0]["name"],

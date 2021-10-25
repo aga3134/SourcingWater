@@ -18,6 +18,8 @@ class LogicTopoBasin():
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = BasinStyle(lineWidth=3)
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -39,6 +41,8 @@ class LogicTopoBasin():
         row["name"] = "頭前溪"
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = FlowPathStyle(lineWidth=4,color="#f33")
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -75,6 +79,8 @@ class LogicTopoBasin():
             feat["properties"]["color"] = colorList[i].hex
 
         row["layer"] = FlowPathStyle(lineWidth=1.5,colorKey="color")
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -120,6 +126,8 @@ class LogicTopoBasin():
             feat["properties"]["color"] = colorList[i].hex
         
         row["layer"] = SubbasinStyle(fillKey="color")
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -181,6 +189,8 @@ class LogicTopoBasin():
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = LivingAreaStyle()
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -229,6 +239,8 @@ class LogicTopoBasin():
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = AgricultureAreaStyle()
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -295,6 +307,8 @@ class LogicTopoBasin():
         data = {}
         data["geom"] = geom
         data["layer"] = IndustryAreaStyle()
+        if "format" in param and param["format"] == "geojson":
+            return data["geom"]
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],

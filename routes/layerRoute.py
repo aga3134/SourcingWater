@@ -5,20 +5,29 @@ layerRoute = Blueprint("layerRoute", __name__)
 
 @layerRoute.route("/basin", methods=["GET"])
 def basin():
+    param = {}
+    for key in request.args:
+        param[key] = request.args[key]
     lc = LayerController()
-    data = lc.GetBasin()
+    data = lc.GetBasin(param)
     return jsonify(data)
 
 @layerRoute.route("/rainStation", methods=["GET"])
 def rainStation():
+    param = {}
+    for key in request.args:
+        param[key] = request.args[key]
     lc = LayerController()
-    data = lc.GetRainStation()
+    data = lc.GetRainStation(param)
     return jsonify(data)
 
 @layerRoute.route("/floodStation", methods=["GET"])
 def floodStation():
+    param = {}
+    for key in request.args:
+        param[key] = request.args[key]
     lc = LayerController()
-    data = lc.GetFloodStation()
+    data = lc.GetFloodStation(param)
     return jsonify(data)
 
 @layerRoute.route("/commutag", methods=["GET"])
@@ -32,6 +41,9 @@ def commutag():
 
 @layerRoute.route("/list-commutag-dataset", methods=["GET"])
 def listCommutagDataset():
+    param = {}
+    for key in request.args:
+        param[key] = request.args[key]
     lc = LayerController()
-    data = lc.ListCommutagDataset(current_app.config["app"]["commutag"])
+    data = lc.ListCommutagDataset(current_app.config["app"]["commutag"],param)
     return jsonify(data)

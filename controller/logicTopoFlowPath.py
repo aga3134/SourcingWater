@@ -43,6 +43,8 @@ class LogicTopoFlowPath():
         row["name"] = cx_dict["basin_name"]+"上游集水區"
         row["geom"] = json.loads(fd.basins(shape["ptArr"],filename=None))
         row["layer"] = SubbasinStyle()
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -87,6 +89,8 @@ class LogicTopoFlowPath():
         row["name"] = cx_dict["basin_name"]+"下游入海線"
         row["geom"] = json.loads(fd.path(shape["ptArr"],filename=None))
         row["layer"] = FlowPathStyle(lineWidth=2,color="#3f3")
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -105,6 +109,8 @@ class LogicTopoFlowPath():
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = BasinStyle(lineWidth=3)
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],

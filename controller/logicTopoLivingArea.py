@@ -23,6 +23,8 @@ class LogicTopoLivingArea():
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = LivingAreaStyle()
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -49,6 +51,8 @@ class LogicTopoLivingArea():
         
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = SymbolStyle("waterwork",allowOverlap=True)
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -75,6 +79,8 @@ class LogicTopoLivingArea():
         
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = SymbolStyle("waterin",allowOverlap=True)
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],
@@ -185,6 +191,8 @@ class LogicTopoLivingArea():
                 }
             })
 
+        if "format" in param and param["format"] == "geojson":
+            return row["geom"]
         return {
             "nodeID":nodeID,
             "nodeName":nodeName,

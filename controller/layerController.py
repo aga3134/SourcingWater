@@ -6,7 +6,7 @@ import requests
 from controller.style import *
 
 class LayerController():
-    def GetBasin(self):
+    def GetBasin(self,param):
         sql = "select basin_no,basin_name,area,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from basin;"
         rows = db.engine.execute(sql)
         geom = MergeRowsToGeoJson(rows,idKey="basin_no",skipArr=["geom"])
@@ -16,12 +16,14 @@ class LayerController():
             "geom": geom,
             "layer": BasinStyle(fill=True)
         }
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "layerName": "流域",
             "data": [data]
         }
 
-    def GetRainStation(self):
+    def GetRainStation(self,param):
         sql = "select * from r_rain_station;"
         rows = db.engine.execute(sql)
         arr = []
@@ -40,12 +42,14 @@ class LayerController():
             "layer": SymbolStyle("rain-station"),
         }
         #print(data)
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "layerName": "雨量站",
             "data": [data]
         }
 
-    def GetFloodStation(self):
+    def GetFloodStation(self,param):
         sql = "select * from r_flood_station;"
         rows = db.engine.execute(sql)
         arr = []
@@ -64,6 +68,8 @@ class LayerController():
             "layer": SymbolStyle("flood-station"),
         }
         #print(data)
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "layerName": "淹水測站",
             "data": [data]
@@ -128,12 +134,14 @@ class LayerController():
             "geom": geom,
             "layer": SymbolStyle("camera",textKey="思源地圖名稱",allowOverlap=True),
         }
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "layerName": "群眾標註",
             "data": [data]
         }
 
-    def ListCommutagDataset(self,config):
+    def ListCommutagDataset(self,config,param):
         hasMore = True
         page = 0
         dataset = []

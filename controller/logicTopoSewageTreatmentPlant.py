@@ -42,6 +42,8 @@ class LogicTopoSewageTreatmentPlant():
         data = {}
         data["geom"] = DictToGeoJsonProp(row)
         data["layer"] = IndustryAreaStyle()
+        if "format" in param and param["format"] == "geojson":
+            return data["geom"]
         return {
             "nodeID":row["id"],
             "nodeName":row["name"],

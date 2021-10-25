@@ -150,10 +150,14 @@ class LogicTopoController():
         if not "kind" in param:
             return {"error":"no kind parameter"}
         kind = param["kind"]
-        if not "nodeID" in param and not "nodeName" in param:
-            return {"error":"no nodeID & nodeName parameter"}
+        
+        nodeName = None
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+        if nodeName is None:
+            return {"error":"no nodeName parameter"}
 
-        info = GetSInfoPoint(param["kind"],param["nodeID"],param["nodeName"])
+        info = GetSInfoPoint(param["kind"],nodeName)
         if info is None:
             return {"error":" 查無基本資料"}
         else:

@@ -44,7 +44,7 @@ def ToFloat(s):
     except ValueError:
         return float('NaN')
 
-def GetSInfoPoint(kind,nodeID,nodeName):
+def GetSInfoPoint(kind,nodeName):
     sql = "select * from s_info_point where category='%s' and name='%s' limit 1;" % (kind,nodeName)
     row = db.engine.execute(sql).first()
     if row is None:

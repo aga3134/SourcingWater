@@ -160,6 +160,9 @@ class LayerController():
                     if item["quest"] == "思源地圖名稱":
                         hasName = True
                 if hasKind and hasName:
-                    dataset.append(d)
+                    dataset.append({
+                        "_id": d["_id"],
+                        "name":d["name"]
+                    })
             page += 1
         return dataset

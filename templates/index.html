@@ -41,6 +41,7 @@
             <div class="bottom-icon-panel">
                 <img class="icon" src="static/image/icon-setting.png" title="圖層選項" @click="OpenOptionPanel();">
                 <img class="icon" src="static/image/icon-chart.png" title="顯示圖表" @click="OpenChartPanel();">
+                <div class="version">{{config.version}}</div>
             </div>
 
             <div class="left-panel" :class="{open: openOptionPanel}">

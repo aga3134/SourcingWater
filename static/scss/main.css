@@ -197,6 +197,12 @@ html, body {
   cursor: pointer;
 }
 
+.sourcing-water .topbar .version {
+  padding: 10px;
+  color: #ffffff;
+  font-size: 0.7em;
+}
+
 .sourcing-water .topbar .searchbox {
   margin: 5px;
 }
@@ -242,6 +248,12 @@ html, body {
   cursor: pointer;
 }
 
+.sourcing-water .side-icon-panel .version {
+  padding: 10px;
+  color: #ffffff;
+  font-size: 0.7em;
+}
+
 .sourcing-water .bottom-icon-panel {
   position: absolute;
   display: -webkit-box;
@@ -262,6 +274,12 @@ html, body {
   height: 40px;
   margin: 5px;
   cursor: pointer;
+}
+
+.sourcing-water .bottom-icon-panel .version {
+  padding: 10px;
+  color: #ffffff;
+  font-size: 0.7em;
 }
 
 .sourcing-water .logo-container {

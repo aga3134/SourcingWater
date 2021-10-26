@@ -118,6 +118,11 @@ $vue-transition: 0.5s;
             margin: 5px;
             cursor: pointer;
         }
+        .version{
+            padding: 10px;
+            color: #ffffff;
+            font-size: 0.7em;
+        }
     }
     .topbar{
         @include icon-panel;

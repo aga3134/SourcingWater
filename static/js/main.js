@@ -384,6 +384,10 @@ let g_APP = new Vue({
             this.openOptionPanel = false;
             this.SetMapPadding({left:0});
         },
+        ToggleOptionPanel: function(){
+            if(this.openOptionPanel) this.CloseOptionPanel();
+            else this.OpenOptionPanel();
+        },
         OpenQuestPanel: function(){
             this.openQuestPanel = true;
             this.SetMapPadding({right: $(".right-panel").width()});
@@ -391,6 +395,10 @@ let g_APP = new Vue({
         CloseQuestPanel: function(){
             this.openQuestPanel = false;
             this.SetMapPadding({right:0});
+        },
+        ToggleQuestPanel: function(){
+            if(this.openQuestPanel) this.CloseQuestPanel();
+            else this.OpenQuestPanel();
         },
         OpenChartPanel: function(){
             this.openChartPanel = true;
@@ -400,11 +408,19 @@ let g_APP = new Vue({
             this.openChartPanel = false;
             this.SetMapPadding({bottom:0});
         },
+        ToggleChartPanel: function(){
+            if(this.openChartPanel) this.CloseChartPanel();
+            else this.OpenChartPanel();
+        },
         OpenAboutPanel: function(){
             this.openAboutPanel = true;
         },
         CloseAboutPanel: function(){
             this.openAboutPanel = false;
+        },
+        ToggleAboutPanel: function(){
+            if(this.openAboutPanel) this.CloseAboutPanel();
+            else this.OpenAboutPanel();
         },
         OpenPlayerPanel: function(){
             this.openPlayerPanel = true;
@@ -412,17 +428,29 @@ let g_APP = new Vue({
         ClosePlayerPanel: function(){
             this.openPlayerPanel = false;
         },
+        TogglePlayerPanel: function(){
+            if(this.openPlayerPanel) this.ClosePlayerPanel();
+            else this.OpenPlayerPanel();
+        },
         OpenQuestInputPanel: function(){
             this.openQuestInputPanel = true;
         },
         CloseQuestInputPanel: function(){
             this.openQuestInputPanel = false;
         },
+        ToggleQUestInputPanel: function(){
+            if(this.openQuestInputPanel) this.CloseQuestInputPanel();
+            else this.OpenQuestInputPanel();
+        },
         OpenInfoPanel: function(){
             this.openInfoPanel = true;
         },
         CloseInfoPanel: function(){
             this.openInfoPanel = false;
+        },
+        ToggleInfoPanel: function(){
+            if(this.openInfoPanel) this.CloseInfoPanel();
+            else this.OpenInfoPanel();
         },
         ClearQuest: function(item){
             if(item.quest){

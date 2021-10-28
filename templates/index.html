@@ -31,17 +31,17 @@
                 </a>
                 <div id="geocoder" class="searchbox"></div>
             </div>
-            <div class="side-icon-panel">
-                <img class="icon" src="static/image/icon-about.png" title="關於本站" @click="OpenAboutPanel();">
-                <img class="icon" src="static/image/icon-search.png" title="追本溯源" @click="OpenQuestPanel();">
+            <div class="side-icon-panel" :class="{'right-open': openQuestPanel}">
+                <img class="icon" src="static/image/icon-about.png" title="關於本站" @click="ToggleAboutPanel();">
+                <img class="icon" src="static/image/icon-trace.png" title="追本溯源" @click="ToggleQuestPanel();">
             </div>
             <div class="logo-container">
                 <img class="logo" src="static/image/logo-lass.jpg">
             </div>
-            <div class="bottom-icon-panel">
-                <img class="icon" src="static/image/icon-setting.png" title="圖層選項" @click="OpenOptionPanel();">
-                <img class="icon" src="static/image/icon-chart.png" title="顯示圖表" @click="OpenChartPanel();">
-                <div class="version">{{config.version}}</div>
+            <div class="bottom-icon-panel" :class="{'left-open': openOptionPanel, 'bottom-open': openChartPanel}">
+                <img class="icon" src="static/image/icon-setting.png" title="圖層選項" @click="ToggleOptionPanel();">
+                <img class="icon" src="static/image/icon-chart.png" title="顯示圖表" @click="ToggleChartPanel();">
+                <div class="version">v{{config.version}}</div>
             </div>
 
             <div class="left-panel" :class="{open: openOptionPanel}">
@@ -214,9 +214,11 @@
                             <div class="title">相關連結</div>
                             <div class="content-block">
                                 <ul>
+                                    <li><a href="https://docs.google.com/document/d/1vgIEMngmovdXS01sOAu-KVumA-VdZkN66QUKzvnrhd8/edit" target="_blank">喝好水 吃好物 有良居</a></li>
+                                    <li><a href="https://docs.google.com/document/d/1FBw3IzcW0dTcImGkURfZ5BBrd13ON2YdZIw6i169NBw/edit#" target="_blank">喝好水 吃好物 有良居 - 思源地圖</a></li>
+                                    <li><a href="https://drive.google.com/file/d/1MacJb27MVtgIdgwIpuZasb3zQKdh1632/view?fbclid=IwAR0JAqhi4rZ9zgueBBnJe5d1bIpkBAnyAszPWaNyzoNqwf4Kz_Ll7v4HZqY" target="_blank">喝好水 吃好物 有良居 - 複賽投影片</a></li>
+                                    <li><a href="https://forms.gle/kAhWtcUq1DiTyV7E6" target="_blank">反饋表單</a></li>
                                     <li><a href="https://github.com/aga3134/SourcingWater" target="_blank">網站開放源始碼</a></li>
-                                    <li><a href="https://docs.google.com/document/d/1vgIEMngmovdXS01sOAu-KVumA-VdZkN66QUKzvnrhd8/edit?usp=sharing" target="_blank">2021總統盃計畫書</a></li>
-                                    <li><a href="https://github.com/LinkItONEDevGroup/waterswak" target="_blank">水文分析系統</a></li>
                                     <li><a href="https://agawork.tw/" target="_blank">阿嘉的其他專案</a></li>
                                 </ul>
                             </div>
@@ -224,17 +226,17 @@
                             <div class="content-block">
                                 <div class="sub-title">公部門</div>
                                 <div class="partner-container">
-                                    <img class="logo" src="static/image/logo/gov/wra.png">
-                                    <img class="logo" src="static/image/logo/gov/swcb.png">
-                                    <img class="logo" src="static/image/logo/gov/iis.jpg">
-                                    <img class="logo" src="static/image/logo/gov/wra02.png">
-                                    <img class="logo" src="static/image/logo/gov/hcepb.jpg">
+                                    <a href="https://www.wra.gov.tw/" target="_blank"><img class="logo" src="static/image/logo/gov/wra.png"></a>
+                                    <a href="https://www.swcb.gov.tw/Home/" target="_blank"><img class="logo" src="static/image/logo/gov/swcb.png"></a>
+                                    <a href="https://www.iis.sinica.edu.tw/zh/index.html" target="_blank"><img class="logo" src="static/image/logo/gov/iis.jpg"></a>
+                                    <a href="https://www.wra02.gov.tw/" target="_blank"><img class="logo" src="static/image/logo/gov/wra02.png"></a>
+                                    <a href="https://www.hcepb.gov.tw/" target="_blank"><img class="logo" src="static/image/logo/gov/hcepb.jpg"></a>
                                 </div>
                                 <div class="sub-title">私社群</div>
                                 <div class="partner-container">
                                     <img class="logo" src="static/image/logo/civil/fondus.png">
-                                    <img class="logo" src="static/image/logo/civil/ntu.jpg">
-                                    <img class="logo" src="static/image/logo/civil/ecoceo.png">
+                                    <a href="https://www.ntu.edu.tw/" target="_blank"><img class="logo" src="static/image/logo/civil/ntu.jpg"></a>
+                                    <a href="https://www.facebook.com/ecoceo2018/" target="_blank"><img class="logo" src="static/image/logo/civil/ecoceo.png"></a>
                                     <img class="logo" src="static/image/logo/civil/aipoint.png">
                                 </div>
                                 <!--<div class="sub-title">贊助夥伴</div>-->

@@ -16,6 +16,15 @@
     "ldd": "data/catchment/C1290_20m_ldd.tif",
     "min_sto": 6,
     "load_type": 0
+  },
+  {
+    "basin_id": "1540",
+    "basin_name": "北港溪",
+    "geo": "data/basin-河川流域範圍圖/basin-河川流域範圍圖.shp",
+    "dtm": "data/catchment/C1540_20m_elv0.tif",
+    "ldd": "data/catchment/C1540_20m_ldd.tif",
+    "min_sto": 9,
+    "load_type": 0
   }
 ]
 

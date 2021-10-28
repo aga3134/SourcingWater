@@ -112,6 +112,7 @@ $vue-transition: 0.5s;
         background-color: rgba(0,0,0,0.6);
         border-radius: 5px;
         z-index: 1000;
+        transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
         .icon{
             width: 40px;
             height: 40px;
@@ -149,11 +150,26 @@ $vue-transition: 0.5s;
         top: 5px;
         right: 5px;
         flex-direction: column;
+        &.right-open{
+            right: 185px;
+            @include pad-width(){
+                right: 285px;
+            }
+        }
     }
     .bottom-icon-panel{
         @include icon-panel;
         bottom: 5px;
         left: 5px;
+        &.left-open{
+            left: 185px;
+            @include pad-width(){
+                left: 285px;
+            }
+        }
+        &.bottom-open{
+            bottom: 305px;
+        }
     }
 
     .logo-container{

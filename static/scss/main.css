@@ -186,6 +186,8 @@ html, body {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   top: 10px;
   left: 10px;
 }
@@ -233,6 +235,8 @@ html, body {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   top: 5px;
   right: 5px;
   -webkit-box-orient: vertical;
@@ -254,6 +258,16 @@ html, body {
   font-size: 0.7em;
 }
 
+.sourcing-water .side-icon-panel.right-open {
+  right: 185px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .side-icon-panel.right-open {
+    right: 285px;
+  }
+}
+
 .sourcing-water .bottom-icon-panel {
   position: absolute;
   display: -webkit-box;
@@ -265,6 +279,8 @@ html, body {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   z-index: 1000;
+  -webkit-transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
+  transition: left 0.5s, right 0.5s, bottom 0.5s, opacity 0.5s;
   bottom: 5px;
   left: 5px;
 }
@@ -280,6 +296,20 @@ html, body {
   padding: 10px;
   color: #ffffff;
   font-size: 0.7em;
+}
+
+.sourcing-water .bottom-icon-panel.left-open {
+  left: 185px;
+}
+
+@media only screen and (min-width: 640px) {
+  .sourcing-water .bottom-icon-panel.left-open {
+    left: 285px;
+  }
+}
+
+.sourcing-water .bottom-icon-panel.bottom-open {
+  bottom: 305px;
 }
 
 .sourcing-water .logo-container {

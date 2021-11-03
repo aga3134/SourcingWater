@@ -323,7 +323,7 @@ class LogicTopoBasin():
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無流域資料"}
-        sql = "select ogc_fid as id,res_name as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(wkb_geometry,3826),4326))::json as geom from swresoir where basin_no='%s';" % (nodeID)
+        sql = "select res_name as id,res_name as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(wkb_geometry,3826),4326))::json as geom from swresoir where basin_no='%s';" % (nodeID)
         rows = db.engine.execute(sql).fetchall()
         if len(rows) == 0:
             return {"error": "此流域查無水庫資料"}
@@ -338,6 +338,8 @@ class LogicTopoBasin():
         data = {}
         data["geom"] = geom
         data["layer"] = SymbolStyle("marker-blue",allowOverlap=True)
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -371,6 +373,8 @@ class LogicTopoBasin():
         data = {}
         data["geom"] = geom
         data["layer"] = SubbasinStyle()
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":rows[0]["name"],
@@ -427,7 +431,9 @@ class LogicTopoBasin():
 
         data = {}
         data["geom"] = geom
-        data["layer"] = SubbasinStyle(fillKey="color")
+        data["layer"] = FloodStyle(fillKey="color")
+        if "format" in param and param["format"] == "geojson":
+            return geom
         return {
             "nodeID":rows[0]["id"],
             "nodeName":nodeName+"淹水潛勢",
@@ -457,4 +463,44 @@ class LogicTopoBasin():
         }
 
     def FindDebris(self,param):
-        pass
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        #內縮1公里以避免邊界誤差把鄰近區域算進來
+        sql = "select basin_no,basin_name,ST_AsEWKT(ST_Buffer(geom,-1000)) as geom from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+
+        basinGeom = "ST_SetSRID(ST_GeomFromEWKT('%s'),3826)" % row["geom"]
+        sql = "select debrisno as id,debrisno as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(wkb_geometry,3826),4326))::json as geom from debrisstream1726 where ST_Intersects(%s,ST_SetSRID(wkb_geometry,3826));" % (basinGeom)
+        #print(sql)
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "此流域查無水土石流潛勢溪流"}
+        arr = []
+        for row in rows:
+            d = dict(row)
+            d["geom"] = d["geom"]
+            arr.append(d)
+
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
+
+        data = {}
+        data["geom"] = geom
+
+        #setup color
+        startColor = Color("#ff3333")
+        endColor = Color("#3333ff")
+        colorList = list(startColor.range_to(endColor,len(geom["features"])))
+        for (i,feat) in enumerate(geom["features"]):
+            feat["properties"]["color"] = colorList[i].hex
+
+        data["layer"] = FlowPathStyle(lineWidth=1.5,hoverWidth=3,colorKey="color")
+        if "format" in param and param["format"] == "geojson":
+            return geom
+        return {
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
+            "data":[data]
+        }

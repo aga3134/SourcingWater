@@ -32,7 +32,11 @@ class BaseLayer{
                     this.hoverSource = null;
                     this.hoverFeature = null;
                 }
-                let f = this.map.queryRenderedFeatures(e.point)[0];
+                let boxSize = 10;
+                let f = this.map.queryRenderedFeatures(
+                    [[e.point.x - boxSize*0.5, e.point.y - boxSize*0.5],
+                    [e.point.x + boxSize*0.5, e.point.y + boxSize*0.5]]
+                )[0];
                 if(!f) return;
                 this.hoverSource = f.source;
                 this.hoverFeature = f.id;

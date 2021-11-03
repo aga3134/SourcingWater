@@ -12,6 +12,8 @@ from controller.logicTopoPollution import LogicTopoPollution
 from controller.logicTopoIndustryArea import LogicTopoIndustryArea
 from controller.logicTopoFactory import LogicTopoFactory
 from controller.logicTopoSewageTreatmentPlant import LogicTopoSewageTreatmentPlant
+from controller.logicTopoReservoir import LogicTopoReservoir
+from controller.logicTopoDebris import LogicTopoDebris
 from controller.util import GetSInfoPoint
 
 class LogicTopoController():
@@ -151,6 +153,22 @@ class LogicTopoController():
             ltstp = LogicTopoSewageTreatmentPlant()
             if transfer == "處理範圍":
                 return ltstp.FindProcessingArea(param)
+        elif kind == "水庫":
+            ltr = LogicTopoReservoir()
+            if transfer == "蓄水範圍":
+                return ltr.FindStorageArea(param)
+            elif transfer == "集水區為何":
+                return ltr.FindCatchment(param)
+        elif kind == "土石流":
+            ltd = LogicTopoDebris()
+            if transfer == "集水區為何":
+                return ltd.FindCatchment(param)
+            elif transfer == "影響範圍":
+                return ltd.FindInfluence(param)
+            elif transfer == "歷史影像":
+                return ltd.FindHistoryPhoto(param)
+            elif transfer == "流路":
+                return ltd.FindFlowPath(param)
 
         return {"error":"not implemented"}
 

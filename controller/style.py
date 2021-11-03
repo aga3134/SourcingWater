@@ -60,7 +60,7 @@ def CircleStyle():
         }
     ]
 
-def FlowPathStyle(lineWidth=1,color="#fff",colorKey=None):
+def FlowPathStyle(lineWidth=1,hoverWidth=3,color="#fff",colorKey=None):
     lineStyle = {
         "type": "line",
         "paint":{
@@ -68,8 +68,16 @@ def FlowPathStyle(lineWidth=1,color="#fff",colorKey=None):
             "line-width": lineWidth
         }
     }
+    if hoverWidth is not None:
+        lineStyle["paint"]["line-width"] = [
+            'case',
+            ['boolean', ['feature-state', 'hover'], False], hoverWidth,
+            ['boolean', ['feature-state', 'selected'], False], hoverWidth,
+            lineWidth
+        ]
     if colorKey is not None:
         lineStyle["paint"]["line-color"] = ["get",colorKey]
+    print(lineStyle)
     return [lineStyle]
 
 def SubbasinStyle(fillKey=None):

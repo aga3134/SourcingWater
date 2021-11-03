@@ -65,6 +65,14 @@ class LogicTopoController():
                 return ltb.FindAgricultureArea(param)
             elif transfer == "工業區域":
                 return ltb.FindIndustryArea(param)
+            elif transfer == "水庫堰壩":
+                return ltb.FindReservoir(param)
+            elif transfer == "水質水量保護區":
+                return ltb.FindProtectArea(param)
+            elif transfer == "淹水潛勢圖":
+                return ltb.FindFloodArea(param)
+            elif transfer == "土石流潛勢溪流":
+                return ltb.FindDebris(param)
             elif transfer in ["雨水下水道","污水下水道","圳路"]:
                 return {"error":"無開放資料"}
         elif kind == "流路":

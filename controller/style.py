@@ -76,8 +76,16 @@ def SubbasinStyle(fillKey=None):
     lineStyle = {
         "type": "line",
         "paint":{
-            "line-color": "#fff",
-            "line-width": 1
+            "line-color": [
+                'case',
+                ['boolean', ['feature-state', 'selected'], False], "#ff3",
+                "#fff"
+            ],
+            "line-width": [
+                'case',
+                ['boolean', ['feature-state', 'selected'], False], 2,
+                1
+            ],
         }
     }
     fillStyle = {
@@ -89,7 +97,7 @@ def SubbasinStyle(fillKey=None):
     }
     if fillKey is not None:
         fillStyle["paint"]["fill-color"] = ["get",fillKey]
-    return [lineStyle,fillStyle]
+    return [fillStyle,lineStyle]
 
 def LivingAreaStyle(lineWidth=4,lineColor="#ff3",fill=False):
     lineStyle = {
@@ -157,3 +165,22 @@ def StatisticAreaStyle():
             "line-width": 2
         }
     }]
+
+def FloodStyle(fillKey=None):
+    lineStyle = {
+        "type": "line",
+        "paint":{
+            "line-color": "#fff",
+            "line-width": 1
+        }
+    }
+    fillStyle = {
+        "type": "fill",
+        "paint":{
+            "fill-color": "#33f",
+            "fill-opacity": 0.5
+        }
+    }
+    if fillKey is not None:
+        fillStyle["paint"]["fill-color"] = ["get",fillKey]
+    return [fillStyle,lineStyle]

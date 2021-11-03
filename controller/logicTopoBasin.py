@@ -314,3 +314,147 @@ class LogicTopoBasin():
             "nodeName":rows[0]["name"],
             "data":[data]
         }
+
+    def FindReservoir(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        sql = "select basin_no,basin_name from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+        sql = "select ogc_fid as id,res_name as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(wkb_geometry,3826),4326))::json as geom from swresoir where basin_no='%s';" % (nodeID)
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "此流域查無水庫資料"}
+        arr = []
+        for row in rows:
+            d = dict(row)
+            d["geom"] = d["geom"]
+            arr.append(d)
+
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
+
+        data = {}
+        data["geom"] = geom
+        data["layer"] = SymbolStyle("marker-blue",allowOverlap=True)
+        return {
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
+            "data":[data]
+        }
+
+    def FindProtectArea(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+        #內縮1公里以避免邊界誤差把鄰近區域算進來
+        sql = "select basin_no,basin_name,ST_AsEWKT(ST_Buffer(geom,-1000)) as geom from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+
+        basinGeom = "ST_SetSRID(ST_GeomFromEWKT('%s'),3826)" % row["geom"]
+        sql = "select gid as id,polyname as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from twqprot where ST_Intersects(%s,ST_SetSRID(geom,3826));" % (basinGeom)
+        #print(sql)
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "此流域查無水質水量保護區"}
+        arr = []
+        for row in rows:
+            d = dict(row)
+            d["geom"] = d["geom"]
+            arr.append(d)
+
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
+
+        data = {}
+        data["geom"] = geom
+        data["layer"] = SubbasinStyle()
+        return {
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
+            "data":[data]
+        }
+
+    def FindFloodArea(self,param):
+        if not "nodeID" in param:
+            return {"error":"no id parameter"}
+        nodeID = param["nodeID"]
+
+        nodeName = ""
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+
+        #內縮1公里以避免邊界誤差把鄰近區域算進來
+        sql = "select basin_no,basin_name,ST_AsEWKT(ST_Buffer(geom,-1000)) as geom from basin where basin_no='%s';" % nodeID
+        row = db.engine.execute(sql).first()
+        if row is None:
+            return {"error": "無流域資料"}
+
+        if "rain" in param:
+            rain = param["rain"]
+        else:
+            rain = "150mm_6hr"
+
+        basinGeom = "ST_SetSRID(ST_GeomFromEWKT('%s'),3826)" % row["geom"]
+        sql = "select gid as id,flood_dept,county,ST_AsGeoJson(ST_Transform(ST_SetSRID(geom,3826),4326))::json as geom from %s where ST_Intersects(%s,ST_SetSRID(geom,3826));" % ("flood_"+rain,basinGeom)
+        #print(sql)
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "此流域查無淹水潛勢圖"}
+        arr = []
+        for row in rows:
+            d = dict(row)
+            d["geom"] = d["geom"]
+            arr.append(d)
+
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
+
+        #setup color
+        for (i,feat) in enumerate(geom["features"]):
+            dept = feat["properties"]["flood_dept"]
+            if dept == "0.3-0.5":
+                feat["properties"]["color"] = "#33f"
+            elif dept == "0.5-1.0":
+                feat["properties"]["color"] = "#3f3"
+            elif dept == "1.0-2.0":
+                feat["properties"]["color"] = "#ff3"
+            elif dept == "2.0-3.0":
+                feat["properties"]["color"] = "#f93"
+            elif dept == ">3.0":
+                feat["properties"]["color"] = "#f33"
+
+        data = {}
+        data["geom"] = geom
+        data["layer"] = SubbasinStyle(fillKey="color")
+        return {
+            "nodeID":rows[0]["id"],
+            "nodeName":nodeName+"淹水潛勢",
+            "setting":{
+                "inputConfig":[
+                    {
+                        "name":"雨量等級",
+                        "variable": "rain",
+                        "value": rain,
+                        "type": "select",
+                        "option": [
+                            {"name":"6小時150mm","value":"150mm_6hr"},
+                            {"name":"6小時250mm","value":"250mm_6hr"},
+                            {"name":"6小時350mm","value":"350mm_6hr"},
+                            {"name":"12小時200mm","value":"200mm_12hr"},
+                            {"name":"12小時300mm","value":"300mm_12hr"},
+                            {"name":"12小時400mm","value":"400mm_12hr"},
+                            {"name":"24小時200mm","value":"200mm_24hr"},
+                            {"name":"24小時350mm","value":"350mm_24hr"},
+                            {"name":"24小時500mm","value":"500mm_24hr"},
+                            {"name":"24小時650mm","value":"650mm_24hr"}
+                        ]
+                    }
+                ]
+            },
+            "data":[data]
+        }
+
+    def FindDebris(self,param):
+        pass

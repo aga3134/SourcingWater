@@ -196,6 +196,9 @@
                     <div class="input-item" v-for="input in questInput.config">
                         <div class="title">[[input.name]]</div>
                         <input type="number" v-if="input.type == 'number' " v-model="input.value" :min="input.min" :max="input.max" :step="input.step" @change="questInput.updateFn">
+                        <select v-if="input.type == 'select' " v-model="input.value" @change="questInput.updateFn">
+                            <option v-for="op in input.option" :value="op.value">[[op.name]]</option>
+                        </select>
                     </div>
                 </div>
                 <img src="static/image/icon-close.png" class="close-bt" @click="CloseQuestInputPanel();">

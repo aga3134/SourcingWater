@@ -81,7 +81,7 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 鄰近污染源,工業區域,工業區域,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,工業污水處理廠,工業污水處理廠,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,農地工廠,工廠,0,NULL,DrawShapeQuest,畫一個圓
-鄰近污染源,水污染源放流口,污染點,3,NULL,DrawShapeQuest,畫一個圓
+鄰近污染源,水污染源放流口,污染點,0,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,生活污染源,生活污染源,4,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,生活污水處理廠,生活污水處理廠,4,NULL,DrawShapeQuest,畫一個圓
 鄰近污染源,廢水排放,污染點,4,NULL,DrawShapeQuest,畫一個圓

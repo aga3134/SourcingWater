@@ -137,6 +137,8 @@ class LogicTopoController():
                 return ltp.FindSewageTreatmentPlant(param)
             elif transfer == "農地工廠":
                 return ltp.FindFactoryInFarm(param)
+            elif transfer == "水污染源放流口":
+                return ltp.FindWaterpRecord(param)
         elif kind == "工業區域":
             ltia = LogicTopoIndustryArea()
             if transfer == "哪個污水廠":

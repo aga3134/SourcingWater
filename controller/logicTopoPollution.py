@@ -301,3 +301,64 @@ class LogicTopoPollution():
             "nodeName":factory[0]["name"],
             "data":[data]
         }
+
+    def FindWaterpRecord(self,param):
+        if not "nodeID" in param:
+            return {"error":"no nodeID parameter"}
+        nodeID = param["nodeID"]
+        nodeName = ""
+        if "nodeName" in param:
+            nodeName = param["nodeName"]
+
+        #shape資訊不完整
+        if not "shape" in param:
+            return {
+                "info":"請點選要查詢的位置",
+                "nodeID":nodeID,
+                "nodeName":nodeName,
+                "setting":{
+                    "shapeConfig":{
+                        "type":"circle",
+                        "variable": "shape",
+                        "fixedRadius": 1000,
+                        "layer": CircleStyle()
+                    }
+                }
+            }
+        shape = json.loads(param["shape"])
+
+        lat = shape["center"][1]
+        lng = shape["center"][0]
+        radius = shape["radius"]
+        pt = "ST_Transform(ST_SetSRID(ST_POINT(%s,%s),4326),3826)" % (lng,lat)
+        geom = "ST_Transform(ST_SetSRID(geom,4326),3826)"
+        sql = """
+            select \"EMS_NO\" as id,\"FAC_NAME\" as name,
+            ST_AsGeoJson(ST_SetSRID(geom,4326))::json as geom
+            from hackathon.e_waterp_record where
+            \"LET_EAST\" != '' and \"LET_EAST\" != '' and
+            \"LET_EAST\"::double precision > -90 and \"LET_EAST\"::double precision < 90 and
+            ST_DWithin(%s,%s, %d);
+        """ % (pt,geom,radius)
+
+        rows = db.engine.execute(sql).fetchall()
+        if len(rows) == 0:
+            return {"error": "範圍內無水污染源放流口資料"}
+        arr = []
+        for row in rows:
+            d = dict(row)
+            d["geom"] = d["geom"]
+            arr.append(d)
+
+        geom = MergeRowsToGeoJson(arr,idKey="id",skipArr=["geom"])
+
+        data = {}
+        data["geom"] = geom
+        data["layer"] = SymbolStyle("waterin",allowOverlap=True)
+        if "format" in param and param["format"] == "geojson":
+            return geom
+        return {
+            "nodeID":rows[0]["id"],
+            "nodeName":rows[0]["name"],
+            "data":[data]
+        }

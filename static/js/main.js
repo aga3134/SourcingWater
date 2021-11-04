@@ -166,7 +166,7 @@ let g_APP = new Vue({
                             let f = e.features[0];
                             if(!f) return;
                             let pt = f.geometry.coordinates;
-                            let content = "<div class='commutag'>";
+                            let content = "<div class='popup'>";
                             content += "<a href='"+f.properties.url+"' target='_blank'>";
                             content += "<img class='photo' src='"+f.properties.photo+"'>";
                             content += "</a>";

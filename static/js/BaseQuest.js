@@ -29,6 +29,33 @@ class BaseQuest extends BaseLayer{
                     );
                 }
                 //console.log(f);
+                if(f.properties.popup){
+                    let popup = JSON.parse(f.properties.popup);
+                    let pt = f.geometry.coordinates;
+                    let content = "<div class='popup'>";
+                    if(popup.photo){
+                        content += "<a href='"+popup.photo+"' target='_blank'>";
+                        content += "<img class='photo' src='"+popup.photo+"'>";
+                        content += "</a>";
+                    }
+                    if(popup.title){
+                        content += "<div class='title'>"+popup.title+"</div>";
+                    }
+                    if(popup.desc){
+                        content += "<div>"+popup.desc+"</div>";
+                    }
+                    
+                    if(g_APP.infoWindow){
+                        g_APP.infoWindow.remove();
+                    }
+                    g_APP.infoWindow = new mapboxgl.Popup({
+                        closeOnClick: false,
+                        maxWidth:"100%"
+                    })
+                    .setLngLat([pt[0], pt[1]])
+                    .setHTML(content)
+                    .addTo(g_APP.map);
+                }
                 g_APP.SelectNode(this.quest.targetKind,f.properties.id,f.properties.name);
             };
         }

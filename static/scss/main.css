@@ -3369,7 +3369,7 @@ html, body {
   bottom: 0px;
 }
 
-.sourcing-water .commutag {
+.sourcing-water .popup {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3387,12 +3387,12 @@ html, body {
   max-width: 240px;
 }
 
-.sourcing-water .commutag .photo {
+.sourcing-water .popup .photo {
   padding: 5px;
   width: 200px;
 }
 
-.sourcing-water .commutag .title {
+.sourcing-water .popup .title {
   font-weight: bold;
 }
 /*# sourceMappingURL=main.css.map */

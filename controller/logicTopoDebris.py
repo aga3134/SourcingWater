@@ -101,7 +101,6 @@ class LogicTopoDebris():
         arr = []
         for row in rows:
             d = dict(row)
-            d["geom"] = d["geom"]
             d["popup"] = {
                 "title": d["name"],
                 "photo": d["filename"],
@@ -126,11 +125,19 @@ class LogicTopoDebris():
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
-        sql = "select debrisno as id,debrisno as name,ST_AsGeoJson(ST_Transform(ST_SetSRID(wkb_geometry,3826),4326))::json as geom from debrisstream1726 where debrisno='%s';" % nodeID
+        sql = "select debrisno as id,debrisno as name,basin,ST_AsGeoJson(ST_Transform(ST_SetSRID(wkb_geometry,3826),4326))::json as geom from debrisstream1726 where debrisno='%s';" % nodeID
         row = db.engine.execute(sql).first()
         if row is None:
             return {"error": "無流路資料"}
         row = dict(row)
+
+        #若對應得到流域，用流域id、name取代原本的id、name，以使用流路的quest
+        basinName = row["basin"][:-2]
+        sql = "select * from basin where basin_name='%s';" % basinName
+        basin = db.engine.execute(sql).first()
+        if basin is not None:
+            row["id"] = basin["basin_no"]
+            row["name"] = basin["basin_name"]
 
         row["geom"] = DictToGeoJsonProp(row)
         row["layer"] = FlowPathStyle(lineWidth=1)

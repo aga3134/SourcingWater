@@ -98,6 +98,7 @@ let g_APP = new Vue({
             let iconArr = [
                 {name:"flood-station",url:"static/image/alert-24.png"},
                 {name:"rain-station",url:"static/image/water-24.png"},
+                {name:"waterlevel-station",url:"static/image/flood-24.png"},
                 {name:"marker-red",url:"static/image/marker-red-24.png"},
                 {name:"marker-blue",url:"static/image/marker-blue-24.png"},
                 {name:"marker-black",url:"static/image/marker-black-24.png"},
@@ -242,7 +243,8 @@ let g_APP = new Vue({
 
                 this.map.addSource('mapbox-dem', {
                     'type': 'raster-dem',
-                    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                    //'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                    'url': 'https://osmhacktw.github.io/terrain-rgb/tiles.json',
                     'tileSize': 512,
                     'maxzoom': 13
                 });
@@ -318,6 +320,9 @@ let g_APP = new Vue({
                 geomUrl += "&transfer="+t["類別情境與問題"];
                 geomUrl += "&nodeID="+this.logicTopo.nodeID;
                 geomUrl += "&nodeName="+this.logicTopo.nodeName;
+                //if(this.curQuest.quest && this.curQuest.quest.bbox){
+                //    geomUrl += "&bbox="+this.curQuest.quest.bbox.join(",");
+                //}
                 this.questArr.push({
                     "curKind":t["from_類別"],
                     "name": t["類別情境與問題"],

@@ -125,6 +125,12 @@ class LogicTopoController():
             ltc = LogicTopoCatchment()
             if transfer == "有哪些污染源":
                 return ltc.FindCatchmentPollution(param)
+            elif transfer == "雨量站":
+                return ltc.FindRainStation(param)
+            elif transfer == "河川水位站":
+                return ltc.FindWaterLevelStation(param)
+            elif transfer == "淹水感測站":
+                return ltc.FindFloodStation(param)
         elif kind == "鄰近污染源":
             ltp = LogicTopoPollution()
             if transfer == "工廠":
@@ -171,6 +177,16 @@ class LogicTopoController():
                 return ltd.FindHistoryPhoto(param)
             elif transfer == "流路":
                 return ltd.FindFlowPath(param)
+        elif kind == "雨量站":
+            ltrs = LogicTopoRainStation()
+            if transfer == "雨量資料":
+                return ltrs.FindRainData(param)
+            elif transfer == "鄰近河川水位站":
+                return ltrs.FindWaterLevelStation(param)
+            elif transfer == "鄰近淹水感測站":
+                return ltrs.FindFloodStation(param)
+            elif transfer == "淹水潛勢圖":
+                return ltrs.FindFloodArea(param)
 
         return {"error":"not implemented"}
 

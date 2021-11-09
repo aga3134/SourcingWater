@@ -117,4 +117,6 @@ class LogicTopoWaterLevelStation():
         row = dict(row)
 
         ltb = LogicTopoBasin()
-        return ltb.FindFloodArea({"nodeID":row["id"],"nodeName":row["name"]})
+        param["nodeID"] = row["id"]
+        param["nodeName"] = row["name"]
+        return ltb.FindFloodArea(param)

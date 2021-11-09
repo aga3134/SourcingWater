@@ -82,6 +82,13 @@
                                     <option value="Map/CSMap/20M/00000000_121000000_023000000_14_000_Map_CSMap_20M">CS地圖</option>
                                 </select> 
                             </div>
+                            <div class="option-item" v-if="layer.uavMap">
+                                <input type="checkbox" v-model="layer.uavMap.show" @change="layer.uavMap.Update();">
+                                <div class="item-label">空拍影像</div>
+                                <select v-model="layer.uavMap.uavIndex" @change="layer.uavMap.Update();">
+                                    <option v-for="(uav,i) in layer.uavMap.uavOption" :value="i">[[uav.name]]</option>
+                                </select> 
+                            </div>
                             <!--<div class="option-item" v-if="layer.irrigationMap">
                                 <input type="checkbox" v-model="layer.irrigationMap.show" @change="UpdateLayer();">
                                 <div class="item-label">圳路圖層</div>
@@ -301,6 +308,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="static/js/BaseLayer.js?v={{config.version}}"></script>
         <script src="static/js/WMTSLayer.js?v={{config.version}}"></script>
+        <script src="static/js/UavLayer.js?v={{config.version}}"></script>
         <script src="static/js/BaseChart.js?v={{config.version}}"></script>
         <script src="static/js/BaseQuest.js?v={{config.version}}"></script>
         <script src="static/js/TracePathQuest.js?v={{config.version}}"></script>

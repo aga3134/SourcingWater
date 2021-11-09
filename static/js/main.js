@@ -301,6 +301,13 @@ let g_APP = new Vue({
                     }
                 });
 
+                //空拍影像
+                this.layer.uavMap = new UavLayer({
+                    map:this.map,
+                    show:false,
+                    filename:"data/uav.json"
+                });
+
                 //圳路圖層(太糊不使用)
                 /*this.layer.irrigationMap = new WMTSLayer({
                     map: this.map,

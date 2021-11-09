@@ -1,6 +1,6 @@
 from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,說明
 土石流,集水區為何,集水區,0,NULL,,
-土石流,影響範圍,集水區,0,NULL,,
+土石流,影響範圍,土石流,0,NULL,,
 土石流,歷史影像,土石流,0,NULL,DrawShapeQuest,畫一個圓
 土石流,流路,流路,0,NULL,,
 工業污水處理廠,處理範圍,工業區域,0,NULL,,
@@ -42,11 +42,11 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 河川水位站,水位資料,河川水位站,0,NULL,,
 河川水位站,鄰近雨量站,雨量站,0,NULL,DrawShapeQuest,畫一個圓
 河川水位站,鄰近淹水感測站,淹水感測站,0,NULL,DrawShapeQuest,畫一個圓
-河川水位站,淹水潛勢圖,集水區,0,NULL,,
+河川水位站,淹水潛勢圖,集水區,0,NULL,DataInputQuest,選擇幾小時雨量
 雨量站,雨量資料,雨量站,0,NULL,,
 雨量站,鄰近河川水位站,河川水位站,0,NULL,DrawShapeQuest,畫一個圓
 雨量站,鄰近淹水感測站,淹水感測站,0,NULL,DrawShapeQuest,畫一個圓
-雨量站,淹水潛勢圖,集水區,0,NULL,,
+雨量站,淹水潛勢圖,集水區,0,NULL,DataInputQuest,選擇幾小時雨量
 流域,流域範圍,流域,0,NULL,,
 流域,生活區域,生活區域,0,NULL,DrawShapeQuest,點一個點
 流域,農業區域,農業區域,0,NULL,DrawShapeQuest,點一個點
@@ -83,7 +83,7 @@ from_類別,類別情境與問題,to_類別,問題狀態,json_def,quest_class,�
 淹水感測站,淹水資料,淹水感測站,0,NULL,,
 淹水感測站,鄰近河川水位站,河川水位站,0,NULL,DrawShapeQuest,畫一個圓
 淹水感測站,鄰近雨量站,雨量站,0,NULL,DrawShapeQuest,畫一個圓
-淹水感測站,淹水潛勢圖,集水區,0,NULL,,
+淹水感測站,淹水潛勢圖,集水區,0,NULL,DataInputQuest,選擇幾小時雨量
 集水區,有哪些污染源,鄰近污染源,0,NULL,,
 集水區,雨量站,雨量站,0,NULL,DrawShapeQuest,畫一個圓
 集水區,河川水位站,河川水位站,0,NULL,DrawShapeQuest,畫一個圓

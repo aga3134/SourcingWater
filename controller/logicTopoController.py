@@ -14,6 +14,9 @@ from controller.logicTopoFactory import LogicTopoFactory
 from controller.logicTopoSewageTreatmentPlant import LogicTopoSewageTreatmentPlant
 from controller.logicTopoReservoir import LogicTopoReservoir
 from controller.logicTopoDebris import LogicTopoDebris
+from controller.logicTopoRainStation import LogicTopoRainStation
+from controller.logicTopoFloodStation import LogicTopoFloodStation
+from controller.logicTopoWaterLevelStation import LogicTopoWaterLevelStation
 from controller.util import GetSInfoPoint
 
 class LogicTopoController():
@@ -167,6 +170,8 @@ class LogicTopoController():
                 return ltr.FindStorageArea(param)
             elif transfer == "集水區為何":
                 return ltr.FindCatchment(param)
+            elif transfer == "水質水量保護區":
+                return ltr.FindProtectArea(param)
         elif kind == "土石流":
             ltd = LogicTopoDebris()
             if transfer == "集水區為何":
@@ -187,6 +192,26 @@ class LogicTopoController():
                 return ltrs.FindFloodStation(param)
             elif transfer == "淹水潛勢圖":
                 return ltrs.FindFloodArea(param)
+        elif kind == "河川水位站":
+            ltwls = LogicTopoWaterLevelStation()
+            if transfer == "水位資料":
+                return ltwls.FindWaterLevelData(param)
+            elif transfer == "鄰近雨量站":
+                return ltwls.FindRainStation(param)
+            elif transfer == "鄰近淹水感測站":
+                return ltwls.FindFloodStation(param)
+            elif transfer == "淹水潛勢圖":
+                return ltwls.FindFloodArea(param)
+        elif kind == "淹水感測站":
+            ltfs = LogicTopoFloodStation()
+            if transfer == "淹水資料":
+                return ltfs.FindFloodData(param)
+            elif transfer == "鄰近雨量站":
+                return ltfs.FindRainStation(param)
+            elif transfer == "鄰近河川水位站":
+                return ltfs.FindWaterLevelStation(param)
+            elif transfer == "淹水潛勢圖":
+                return ltfs.FindFloodArea(param)
 
         return {"error":"not implemented"}
 

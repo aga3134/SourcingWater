@@ -96,9 +96,9 @@ let g_APP = new Vue({
             }));
             //add icon images
             let iconArr = [
-                {name:"flood-station",url:"static/image/alert-24.png"},
+                {name:"flood-station",url:"static/image/flood-24.png"},
                 {name:"rain-station",url:"static/image/water-24.png"},
-                {name:"waterlevel-station",url:"static/image/flood-24.png"},
+                {name:"waterlevel-station",url:"static/image/ruler-24.png"},
                 {name:"marker-red",url:"static/image/marker-red-24.png"},
                 {name:"marker-blue",url:"static/image/marker-blue-24.png"},
                 {name:"marker-black",url:"static/image/marker-black-24.png"},
@@ -243,12 +243,26 @@ let g_APP = new Vue({
 
                 this.map.addSource('mapbox-dem', {
                     'type': 'raster-dem',
-                    //'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                    'url': 'https://osmhacktw.github.io/terrain-rgb/tiles.json',
+                    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
                     'tileSize': 512,
-                    'maxzoom': 13
+                    'maxzoom': 13,
                 });
-                this.map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+                this.map.addSource('tw-dem', {
+                    'type': 'raster-dem',
+                    'url': 'https://osmhacktw.github.io/terrain-rgb/tiles.json',
+                    'tileSize': 256,
+                    'maxzoom': 12,
+                });
+                //zoom in時用tw-dem地形較準，zoom out時用mapbox-dem避免無法點選流域
+                this.map.on('zoom', () => {
+                    if (this.map.getZoom() > 8) {
+                        this.map.setTerrain({ 'source': 'tw-dem', 'exaggeration': 1 });
+                    }
+                    else{
+                        this.map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1 });
+                    }
+                });
+
                 this.map.addLayer({
                     'id': 'sky',
                     'type': 'sky',

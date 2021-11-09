@@ -125,7 +125,7 @@ class LogicTopoCatchment():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": SymbolStyle("flood-station"),
+            "layer": SymbolStyle("waterlevel-station"),
         }
         #print(data)
         if "format" in param and param["format"] == "geojson":
@@ -183,7 +183,7 @@ class LogicTopoCatchment():
         #generate json_def
         data = {
             "geom": geom,
-            "layer": SymbolStyle("waterlevel-station"),
+            "layer": SymbolStyle("flood-station"),
         }
         #print(data)
         if "format" in param and param["format"] == "geojson":

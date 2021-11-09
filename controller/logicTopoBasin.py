@@ -295,7 +295,7 @@ class LogicTopoBasin():
 
         rows = db.engine.execute(sql).fetchall()
         if len(rows) == 0:
-            return {"error": "十公里內無工業區資料"}
+            return {"error": "範圍內無工業區資料"}
         arr = []
         for row in rows:
             d = dict(row)

@@ -12,8 +12,8 @@ import pytz
 #taiwan = pytz.timezone('Asia/Taipei')
 taiwan = datetime.timezone(offset = datetime.timedelta(hours = 8))
 
-class LogicTopoRainStation():
-    def FindRainData(self,param):
+class LogicTopoWaterLevelStation():
+    def FindWaterLevelData(self,param):
         if not "nodeID" in param:
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
@@ -22,28 +22,28 @@ class LogicTopoRainStation():
         if "nodeName" in param:
             nodeName = param["nodeName"]
 
-        sql = "select \"stationID\" as id,name,lat,lon from r_rain_station where \"stationID\"='%s'" % (nodeID)
+        sql = "select \"BasinIdentifier\" as id,\"ObservatoryName\" as name,lat,lon from r_waterlevel_station where \"BasinIdentifier\"='%s'" % (nodeID)
         row = db.engine.execute(sql).first()
         if row is None:
-            return {"error": "無雨量站資料"}
+            return {"error": "無河川水位站資料"}
         row = dict(row)
 
         today = datetime.date.today()
         dayStr = today.strftime("%Y-%m-%d")
-        url = "https://riverlog.lass-net.org/rain/rainData?date=%s&minLat=%s&maxLat=%s&minLng=%s&maxLng=%s" % (dayStr,row["lat"],row["lat"],row["lon"],row["lon"])
+        url = "https://riverlog.lass-net.org/waterlevel/waterlevelData?date=%s&minLat=%s&maxLat=%s&minLng=%s&maxLng=%s" % (dayStr,row["lat"],row["lat"],row["lon"],row["lon"])
         #print(url)
         result = requests.get(url).json()
         if result["status"] != "ok":
-            return {"error": "讀取雨量資料失敗"}
+            return {"error": "讀取河川水位資料失敗"}
         #print(result)
-        data = {"日累積雨量(mm)":[]}
+        data = {"河川水位(m)":[]}
         for r in result["data"]:
-            if r["stationID"] != nodeID:
+            if r["StationIdentifier"] != nodeID:
                 continue
-            t = datetime.datetime.strptime(r["time"],"%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=pytz.utc).astimezone(taiwan)
-            data["日累積雨量(mm)"].append({
+            t = datetime.datetime.strptime(r["RecordTime"],"%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=pytz.utc).astimezone(taiwan)
+            data["河川水位(m)"].append({
                 "x": t,
-                "y": r["now"]
+                "y": r["WaterLevel"]
             })
 
         chartArr = []
@@ -90,9 +90,9 @@ class LogicTopoRainStation():
             "chartArr": chartArr
         }
 
-    def FindWaterLevelStation(self,param):
+    def FindRainStation(self,param):
         ltc = LogicTopoCatchment()
-        return ltc.FindWaterLevelStation(param)
+        return ltc.FindRainStation(param)
 
     def FindFloodStation(self,param):
         ltc = LogicTopoCatchment()
@@ -103,10 +103,10 @@ class LogicTopoRainStation():
             return {"error":"no id parameter"}
         nodeID = param["nodeID"]
 
-        sql = "select \"stationID\" as id,name,lat,lon from r_rain_station where \"stationID\"='%s'" % (nodeID)
+        sql = "select \"BasinIdentifier\" as id,\"ObservatoryName\" as name,lat,lon from r_waterlevel_station where \"BasinIdentifier\"='%s'" % (nodeID)
         row = db.engine.execute(sql).first()
         if row is None:
-            return {"error": "無雨量站資料"}
+            return {"error": "無河川水位站資料"}
         row = dict(row)
 
         #取得此站所屬流域

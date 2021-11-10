@@ -496,7 +496,7 @@ class LogicTopoBasin():
         for (i,feat) in enumerate(geom["features"]):
             feat["properties"]["color"] = colorList[i].hex
 
-        data["layer"] = FlowPathStyle(lineWidth=1.5,hoverWidth=3,colorKey="color")
+        data["layer"] = FlowPathStyle(lineWidth=2,hoverWidth=4,colorKey="color")
         if "format" in param and param["format"] == "geojson":
             return geom
         return {

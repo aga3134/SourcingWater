@@ -602,7 +602,7 @@ let g_APP = new Vue({
         },
         ReloadCommutag: function(){
             if(!this.layer.commutag) return;
-            console.log(this.commutag);
+            //console.log(this.commutag);
             this.layer.commutag.url = "layer/commutag?dataset="+this.commutag.curID;
             this.layer.commutag.Init();
         }

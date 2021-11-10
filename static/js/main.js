@@ -305,7 +305,7 @@ let g_APP = new Vue({
                 this.layer.uavMap = new UavLayer({
                     map:this.map,
                     show:false,
-                    filename:"data/uav.json"
+                    filename:"static/uav.json"
                 });
 
                 //圳路圖層(太糊不使用)

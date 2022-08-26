@@ -122,6 +122,8 @@ class LayerController():
                 p["remark"] = image["remark"]
             if image["formReply"] is not None:
                 for key in image["formReply"]:
+                    if not key in form:
+                        continue
                     value = image["formReply"][key]["value"]
                     name = form[key]
                     p[name] = value

@@ -9,7 +9,7 @@ class BaseLayer{
         this.bbox = null;
         this.zoomToBBox = true;
         this.updateHistory = false;
-        this.uuid = uuidv4();
+        this.uuid = uuid.v4();
         this.data = null;
         this.layerName = "";
         this.hoverFeature = null;

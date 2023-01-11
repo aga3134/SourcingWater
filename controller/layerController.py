@@ -165,9 +165,9 @@ class LayerController():
                 hasKind = False
                 hasName = False
                 for item in d["form"]["itemArr"]:
-                    if item["quest"] == "思源地圖類別":
+                    if item["quest"].startswith("思源地圖類別"):
                         hasKind = True
-                    if item["quest"] == "思源地圖名稱":
+                    if item["quest"].startswith("思源地圖名稱"):
                         hasName = True
                 if hasKind and hasName:
                     dataset.append({

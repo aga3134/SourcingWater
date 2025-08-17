@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from waterswak.flwdir import *
 from model.db import db
 
@@ -45,8 +47,8 @@ def ToFloat(s):
         return float('NaN')
 
 def GetSInfoPoint(kind,nodeName):
-    sql = "select * from s_info_point where category='%s' and name='%s' limit 1;" % (kind,nodeName)
-    row = db.engine.execute(sql).first()
+    sql = text("select * from s_info_point where category=:category and name=:name limit 1;")
+    row = db.engine.execute(sql, {"category": kind, "name": nodeName}).first()
     if row is None:
         return None
     else:

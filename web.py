@@ -23,6 +23,11 @@ url = "postgresql://{}:{}@{}:{}/{}"
 url = url.format(pg["user"], pg["password"], pg["host"], pg["port"], pg["db"]) 
 app.config["SQLALCHEMY_DATABASE_URI"] = url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config.update(
+    SESSION_COOKIE_SAMESITE='Strict',
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True
+)
 db.init_app(app)
 
 #route
